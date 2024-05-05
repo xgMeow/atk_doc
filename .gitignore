@@ -1,0 +1,10 @@
+*.zip
+*.pdf
+node_modules
+*.map
+dist-offline/*
+dist
+图片*.py
+数学模型/*
+.dist
+.dist-offline

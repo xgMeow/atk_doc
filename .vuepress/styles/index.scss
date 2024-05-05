@@ -1,0 +1,69 @@
+// place your custom styles here
+img {
+  vertical-align: middle;
+}
+
+
+:root {
+  --back-to-top-icon: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik01MTIgODQzLjJjLTM2LjIgMC02Ni40LTEzLjYtODUuOC0yMS44LTEwLjgtNC42LTIyLjYgMy42LTIxLjggMTUuMmw3IDEwMmMuNCA2LjIgNy42IDkuNCAxMi42IDUuNmwyOS0yMmMzLjYtMi44IDktMS44IDExLjQgMmw0MSA2NC4yYzMgNC44IDEwLjIgNC44IDEzLjIgMGw0MS02NC4yYzIuNC0zLjggNy44LTQuOCAxMS40LTJsMjkgMjJjNSAzLjggMTIuMi42IDEyLjYtNS42bDctMTAyYy44LTExLjYtMTEtMjAtMjEuOC0xNS4yLTE5LjYgOC4yLTQ5LjYgMjEuOC04NS44IDIxLjgiLz48cGF0aCBkPSJtNzk1LjQgNTg2LjItOTYtOTguMkM2OTkuNCAxNzIgNTEzIDMyIDUxMyAzMlMzMjQuOCAxNzIgMzI0LjggNDg4bC05NiA5OC4yYy0zLjYgMy42LTUuMiA5LTQuNCAxNC4yTDI2MS4yIDgyNGMxLjggMTEuNCAxNC4yIDE3IDIzLjYgMTAuOEw0MTkgNzQ0czQxLjQgNDAgOTQuMiA0MCA5Mi4yLTQwIDkyLjItNDBsMTM0LjIgOTAuOGM5LjIgNi4yIDIxLjYuNiAyMy42LTEwLjhsMzctMjIzLjhjLjQtNS4yLTEuMi0xMC40LTQuOC0xNE01MTMgMzg0Yy0zNCAwLTYxLjQtMjguNi02MS40LTY0czI3LjYtNjQgNjEuNC02NGMzNCAwIDYxLjQgMjguNiA2MS40IDY0UzU0NyAzODQgNTEzIDM4NCIvPjwvc3ZnPg==");
+}
+
+:root {
+  --code-copy-icon: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgaGVpZ2h0PSIyMCIgd2lkdGg9IjIwIiBzdHJva2U9InJnYmEoMTI4LDEyOCwxMjgsMSkiIHN0cm9rZS13aWR0aD0iMiI+CiAgPHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNOSA1SDdhMiAyIDAgMCAwLTIgMnYxMmEyIDIgMCAwIDAgMiAyaDEwYTIgMiAwIDAgMCAyLTJWN2EyIDIgMCAwIDAtMi0yaC0yTTkgNWEyIDIgMCAwIDAgMiAyaDJhMiAyIDAgMCAwIDItMk05IDVhMiAyIDAgMCAxIDItMmgyYTIgMiAwIDAgMSAyIDIiIC8+Cjwvc3ZnPg==");
+  --code-copied-icon: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgaGVpZ2h0PSIyMCIgd2lkdGg9IjIwIiBzdHJva2U9InJnYmEoMTI4LDEyOCwxMjgsMSkiIHN0cm9rZS13aWR0aD0iMiI+CiAgPHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNOSA1SDdhMiAyIDAgMCAwLTIgMnYxMmEyIDIgMCAwIDAgMiAyaDEwYTIgMiAwIDAgMCAyLTJWN2EyIDIgMCAwIDAtMi0yaC0yTTkgNWEyIDIgMCAwIDAgMiAyaDJhMiAyIDAgMCAwIDItMk05IDVhMiAyIDAgMCAxIDItMmgyYTIgMiAwIDAgMSAyIDJtLTYgOSAyIDIgNC00IiAvPgo8L3N2Zz4=");
+}
+
+/*不加图标时sidebar对不齐，调整一下*/
+.vp-sidebar-header 
+{
+  margin-left: 0.5rem;
+}
+
+/* 兼容老浏览器 */
+#toc{
+  left: calc(100% + 1rem)
+}
+
+.vp-back-to-top-button{
+  right: 1rem;
+}
+
+#navbar.vp-navbar{
+  width: 100%;
+}
+
+@media (max-width: 719px){
+  #main-content.vp-page
+  {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 959px)
+{
+  .vp-breadcrumb, .vp-page-title, .vp-toc-placeholder{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem
+  }
+}
+
+/* 减轻使用那么夸张的切换动画 */
+.fade-slide-y-enter-active {
+  transition: all 0.05s ease !important;
+}
+
+.fade-slide-y-leave-active {
+  transition: all 0.05s cubic-bezier(1, 0.5, 0.8, 1) !important;
+}
+
+.fade-slide-y-enter-from,
+.fade-slide-y-leave-to {
+  opacity: 0;
+  transform: translateY(0px);
+}
+
+
+mjx-container {
+  overflow-x:visible;
+}

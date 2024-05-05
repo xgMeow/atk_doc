@@ -1,0 +1,3 @@
+import type { RouteLocationNormalizedLoaded } from "vuepress/client";
+import type { ResolvedSidebarItem } from "./typings.js";
+export declare const isMatchedSidebarItem: (route: RouteLocationNormalizedLoaded, item: ResolvedSidebarItem) => boolean;
