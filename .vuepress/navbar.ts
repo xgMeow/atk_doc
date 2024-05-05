@@ -32,7 +32,7 @@ export const useNavbar = ({ offline }) => {
       },
       {
         text: "下载离线版手册",
-        link: "https://dist.smsat.space/atk-doc-offline.zip"
+        link: "https://cdn.smsat.space/download/atk-doc-offline.zip"
       },
       {
         text: "二次开发教程",

@@ -22,6 +22,6 @@ ATK：Aerospace Tool Kit。
 
 解压后直接通过浏览器打开html文件即可，**使用时不需要网络**
 
-[离线版文档下载](https://dist.smsat.space/atk-doc-offline.zip)
+[离线版文档下载](https://cdn.smsat.space/download/atk-doc-offline.zip)
 
 <Catalog />
