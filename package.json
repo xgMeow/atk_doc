@@ -13,8 +13,8 @@
 		"dev-debug": "vuepress dev --debug .",
 		"docs:update-package": "npx vp-update",
 		"offline": "node ./.vuepress/offline.cjs .dist-offline",
-		"docs:webpack":"vuepress build --config ./.vuepress/config-offline.ts --dest dist-offline .",
-		"docs:offline": "vuepress build --config ./.vuepress/config-offline.ts --dest dist-offline . && npm run offline"
+		"docs:webpack":"vuepress build --config ./.vuepress/config-offline.ts --dest .dist-offline .",
+		"docs:offline": "vuepress build --config ./.vuepress/config-offline.ts --dest .dist-offline . && npm run offline"
 	},
 	"dependencies": {
 		"@vuepress/bundler-vite": "2.0.0-rc.9",
