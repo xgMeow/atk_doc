@@ -8,3 +8,6 @@ dist
 数学模型/*
 .dist
 .dist-offline
+
+.outputdir
+.rst

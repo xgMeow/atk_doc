@@ -2,7 +2,7 @@
 
 ![Python 编译文件](media/5-编写SWIG编译文件/image.png)
 
-```setup.py
+```swig
 # setup.py
 #!/usr/bin/env python
 from distutils.core import setup, Extension
