@@ -6,15 +6,22 @@ copyright = u''
 version = u''
 release = u''
 
+# run with sphinx-build -M html . .sourcedir 
+
 source_suffix = {
     '.rst': 'restructuredtext',
-    #'.txt': 'markdown',
-    '.md': 'markdown',
+    # '.txt': 'markdown',
+    # '.md': 'markdown',
 }
 master_doc = 'contents'
 language = 'zh_CN'
 exclude_patterns = ['_build', "node_modules", ".*"]
-extensions = ['sphinx.ext.imgmath', "myst_parser"]
+extensions = [
+    #'recommonmark',
+    'sphinx_markdown_tables',
+    'sphinx.ext.imgmath', 
+    "myst_parser"
+]
 pygments_style = 'sphinx'
 
 # on_rtd is whether we are on readthedocs.org
@@ -29,7 +36,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
 html_title = u'ATK 帮助文档'
-htmlhelp_basename = '/'
+htmlhelp_basename = 'atk'
 html_add_permalinks = ''
 
 latex_engine = 'xelatex'
@@ -74,7 +81,7 @@ latex_documents = [
 
 #Add sponsorship and project information to the template context.
 context = {
-    'MEDIA_URL': "/media/",
+    # 'MEDIA_URL': "/media/",
     'slug': 'atk-doc',
     'name': u'ATK 帮助文档',
     'analytics_code': 'None',

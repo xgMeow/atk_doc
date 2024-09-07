@@ -1,7 +1,7 @@
 import { hopeTheme } from "vuepress-theme-hope";
 import { useNavbar } from "./navbar.js";
 import sidebar from "./sidebar.js";
-
+import { redirect } from "vuepress-theme-hope";
 
 export const useHopeTheme = ({ offline }) => hopeTheme({
   // 是否显示打印按钮
@@ -66,6 +66,9 @@ export const useHopeTheme = ({ offline }) => hopeTheme({
 
   // 在这里配置主题提供的插件
   plugins: {
+    redirect:{
+
+    },
     // 注意: 仅用于测试! 你必须自行生成并在生产环境中使用自己的评论服务
     // comment: {
     //   provider: "Giscus",
