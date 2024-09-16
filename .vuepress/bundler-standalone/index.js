@@ -1035,5 +1035,5 @@ var webpackBundler = (options = {}) => ({
 var src_default = webpackBundler;
 export {
   src_default as default,
-  webpackBundler as offlineBundler
+  webpackBundler as standaloneBundler
 };

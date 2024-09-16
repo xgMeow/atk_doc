@@ -3,7 +3,7 @@ stages:
   - deploy
 
 
-build:online:
+build:gitlab:
   stage: build  
   tags:
     - npm
@@ -13,7 +13,7 @@ build:online:
     - .dist
   script:
     - Copy-Item -Path F:\jk\atk-doc\node_modules -Destination $PWD -Recurse
-    - npm run build
+    - npm run build:gitlab
 
 build:standalone:
   stage: build  
@@ -22,10 +22,10 @@ build:standalone:
     - windows
   artifacts:
     paths:
-    - .dist-offline
+    - .dist
   script:
     - Copy-Item -Path F:\jk\atk-doc\node_modules -Destination $PWD -Recurse
-    - npm run docs:offline
+    - npm run build:standalone
 
 
 deploy:pages:
@@ -34,6 +34,6 @@ deploy:pages:
     - linux
     - gitlab
   dependencies:
-    - build:online
+    - build:gitlab
   script:
-    - cp -r .dist/* /mnt/project/gitlab/gitlab-rails/shared/pages/jinke18/atk-doc
+    - cp -r .dist/gitlab/* /mnt/project/gitlab/gitlab-rails/shared/pages/jinke18/atk-doc

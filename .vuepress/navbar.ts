@@ -1,7 +1,8 @@
 import { navbar } from "vuepress-theme-hope";
 
-export const useNavbar = ({ offline }) => {
-  if (offline) {
+export const useNavbar = ({ type }) => {
+  let standalone = type == "standalone";
+  if (standalone) {
     return navbar([
       {
         text: "在线手册",
