@@ -10,7 +10,7 @@ build:gitlab:
     - windows
   artifacts:
     paths:
-    - .dist
+    - .dist/gitlab
   script:
     - Copy-Item -Path F:\jk\atk-doc\node_modules -Destination $PWD -Recurse
     - npm run build:gitlab
@@ -22,7 +22,7 @@ build:standalone:
     - windows
   artifacts:
     paths:
-    - .dist
+    - .dist/standalone
   script:
     - Copy-Item -Path F:\jk\atk-doc\node_modules -Destination $PWD -Recurse
     - npm run build:standalone
@@ -35,5 +35,7 @@ deploy:pages:
     - gitlab
   dependencies:
     - build:gitlab
+    - build:standalone
   script:
     - cp -r .dist/gitlab/* /mnt/project/gitlab/gitlab-rails/shared/pages/jinke18/atk-doc
+    - zip -r /mnt/project/gitlab/gitlab-rails/shared/pages/jinke18/atk-doc/help-standalone.zip .dist/standalone/

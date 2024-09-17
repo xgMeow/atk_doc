@@ -2,7 +2,21 @@ import { navbar } from "vuepress-theme-hope";
 
 export const useNavbar = ({ type }) => {
   let standalone = type == "standalone";
-  if (standalone) {
+  let gitlab = type == "gitlab"
+  if(gitlab){
+    return navbar([
+      {
+        text: "下载离线版手册",
+        link: "http://192.168.0.254:8898/help-standalone.zip",
+      },
+      {
+        text: "二次开发教程",
+        link: "/二次开发教程/",
+        // icon: "config"
+      }
+    ])
+  }
+  else if (standalone) {
     return navbar([
       {
         text: "在线手册",

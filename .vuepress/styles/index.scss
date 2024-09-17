@@ -14,14 +14,18 @@ img {
 }
 
 /*不加图标时sidebar对不齐，调整一下*/
-.vp-sidebar-header 
-{
-  margin-left: 0.5rem;
-}
+// .vp-sidebar-header 
+// {
+//   margin-left: 0.5rem;
+// }
 
 /* 兼容老浏览器 */
 #toc{
   left: calc(100% + 1rem)
+}
+
+.search-pro-box label {
+  right: calc(.5rem);
 }
 
 .vp-back-to-top-button{
