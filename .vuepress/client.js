@@ -31,13 +31,14 @@ export default defineClientConfig({
     }); 
 
     router.beforeResolve( async(to, from) => {
-        // console.log(JSON.stringify({from}), from)
-        // console.log(JSON.stringify({to}), to)
+        console.log(Date.now)
+        console.log("from", JSON.stringify(from))
+        console.log("to", JSON.stringify(to))
 
         if(is_file_protocol){
             if(to.fullPath.startsWith("#")){
                 to.hash = to.fullPath;
-                to.fullPath = from.fullPath;
+                to.fullPath = from.fullPath + to.hash;
                 to.path = from.path;
                 return
             }
@@ -60,7 +61,7 @@ export default defineClientConfig({
                     const pageChunk = await route.loader();
                     // console.log(pageChunk)
                     to.path = route.path;
-                    to.fullPath = root_dir + to.path;
+                    to.fullPath = root_dir + to.path + to.hash;
                     if(to.fullPath.endsWith("/")){
                         to.fullPath = to.fullPath + "index.html";
                     }
@@ -70,7 +71,7 @@ export default defineClientConfig({
                         // attach page chunk route meta
                         _pageChunk: pageChunk
                     };
-                    //console.log({to});
+                    console.log(to, "hash=", to.hash);
                     break;
                 }
             }
