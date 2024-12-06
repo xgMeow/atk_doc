@@ -31,9 +31,9 @@ export default defineClientConfig({
     }); 
 
     router.beforeResolve( async(to, from) => {
-        console.log(Date.now)
-        console.log("from", JSON.stringify(from))
-        console.log("to", JSON.stringify(to))
+        //console.log(Date.now)
+        //console.log("from", JSON.stringify(from))
+        //console.log("to", JSON.stringify(to))
 
         if(is_file_protocol){
             if(to.fullPath.startsWith("#")){
