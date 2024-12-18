@@ -37,6 +37,9 @@ img {
   width: 100%;
 }
 
+.hint-container.important .hint-container-title::before, .hint-container.info .hint-container-title::before, .hint-container.note .hint-container-title::before, .hint-container.tip .hint-container-title::before, .hint-container.warning .hint-container-title::before, .hint-container.caution .hint-container-title::before {
+  left:0;
+}
 @media (max-width: 719px){
   #main-content.vp-page
   {
