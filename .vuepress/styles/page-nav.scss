@@ -74,3 +74,43 @@
     }
   }
 }
+.theme-hope-conten::-webkit-scrollbar-thumb:vertical{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  border-radius: 8px;
+  background-color: #e6e6e6;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.vp-page-nav .nav-link:hover .hint {
+  color: var(--menu-text-color); 
+  font-size: 0.875rem;
+  line-height: 2;
+}
+.vp-page-nav .nav-link:hover{
+  background: var(--menu-color-blue-low);
+}
+
+
+
+h1 {
+  font-size: 22px;
+  color: #d57747;
+  margin-bottom: 0!important;
+  width: calc(100% - 180px);
+  overflow: hidden;
+  word-break: break-all
+}
+
+h2 {
+  font-size: 18px;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid #ccc
+}
+
+h3 {
+  font-size: 16px
+}
+
+h3,h4 {
+  color: #d57747
+}

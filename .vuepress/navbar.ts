@@ -42,8 +42,7 @@ export const useNavbar = ({ type }) => {
     return navbar([
       {
         text: "ATK首页",
-        link: "https://smsat.space/#/",
-        icon: '/images/logo.png'
+        link: "https://smsat.space/#/"
       },
       {
         text: "下载离线版手册",

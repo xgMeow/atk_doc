@@ -27,7 +27,7 @@ export const useHopeTheme = ({ type }) =>
 
     // iconAssets: "fontawesome-with-brands",
 
-    logo: '/images/logo.png',
+    logo: '/images/logoDark.png',
     logoDark: "/images/logoDark.png",
 
     // 用于在导航栏中显示仓库链接
