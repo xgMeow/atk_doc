@@ -22,7 +22,8 @@ img {
 
 /* 兼容老浏览器 */
 #toc{
-  left: calc(100% + 8rem)
+  // left: calc(100% + 8rem)
+  right: -34%;
 }
 
 .search-pro-box label {
@@ -552,4 +553,7 @@ h3,h4 {
   max-width: var(--content-width, 740px);
   margin: 0 auto;
   padding: 2rem 2.5rem;
+}
+.vp-footer-wrapper{
+  padding-block:0.5rem;
 }
