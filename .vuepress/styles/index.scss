@@ -23,7 +23,7 @@ img {
 /* 兼容老浏览器 */
 #toc{
   // left: calc(100% + 8rem)
-  right: -34%;
+  right: -37%;
 }
 
 .search-pro-box label {
@@ -556,4 +556,16 @@ h3,h4 {
 }
 .vp-footer-wrapper{
   padding-block:0.5rem;
+}
+
+@media (min-width: 1440px){
+  #toc {
+      position: absolute;
+      inset-inline-start: calc(100% + 1rem);
+      min-width: 10rem;
+      max-width: 22rem;
+      margin-bottom: 0;
+      border-radius: 0;
+      background: transparent;
+  }
 }
