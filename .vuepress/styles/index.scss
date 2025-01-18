@@ -569,3 +569,6 @@ h3,h4 {
       background: transparent;
   }
 }
+#appearance-switch:focus{
+  outline: -webkit-focus-ring-color auto 0px;
+}
