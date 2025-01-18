@@ -117,6 +117,7 @@ mjx-container {
   line-height: 32px;
   padding-left: 10px;
   box-shadow: 3px -1px 7px 3px rgba(0,0,0,.11);
+  border-color: var(--bg-color);
 }
 
 // .vp-breadcrumb a {
@@ -184,6 +185,7 @@ p{
   --bg-color-secondary:#e9edf1;
   --sidebar-menu: 20rem;
   --sidebar-bg-color:#fff;
+  --page-color:#fff;
 }
 // html[data-theme=lignt]  #app  {
 //   --menu-color-black:#000;
@@ -193,6 +195,7 @@ p{
 //   --menu-color-blue-low:#dae9f9;
 // }
 html[data-theme=dark] {
+  --page-color:#2b2c2e;
   --menu-text-color:#fff;
   --menu-background-color:#5f5f5f;
   --menu-color-white:#3a3b3e;
@@ -418,6 +421,7 @@ html[dir=rtl] .toggle-sidebar-wrapper .arrow.start {
 .theme-container .vp-page {
   padding-top: var(--navbar-height);
   padding-inline-start: calc(var(--sidebar-space) + 2rem);
+  background:var(--page-color);
 }
 @media (max-width: 719px) {
   .theme-container .vp-page {
@@ -571,4 +575,11 @@ h3,h4 {
 }
 #appearance-switch:focus{
   outline: -webkit-focus-ring-color auto 0px;
+}
+#toc {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: var(--bg-color);
+  right: -49%;
+  width: 30%;
 }
