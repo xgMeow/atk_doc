@@ -159,10 +159,7 @@ p{
   padding: 21px 10px;
 }
 .vp-brand:hover .vp-site-name {
-  color: #000;
-  background-color: #fff;
-  border-radius: 5px;
- 
+  color: #d5e1e6bb;
 }
 // .vp-nav-item:hover a{
 //   background-color: #d8d8d8;
@@ -186,6 +183,7 @@ p{
   --sidebar-menu: 20rem;
   --sidebar-bg-color:#fff;
   --page-color:#fff;
+  --navbar-bg-color:#0055cf;
 }
 // html[data-theme=lignt]  #app  {
 //   --menu-color-black:#000;
@@ -261,19 +259,14 @@ h3 {
 .vp-navbar .vp-nav-item > .nav-link {
   font-size: 18px;
   color: var(--titile-color);
-  // background-color: #fff;
-  // border-radius: 5px;
   padding: 20px 10px 7px 10px;
 }
 .vp-navbar .vp-nav-item > .nav-link.active {
   color: #d8d8d8;
+  font-weight: bold;
 }
 .vp-navbar .vp-nav-item > .nav-link:hover {
-  font-size: 18px;
-  color: #000;
-  // background-color: #fff;
-  border-radius: 5px;
-  padding: 20px 10px 7px 10px;
+  color: #d5e1e6bb;
 }
 .vp-navbar .vp-nav-item > .nav-link::after {
   // position: relative;
