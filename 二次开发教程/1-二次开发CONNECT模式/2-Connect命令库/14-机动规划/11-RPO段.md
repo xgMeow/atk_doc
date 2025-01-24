@@ -81,24 +81,18 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List
 
 | 参数名称               | 数据类型 | 范围              |
 | ---------------------- | -------- | ----------------- |
-| Desired_DriftRate      | deg/day  | `[-360,360]`        |
+| Desired_DriftRate      | deg/day  | `[-360,360]`       |
 | Desired_Radial         | m        | `[-100000,100000]` |
 | Desired_InTrack        | m        | `[-100000,100000]` |
 | Desired_CrossTrack     | m        | `[-100000,100000]` |
 | Desired_RadialRate     | m/sec    | `[-1000,1000]`     |
 | Desired_InTrackRate    | m/sec    | `[-1000,1000]`     |
 | Desired_CrossTrackRate | m/sec    | `[-1000,1000]`     |
-| Propagator_Time        |          | `[0.001,86400]`     |
-
- 
-
- 
-
-| Wait_Time       | sec  | [0.001,86400] |
-| --------------- | ---- | ------------- |
-| Rendezvous_Time | UTCG |               |
-| MaxIter         |      | `[-1,1000]`    |
-| SolveMethod     |      | `[-1,4]`       |
+| Propagator_Time        |          | `[0.001,86400]`    |
+| Wait_Time              | sec      | [0.001,86400]      |
+| Rendezvous_Time        | UTCG     |                    |
+| MaxIter                |          | `[-1,1000]`        |
+| SolveMethod            |          | `[-1,4]`           |
 
 举例： 
 ```
@@ -159,16 +153,11 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List
 | CrossTrack_InTrackRotation | rad      | `[- 180,180]`       |
 | CrossTrack_RadialRotation  | rad      | `[- 180,180]`       |
 | Radial_Offset              | m        | `[- 100000,100000]` |
-
-
- 
-
-| InTrack_Offset         | m    | `[-100000,100000]` |
-| ---------------------- | ---- | ----------------- |
-| CrossTrack_Offset      | m    | `[-100000,100000]` |
-| Way_MaxDegrees         | rad  | `[0.001,360]`       |
-| Time_Compression_Ratio |      | `[0.01,100]`        |
-| SolveMethod            |      | `[-1,4]`           |
+| InTrack_Offset             | m        | `[-100000,100000]`  |
+| CrossTrack_Offset          | m        | `[-100000,100000]`  |
+| Way_MaxDegrees             | rad      | `[0.001,360]`       |
+| Time_Compression_Ratio     |          | `[0.01,100]`        |
+| SolveMethod                |          | `[-1,4]`            |
 
 举例： 
 ```
@@ -176,7 +165,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOForcedMot
 ```
  
 
-## 直线逼近段
+## RPO直线逼近段
 
  
 

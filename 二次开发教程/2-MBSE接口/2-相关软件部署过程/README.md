@@ -6,7 +6,7 @@ dir:
 ---
 
 > [!info]
-> 本操作指南使用 `ATK v1.5.0.7` 版本、`Cameo Systems Modeler 19.0` 版本进行以下章节内容演示。
+> 本操作指南使用 `Cameo Systems Modeler 19.0` 版本进行以下章节内容演示。
 
 ## MagicDraw安装
 
@@ -31,7 +31,7 @@ dir:
 
 ## MagicDraw与ATK联合仿真插件安装
 
-将` HW-MagicDrawToATK-Plug `文件夹复制到 `Cameo Systems Modele Demo\plugins` 目录下，如下图所示。
+将` IntegratingWithATK\connect\win\MBSE\MagicDrawToATK-Plug `文件夹复制到 `Cameo Systems Modele Demo\plugins` 目录下，如下图所示。
 
 ![配置联合仿真插件](media/3-MagicDraw与ATK联合仿真插件安装/image.png)
 
@@ -42,6 +42,6 @@ dir:
 
 ##  MagicDraw与ATK联合仿真插件升级
 
-将原先版本 HW-MagicDrawToATK-Plug 文件夹删除，将最新版 HWMagicDrawToATK-Plug 文件夹复制到 Cameo Systems Modele Demo\plugins 目录下，如下图所示。
+将原先版本 MagicDrawToATK-Plug 文件夹删除，将最新版 MagicDrawToATK-Plug 文件夹复制到 Cameo Systems Modele Demo\plugins 目录下，如下图所示。
 
 ![插件升级](media/3-MagicDraw与ATK联合仿真插件安装/image.png)

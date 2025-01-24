@@ -6,17 +6,14 @@ title: Java接口
 设置属性后需重新打开对象属性界面属性数据才会更新。
 :::
 
-ATK 二次开发模块支持 Connect 模式。以下使用介绍均基于 Connect 模式。
+Java客户端是ATK软件向用户提供的一种可以输入脚本命令的窗口，Java客户端由ATK提供，在ATK软件安装包中，点击“IntegratingWithATK”文件夹--“Connect”文件夹--“win”文件夹--“Java”文件夹-“startATKConnector.bat”，即可弹出客户端窗口。目前界面属性窗口不具备实时更新功能，故而设置属性后需重新打开对象属性界面属性数据才会更新。以下为Java客户端提供的接口函数介绍。目前Java客户端与ATK使用atkOpen命令进行连接，使用atkConnect命令进行属性设置，使用atkClose命令与ATK断开连接。
 
-目前 JAVA 客户端与 ATK 使用 atkOpen 命令进行连接，使用 atkConnect 命令进行属性设置。使用atkClose 命令与 ATK 断开连接。
-
-客户端使用 JAVA1.8.0 版本，打开 JAVA 客户端与 ATK 进行连接，如下图：
+客户端使用Java1.8.0版本，打开Java客户端与ATK进行连接，如下图：
 
 ![ATK 打开界面](media/README/image.png)
 
 
-此客户端提供 JAVA 程序；提供 ATKConnectorTools.jar，用来完成 ATK 与 JAVA 客户端的数据传输与解析，其中包含 atkOpen、atkConnect、atkClose 函数
-用以完成 ATK 与 JAVA 客户端的链接与参数设置；提供 startATKConnector.bat 文件用来实现客户端命令的输入输出。
+客户端提供Java可执行程序；提供`ATKConnectorTools.jar`，用来完成ATK与Java客户端的数据传输与解析，其中包含atkOpen、atkConnect、atkClose函数用以完成ATK与Java客户端的链接与参数设置，使用atkOpen进行连接，使用atkConnect进行属性设置。使用atkClose与ATK断开连接；提供`startATKConnector.bat`文件用来实现客户端命令的输入输出。
 
 ## atkOpen
 

@@ -279,17 +279,69 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | ValueDragArea | 设置属性使用 DragAreaVal |
 | ValueCd       | 设置属性使用 CdVal       |
 
-可设置参数属性：
+保持段控制量属性名称：
 
  
 
-| Value        | Unit                                       |
-| ------------ | ------------------------------------------ |
-| Active       | 是指控制变量是否使用，可输入 true 或 false |
-| MaxStep      | 设置最大步长                               |
-| correction   | 设置累计校正量                             |
-| perturbation | 设置摄动量                                 |
-| scale        | 设置归一化参数                             |
+| Attribute             | 说明                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| Duration.TripValue    | 设置属性使用  StoppingConditions.Duration.TripValue          |
+| Epoch.TripValue       | 设置属性使用  StoppingConditions.Epoch.TripValue             |
+| Longitude.TripValue   | 设置属性使用  StoppingConditions.Longitude.TripValue         |
+| Latitude.TripValue    | 设置属性使用  StoppingConditions.Latitude.TripValue          |
+| Altitude.TripValue    | 设置属性使用  StoppingConditions.Altitude.TripValue          |
+| RMagnitude.TripValue  | 设置属性使用  StoppingConditions.RMagnitude.TripValue        |
+| TrueAnomaly.TripValue | 设置属性使用  StoppingConditions.TrueAnomaly.TripValue       |
+| MeanAnomaly.TripValue | 设置属性使用  StoppingConditions.MeanAnomaly.TripValue       |
+| ArgLat.TripValue      | 设置属性使用  StoppingConditions.ArgumentOfLatitude.TripValue |
+| StateCalc.TripValue   | 设置属性使用  StoppingConditions.StateCalc.TripValue         |
+
+兰伯特段控制量属性名称：
+
+ 
+
+| Attribute             | 说明                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| Cartesian.X           | 设置属性使用LambertState.Cartesian.X                       |
+| Cartesian.Y           | 设置属性使用LambertState.Cartesian.Y                       |
+| Cartesian.Z           | 设置属性使用LambertState.Cartesian.Z                       |
+| Cartesian.Vx          | 设置属性使用LambertState.Cartesian.Vx                      |
+| Cartesian.Vy          | 设置属性使用LambertState.Cartesian.Vy                      |
+| Cartesian.Vz          | 设置属性使用LambertState.Cartesian.Vz                      |
+| Keplerian.Sma         | 设置属性使用LambertState.Keplerian.Sma                     |
+| Keplerian.Ecc         | 设置属性使用LambertState.Keplerian.Ecc                     |
+| Keplerian.Inc         | 设置属性使用LambertState.Keplerian.Inc |
+| Keplerian.RAAN        | 设置属性使用LambertState.Keplerian.RAAN                    |
+| Keplerian.W           | 设置属性使用LambertState.Keplerian.W                       |
+| Keplerian.TA          | 设置属性使用LambertState.Keplerian.TA                      |
+
+微分修正可设置参数属性：
+
+ 
+
+| Value             | Unit                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| Active                | 设置或获取控制变量是否使用，可输入true或false                   |
+| MaxStep               | 设置或获取最大步长                      |
+| Correction            | 设置或获取累计校正量                      |
+| Perturbation          | 设置或获取摄动量                      |
+| Scale                 | 设置或获取归一化参数                      |
+| FinalValue            | 获取最终值                      |
+
+序列二次规划与智能优化算法可设置参数属性：
+
+ 
+
+| Value             | Unit                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| Active                | 设置或获取控制变量是否使用，可输入true或false                   |
+| MaxStep               | 设置或获取最大步长                      |
+| Correction            | 设置或获取累计校正量                      |
+| Perturbation          | 设置或获取摄动量                      |
+| Scale                 | 设置或获取归一化参数                      |
+| LowerBound            | 设置或获取最小值                      |
+| UpperBound            | 设置或获取最大值                      |
+| FinalValue            | 获取最终值                           |
 
 注意：除初始段 Epoch 属性，预报段停止条件 Epoch 外，控制量属性与Attribute 单位一致
 
@@ -313,12 +365,11 @@ Astrogator */Satellite/FastTransfer SetMCSControlValue MainSequence.SegmentList.
 ```
 Astrogator_RM <Satellite Object Path> GetMCSControlValue <AttributePath>.Profiles.<Search Profile> <ParentObjectName> <ControlName> <Attribute>
 ```
-说明： Search Profile 目前只包括 Differential_Corrector
 
 举例：
 
 ```
-Astrogator_RM */Satellite/FastTransfer GetMCSControlValue MainSe- quence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver ImpulsiveMnvr.Cartesian.X MaxStep
+Astrogator_RM */Satellite/FastTransfer GetMCSControlValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver ImpulsiveMnvr.Cartesian.X MaxStep
 ```
  
 
@@ -334,7 +385,7 @@ Astrogator <Satellite Object Path> RemoveMCSSegmentControl <Attribute Path> <Att
 举例：
 
 ```
-Astrogator */Satellite/Satellite1 RemoveMCSSegmentControl MainSe-  quence.SegmentList.Target_Sequence.SegmentList.Maneuver ImpulsiveMnvr.Cartesian.X
+Astrogator */Satellite/Satellite1 RemoveMCSSegmentControl MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver ImpulsiveMnvr.Cartesian.X
 ```
  
 
@@ -350,7 +401,7 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 
 说明：具体属性设置请查看规划属性-约束
 
-可设置参数属性：
+微分修正可设置参数属性：
 
  
 
@@ -361,6 +412,40 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 | scale     | 设置归一化参数                           |
 | weight    | 设置权重系数                             |
 | desired   | 设置期望值                               |
+
+序列二次规划与智能优化算法可设置参数属性：
+<!-- 
+<table>
+<tbody>
+    <tr>
+        <td>Active</td>
+        <td>设置或获取约束量是否使用，可输入true或false</td>
+    </tr>
+    <tr>
+        <td>Active</td>
+        <td>
+        Objfun{Constraint|Minimize|Maximize|<br>MinimizeandConstraint|MaximizeandConstraint}
+        </td>
+    </tr>
+</tbody>
+</table> -->
+
+| Value                                                 | Unit                                                         |
+| ---------------------                                 | ------------------------------------------------------------ |
+| Active                                                | 设置或获取约束量是否使用，可输入true或false                   |
+| tolerance                                             | 设置或获取收敛误差                      |
+| scale                                                 | 设置或获取归一化参数                      |
+| weight                                                | 设置或获取权重系数                      |
+| desired                                               | 设置或获取期望值                      |
+| Objfun\{Constraint\|Minimize\|Maximize\|<br>MinimizeandConstraint\|MaximizeandConstraint\}  | 设置或获取类型\{约束\|最小化\|最大化\|最小化和约束\|最大化和约束\}        |
+| desired                                               | 设置或获取期望值                      |
+| LowerBound                                            | 设置或获取最小值                      |
+| UpperBound                                            | 设置或获取最大值                       |
+| Unit                                                  | 获取单位                     |
+| Achieved                                              | 获取当前值                           |
+| Difference                                            | 获取误差值                      |
+
+
 
 举例：
 

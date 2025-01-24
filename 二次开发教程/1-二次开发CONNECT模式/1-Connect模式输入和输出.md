@@ -43,13 +43,13 @@
 多条命令接收格式：
 
 ```connect
-<MultMessageHeader> <MultipleMessageData> <SingleMessageHeader> <SingleMessageData>...
+<MultipleMessageHeader> <MultipleMessageData> <SingleMessageHeader> <SingleMessageData>...
 ```
 
 说明：
 
 
-- `MultMessageHeader`: 一个包含 CommandName 的固定长度为 40 字节数据包，包后面跟一个整数，指后面多条数据的长度
+- `MultipleMessageHeader`: 一个包含 CommandName 的固定长度为 40 字节数据包，包后面跟一个整数，指后面多条数据的长度
 - `MultipleMessageData`: 包含以下有几条命令
 - `SingleMessageHeader`: 包含 CommandName，后面有一个整数，指定后面数据的长度。多条信息格式包含任意数量的单个消息头，具体取决于输入的命令
 - `SingleMessageData`: 前一个消息头的数据

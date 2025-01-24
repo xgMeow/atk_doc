@@ -8,30 +8,25 @@ title: Matlab接口
 设置属性后需重新打开对象属性界面属性数据才会更新。
 :::
 
+Matlab客户端是一种方便用户与ATK软件进行网络连接并操作的方式，目前界面属性窗口不具备实时更新功能，故而设置属性后需重新打开对象属性界面属性数据才会更新。Matlab客户端需用户自行下载安装（ATK测试使用MatlabR2015b版本），ATK提供ATK与Matlab通信库文件再安装包目录下IntegratingWithATK\connect\win\Matlab\Win_2015b文件夹中，用户需将使用库与使用函数添加到使用目录，如下图：
 
-ATK 二次开发模块支持 Connect 模式。以下使用介绍均基于 Connect 模式。
+![使用文件目录](media/README/image.png)
+![Matlab界面](media/README/image1.png)
 
-目前 Matlab 与 ATK使用 atkOpen 命令进行连接；使用 atkConnect 命令进行属性设置；使用atkClose 命令与 ATK 断开连接。
-
-连接函数需将使用库与使用函数添加到Matlab搜索路径或者当前目录中，如下图：
-
-![Matlab当前目录](media/README/image.png)
-
-其中`ATKConnectorDll64.dll` 为基于 Connect 模式提供的 C++动态库，用于和 ATK 建立网络连接，传递命令数据和解析返回结果；
-
-`mexATKConnect.mexw64` 是一个可执行的 Mex 文件，提供用于 Matlab 环境的 MEX 函数，方便 Matlab 和 ATKConnectorDll64.dll 之间传递数据
-
-`atkOpen.m`、`atkConnect.m`、`atkClose.m` 是 Matlab 函数式 M 文件，通过使用MEX 函数完成 Matlab 和 ATK 之间的连接建立和数据传递。
+`ATKConnectorDll64.dll`、`ATKConnectorDll64.lib`为基于Connect模式提供的库文件，用于和ATK建立网络连接，传递命令数据和解析返回结果；
+`mexATKConnect.mexw64`是一个可执行的Mex文件，提供用于Matlab环境的MEX函数，方便Matlab和`ATKConnectorDll64.dll`之间传递数据；
+`atkOpen.m`、`atkConnect.m`、`atkClose.m`是Matlab函数式M文件，通过使用MEX函数完成Matlab和ATK之间的连接建立和数据传递。
 
 ## atkOpen
 
 用法：
 ```matlab
-conID = atkOpen('hostPortStr')
+conID = atkOpen('hostStr'，PortStr);
 ```
 说明：
 - `conID` - 连接句柄
-- `hostPortStr` - 进行连接的网络地址端口号
+- `hostStr` - IP地址
+- `PortStr` - 端口号，ATK端口号为6655
 
 ## atkConnect
 
