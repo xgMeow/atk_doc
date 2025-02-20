@@ -10,7 +10,7 @@ Java客户端是ATK软件向用户提供的一种可以输入脚本命令的窗�
 
 客户端使用Java1.8.0版本，打开Java客户端与ATK进行连接，如下图：
 
-![ATK 打开界面](media/README/image.png)
+![客户端文件位置](media/README/image.png)
 
 
 客户端提供Java可执行程序；提供`ATKConnectorTools.jar`，用来完成ATK与Java客户端的数据传输与解析，其中包含atkOpen、atkConnect、atkClose函数用以完成ATK与Java客户端的链接与参数设置，使用atkOpen进行连接，使用atkConnect进行属性设置。使用atkClose与ATK断开连接；提供`startATKConnector.bat`文件用来实现客户端命令的输入输出。
