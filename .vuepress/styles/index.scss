@@ -580,3 +580,22 @@ h3,h4 {
   right: -49%;
   width: 30%;
 }
+
+
+table{
+  display: block;
+  margin: 0 auto;/*水平居中*/
+  width: fit-content;
+}/*更改表格的样式使其居中显示*/
+
+p{
+  font-size: 17px;
+  line-height:2;
+  text-indent: 2em;
+
+}
+
+ol li{
+  font-size: 17px;
+}
+
