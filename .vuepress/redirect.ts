@@ -12,6 +12,8 @@ export default {
         "/topics/ProfessionalTools/CUiConstellationDesign":       "/5.专业使用指南/5.11高级星座设计功能模块.html",   //在工具-高级星座设计弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/Maneuer":                      "/5.专业使用指南/5.14机动分析功能模块.html",   //在工具-机动分析弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/ReentryRecovery":              "/5.专业使用指南/5.15再入回收模块.html",   //在工具-再入回收弹出的右下角增加“help”按钮 
+        "/topics/ProfessionalTools/LifeTime":                     "/5.专业使用指南/5.16寿命预报模块.html",   //在工具-寿命预报弹出的右下角增加“help”按钮 
+        "/topics/ProfessionalTools/VectorGeometryTool":           "/5.专业使用指南/5.17矢量几何工具.html",   //在工具-矢量几何工具弹出的右下角增加“help”按钮 
 
         "/topics/Objects/Satellite":                          "/4.基础使用指南/4.2创建对象.html#卫星的属性设置",     //卫星-属性；右下角的“help”按钮 
         "/topics/Objects/Satellite/Orbit":                    "/4.基础使用指南/4.2创建对象.html#轨道属性",          //卫星-属性-点击轨道后；右下角的“help”按钮 
@@ -26,6 +28,8 @@ export default {
         "/topics/Objects/Satellite/AstroUq":                  "/3.案例教程/3.13偏差分析案例.html",                 //卫星属性-轨道-轨道预报器-偏差分析；右下角的“help”按钮
         "/topics/Objects/Facility":                           "/4.基础使用指南/4.2创建对象.html#地面站的属性设置",      //地面站-属性；右下角的“help”按钮 
         "/topics/Objects/Sensor":                             "/4.基础使用指南/4.2创建对象.html#敏感器的属性设置",      //敏感器-属性；右下角的“help”按钮 
+        "/topics/Objects/Receiver":                             "/4.基础使用指南/4.2创建对象.html#接收器的属性设置",      //接收器-属性；右下角的“help”按钮 
+        "/topics/Objects/Transmitter":                             "/4.基础使用指南/4.2创建对象.html#发射器的属性设置",      //发射器-属性；右下角的“help”按钮 
         "/topics/Objects/SatelliteCollection":                "/3.案例教程/3.9巨型星座设计案例.html",             //卫星集群-属性：右下角的“help”按钮 
         "/topics/Objects/CoverageDefinition":                 "/3.案例教程/3.11区域覆盖案例.html#创建任务场景与对象",     //覆盖定义-属性：右下角的“help”按钮 
 
