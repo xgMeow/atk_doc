@@ -10,8 +10,8 @@ defineCatalogInfoGetter((meta) => {
 });
 
 
-var is_file_protocol = false;
-var root_dir = "";
+var is_file_protocol = false;   // 是否是离线模型
+var root_dir = "";              // 用于在离线模式下缓存当前文档所在的文件夹
 
 export default defineClientConfig({
   enhance({ app, router, siteData }) {
@@ -53,18 +53,24 @@ export default defineClientConfig({
                 let path_new = "/" + split_path.slice(i).join("/");
                 let route = _resolveRoute(path_new);
                 if(!route.notFound){
+                    // 在离线模式下缓存当前文档所在的文件夹路径到root_dir
                     if(!root_dir || i>0){
-                        root_dir = split_path.slice(0, i).join("/")
+                        root_dir = split_path.slice(0, i).join("/")   
                         // router.options.history.base = "file:///" + root_dir;
                     }
                     // console.log(route)
                     const pageChunk = await route.loader();
                     // console.log(pageChunk)
                     to.path = route.path;
-                    to.fullPath = root_dir + to.path + to.hash;
-                    if(to.fullPath.endsWith("/")){
-                        to.fullPath = to.fullPath + "index.html";
+
+                    // 防止以/结尾时错误跳转的情况，在末尾加上index.html
+                    let to_path = to.path;
+                    if(to_path.endsWith("/")){
+                        to_path = to_path + "index.html";
                     }
+
+                    to.fullPath = root_dir + to_path + to.hash;
+
                     to.meta = {
                         // attach route meta
                         ...route.meta,
