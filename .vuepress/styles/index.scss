@@ -592,10 +592,14 @@ p{
   font-size: 17px;
   line-height:2;
   text-indent: 2em;
+}/*正文首行缩进*/
 
-}
+li p {
+  text-indent: 0em;
+}/*正文中的序号步骤不首行缩进*/
 
 ol li{
   font-size: 17px;
-}
+}/*设置正文最上面内容结构的样式*/
+
 
