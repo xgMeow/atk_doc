@@ -584,12 +584,14 @@ h3,h4 {
 
 table{
   display: block;
+  font-family: 'Times New Roman', Times;
   margin: 0 auto;/*水平居中*/
   width: fit-content;
 }/*更改表格的样式使其居中显示*/
 
 p{
   font-size: 17px;
+  font-family: 'Times New Roman', Times;
   line-height:2;
   text-indent: 2em;
 }/*正文首行缩进*/
@@ -600,6 +602,10 @@ li p {
 
 ol li{
   font-size: 17px;
-}/*设置正文最上面内容结构的样式*/
+  font-family: 'Times New Roman', Times;
+}/*设置正文最上面内容结构的样式,以及字体格式*/
 
 
+// .hint-container{
+//   text-indent: 0em;
+// }
