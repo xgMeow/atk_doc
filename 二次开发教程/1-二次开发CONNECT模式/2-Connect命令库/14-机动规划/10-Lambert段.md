@@ -108,10 +108,10 @@ Astrogator <Satellite Object Path> SetValue <Astrogator ObjectPath>.LambertTarge
 | ------- | ------------------------------------------------------ |
 | Sma     | 半长轴默认单位是 m, 包括单位 km , m, 设置 属性使用 sma |
 | Ecc     | 偏心率                                                 |
-| Inc     | 轨道倾角, 默认单位 deg                                 |
-| RAAN    | 升交点赤经, 默认单位 deg                               |
-| W       | 近拱点角距, 默认单位 deg                               |
-| TA      | 真近点角, 默认单位 deg                                 |
+| Inc     | 轨道倾角, 默认单位 rad                                 |
+| RAAN    | 升交点赤经, 默认单位 rad                               |
+| W       | 近拱点角距, 默认单位 rad                               |
+| TA      | 真近点角, 默认单位 rad                                 |
 
 :::
 

@@ -244,13 +244,13 @@ html[data-theme=dark] {
   margin-top: calc(0px - var(--navbar-height)) !important;
   margin-bottom: 1rem;
   padding-top: var(--navbar-height) !important;
-   font-size: 1.8rem; 
+  //  font-size: 1.8rem; 
   //  padding-left: 9%;
 }
 h2 {
   padding-bottom: 0.1rem;
   border-bottom: 1px solid #eaecef;
-  font-size: 1.5rem;
+  // font-size: 1.5rem;
 }
 
 h3 {
@@ -518,13 +518,17 @@ h1 {
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 22px;
+  color: #000000;
   // padding-bottom: .3rem;
   // border-bottom: 1px solid #ccc
 }
 
 h3 {
-  font-size: 16px
+  font-size: 20px
+}
+h4 {
+  font-size: 18px
 }
 
 h3,h4 {
@@ -576,3 +580,32 @@ h3,h4 {
   right: -49%;
   width: 30%;
 }
+
+
+table{
+  display: block;
+  font-family: 'Times New Roman', Times;
+  margin: 0 auto;/*水平居中*/
+  width: fit-content;
+}/*更改表格的样式使其居中显示*/
+
+p{
+  font-size: 17px;
+  font-family: 'Times New Roman', Times;
+  line-height:2;
+  text-indent: 2em;
+}/*正文首行缩进*/
+
+li p {
+  text-indent: 0em;
+}/*正文中的序号步骤不首行缩进*/
+
+ol li{
+  font-size: 17px;
+  font-family: 'Times New Roman', Times;
+}/*设置正文最上面内容结构的样式,以及字体格式*/
+
+
+// .hint-container{
+//   text-indent: 0em;
+// }
