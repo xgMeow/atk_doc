@@ -11,7 +11,9 @@ title: Matlab接口
 Matlab客户端是一种方便用户与ATK软件进行网络连接并操作的方式，目前界面属性窗口不具备实时更新功能，故而设置属性后需重新打开对象属性界面属性数据才会更新。Matlab客户端需用户自行下载安装（ATK测试使用MatlabR2015b版本），ATK提供ATK与Matlab通信库文件再安装包目录下IntegratingWithATK\connect\win\Matlab\Win_2015b文件夹中，用户需将使用库与使用函数添加到使用目录，如下图：
 
 ![使用文件目录](media/README/image.png)
+
 ![Matlab界面](media/README/image1.png)
+
 
 `ATKConnectorDll64.dll`、`ATKConnectorDll64.lib`为基于Connect模式提供的库文件，用于和ATK建立网络连接，传递命令数据和解析返回结果；
 `mexATKConnect.mexw64`是一个可执行的Mex文件，提供用于Matlab环境的MEX函数，方便Matlab和`ATKConnectorDll64.dll`之间传递数据；
