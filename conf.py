@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-project = u'ATK 帮助文档'
+project = u'ATK 3.5 帮助文档'
 copyright = u''
 version = u''
 release = u''
@@ -35,7 +35,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
-html_title = u'ATK 帮助文档'
+html_title = u'ATK 3.5 帮助文档'
 htmlhelp_basename = 'atk'
 html_add_permalinks = ''
 
@@ -74,7 +74,7 @@ else:
         'preamble' : r'''        \usepackage{ctex}        ''',
     }
 latex_documents = [
-  ('contents', 'atk-doc.tex', u'ATK 帮助文档',
+  ('contents', 'atk-doc.tex', u'ATK 3.5 帮助文档',
    u'', 'manual'),
 ]
 
@@ -83,7 +83,7 @@ latex_documents = [
 context = {
     # 'MEDIA_URL': "/media/",
     'slug': 'atk-doc',
-    'name': u'ATK 帮助文档',
+    'name': u'ATK 3.5 帮助文档',
     'analytics_code': 'None',
 }
 
