@@ -42,6 +42,23 @@ Astrogator <Satellite Object Path> RunMCS
 Astrogator */Satellite/Satellite1 RunMCS
 ```
  
+## 轨道规划段复制粘贴
+
+
+作用：轨道规划段复制粘贴
+
+用法： 
+```
+Astrogator <Satellite Object Path> Paste CopySegmentPath PasteSegmentPath
+```
+
+注意：此命令只针对卫星使用
+
+举例： 
+```
+Astrogator */Satellite/Satellite1 Paste MainSequence.SegmentList.Propagate.- MainSequence.SegmentList.InitialState
+```
+ 
 
 ## 规划插入段
 
