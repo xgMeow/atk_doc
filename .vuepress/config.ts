@@ -9,7 +9,7 @@ export const useConfig = ({type}) => {
   return defineUserConfig({
     base: "/",
     lang: "zh-CN",
-    title: standalone ? "ATK 帮助文档(离线版)": "ATK 3.5 帮助文档",
+    title: standalone ? "ATK 3.5 帮助文档(离线版)": "ATK 3.5 帮助文档",
     description: "加快工业软件国产化，服务航天强国建设",
     alias:{
       "@theme-hope/components/PageNav": path.resolve(__dirname,"./components/PageNav.js",),
