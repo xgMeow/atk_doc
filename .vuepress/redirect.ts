@@ -14,6 +14,7 @@ export default {
         "/topics/ProfessionalTools/ReentryRecovery":              "/5.专业使用指南/5.15再入回收模块.html",   //在工具-再入回收弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/LifeTime":                     "/5.专业使用指南/5.16寿命预报模块.html",   //在工具-寿命预报弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/VectorGeometryTool":           "/5.专业使用指南/5.17矢量几何工具.html",   //在工具-矢量几何工具弹出的右下角增加“help”按钮 
+        "/topics/ProfessionalTools/ScriptTool":                   "/5.专业使用指南/5.18脚本工具.html",     
 
         "/topics/Objects/Satellite":                          "/4.基础使用指南/4.2创建对象.html#卫星的属性设置",     //卫星-属性；右下角的“help”按钮 
         "/topics/Objects/Satellite/Orbit":                    "/4.基础使用指南/4.2创建对象.html#轨道属性",          //卫星-属性-点击轨道后；右下角的“help”按钮 
@@ -35,6 +36,8 @@ export default {
 
         "/topics/Scenario/CoverageDefinition":                 "/4.基础使用指南/4.1创建场景.html#设置场景属性",     //场景-属性：右下角的“help”按钮
 
+        "/topics/Release/ChangeLog":                            "/发布说明/v3.5.md",
+        
         "/topics/senario/create":       "/4.基础使用指南/4.1创建场景.html#xxx",     // 
         "/topics/senario/xxx":          "/4.基础使用指南/4.1创建场景.html#xxxx",     // 
     }
