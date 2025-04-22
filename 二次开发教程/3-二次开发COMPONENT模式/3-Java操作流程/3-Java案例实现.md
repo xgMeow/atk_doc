@@ -13,13 +13,6 @@ public class ATKComponentJavaTest{
   static {
     try {
 	  //注意：根据测试脚本与安装包更目录的相对路径来导入
-	  //仅适用于ATK3.0.0版本
-	  System.loadLibrary("./AstroLib");
-	  System.loadLibrary("./AtObjExt");
-	  System.loadLibrary("./AtVGT");
-	  System.loadLibrary("./AtObjVGT");
-	  System.loadLibrary("./AstroObj");
-	  System.loadLibrary("./IAtkObject");
 	  System.loadLibrary("./ATKComponentJava");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("load dll failed\n" + e);
