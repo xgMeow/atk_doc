@@ -49,7 +49,7 @@ public class ATKComponentJavaTest{
 	IVeLeadTrailData pIVeLeadTrailData = pIVeGfxLeadTrailData.GetTrailData();
 	IVeLeadTrailDataTime pIVeLeadTrailDataTime = (IVeLeadTrailDataTime)(pIVeGfxLeadTrailData.GetTrailData());
 	pIVeLeadTrailDataTime.SetTime(24*60*60);
-	pISatellite.SetPropagatorType(EVePropagatorType.ePropagatorAstrogator);
+	pISatellite.SetPropagatorType(EVePropagatorType.ePropagatorAstromaster);
 	IVADriverMCS pIVADriverMCS = (IVADriverMCS)(pISatellite.GetPropagator());
 	IVAMCSSegmentCollection pIVAMCSSegmentCollection = pIVADriverMCS.GetMainSequence();
 	//3.3，机动规划添加段，新添加卫星会有默认初始段
