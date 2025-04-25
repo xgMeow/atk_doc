@@ -24,7 +24,7 @@ pIVeGfxLeadTrailData = pISatellite.GetGraphics().GetPassData().GetGroundTrack();
 pIVeGfxLeadTrailData.SetTrailDataType(ELeadTrailData.eDataTime);
 pIVeLeadTrailDataTime = pIVeGfxLeadTrailData.GetTrailData();
 pIVeLeadTrailDataTime.SetTime(24*60*60);
-pISatellite.SetPropagatorType(EVePropagatorType.ePropagatorAstrogator);
+pISatellite.SetPropagatorType(EVePropagatorType.ePropagatorAstromaster);
 pIVADriverMCS = pISatellite.GetPropagator();
 pIVAMCSSegmentCollection = pIVADriverMCS.GetMainSequence();
 %机动规划添加段，新添加卫星会有默认初始段
