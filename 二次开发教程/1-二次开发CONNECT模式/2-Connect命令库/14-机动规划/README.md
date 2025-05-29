@@ -68,15 +68,14 @@ Astrogator */Satellite/Satellite1 Paste MainSequence.SegmentList.Propagate.- Mai
 
 用法： 
 ```
-Astrogator <Satellite Object Path> InsertSegment < Attribute Path >
+Astrogator <Satellite Object Path> InsertSegment <Attribute Path> SegmentType
 ```
 ::: info 说明
-1. Attribute Path 是你要插入段的后一个段
+1. 若`<Attribute Path>`输入已存在段路径+段名，新段将插入到此段之前；若`<Attribute Path>`输入段路径+`-`，新段将插入到此任务控制序列最后一段之后；
 
-2. 在任务控制序列或子序列之后插入一个段，要在 Path 之后使用标志 `-`
+2. 若`<Attribute Path>`仅为`-`，新段将插入到第一个任务控制序列列表下的最后一个段之后。
 
-
-3. 在任务控制序列中插入一个段并且不在子序列中进行嵌套，就不需要输入完整的路径；输入你想要插入新的段的前一个段的名字即可
+3. 若`<Attribute Path>`仅为段名，新段将插入到第一个名字与之匹配的段之前。
 
 4. 插入 RPO 相关段时， 相关名称对应如下：
     - 圆形受控绕飞段 `RPOFMCircumnav`
