@@ -40,7 +40,7 @@ pIVAMCSPropagate2 = pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTyp
 pIVAMCSInitialState.SetOrbitEpoch('5 Nov 2022 00:00:00.000');
 pIVAMCSInitialState.SetElementType(EVAElementType.eVAElementTypeKeplerian);
 pIVAElementKeplerian = pIVAMCSInitialState.GetElement();
-pIVAElementKeplerian.SetSemiMajorAxis(6700);
+pIVAElementKeplerian.SetSemiMajorAxis(6700000);
 pIVAElementKeplerian.SetEccentricity(0);
 pIVAElementKeplerian.SetInclination(0);
 pIVAElementKeplerian.SetRAAN(0);
