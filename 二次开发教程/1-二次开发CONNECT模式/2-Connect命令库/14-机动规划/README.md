@@ -182,11 +182,11 @@ Astrogator <Satellite Object Path> AddMCSSegmentControl <AttributePath> <Attribu
 
 举例：
 ```
-Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSe- quence.SegmentList.Target_Sequence.SegmentList.Maneuver ImpulsiveMnvr.Cartesian.X
+Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver ImpulsiveMnvr.Cartesian.X
 ```
 
 ```
-Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSe- quence.SegmentList.Target_Sequence.SegmentList.Propagate StoppingConditions.Duration.TripValue
+Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSequence.SegmentList.Target_Sequence.SegmentList.Propagate StoppingConditions.Duration.TripValue
 ```
  
 
@@ -340,7 +340,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | Active                | 设置或获取控制变量是否使用，可输入true或false                   |
 | MaxStep               | 设置或获取最大步长                      |
 | Correction            | 设置或获取累计校正量                      |
-| Perturbation          | 设置或获取摄动量                      |
+| Pert                  | 设置或获取摄动量                      |
 | Scale                 | 设置或获取归一化参数                      |
 | FinalValue            | 获取最终值                      |
 
@@ -353,7 +353,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | Active                | 设置或获取控制变量是否使用，可输入true或false                   |
 | MaxStep               | 设置或获取最大步长                      |
 | Correction            | 设置或获取累计校正量                      |
-| Perturbation          | 设置或获取摄动量                      |
+| Pert                  | 设置或获取摄动量                      |
 | Scale                 | 设置或获取归一化参数                      |
 | LowerBound            | 设置或获取最小值                      |
 | UpperBound            | 设置或获取最大值                      |
@@ -472,10 +472,10 @@ Astrogator */Satellite/FastTransfer SetValue MainSequence.SegmentList.Target_Seq
 Astrogator */Satellite/FastTransfer SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver.Results "RAAN" "X" ');
 ```
 ```
-Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSe- quence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" Desired 84328394 m
+Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" Desired 84328394 m
 ```
 ```
-Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSe- quence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver Rel_Mean_Mean_Anomaly tolerance 0.2
+Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver Rel_Mean_Mean_Anomaly tolerance 0.2
 ```
  
 
@@ -487,10 +487,10 @@ Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSe- quence.Segment
 
 用法： 
 ```
-Astrogator_RM <Satellite Object Path> GetMCSConstraintValue <At- tributePath>.Profiles. Differential_Corrector <ParentObjectName> <ResultName> <Attribute>
+Astrogator_RM <Satellite Object Path> GetMCSConstraintValue <AttributePath>.Profiles. Differential_Corrector <ParentObjectName> <ResultName> <Attribute>
 ```
 
 举例： 
 ```
-Astrogator_RM */Satellite/Satellite1 GetMCSConstraintValue MainSe-  quence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" tolerance
+Astrogator_RM */Satellite/Satellite1 GetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" tolerance
 ```
