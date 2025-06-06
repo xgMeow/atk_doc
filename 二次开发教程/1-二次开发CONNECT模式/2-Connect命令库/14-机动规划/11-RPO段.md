@@ -230,7 +230,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOHop.Desir
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -261,7 +261,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPONaturalMo
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
