@@ -8,6 +8,10 @@
 
 ```java
 //ATKComponentJavaTest.java
+package com.atk.test;
+
+import com.atk.component.*;
+
 public class ATKComponentJavaTest{
   //1，加载ATKComponent模式动态库与依赖库
   static {
@@ -168,7 +172,5 @@ public class ATKComponentJavaTest{
 
 切换磁盘：E:
 切换路径：cd E:\ATK软件\Release-ATK-v3.0.0.1120
-编译命令：javac -cp ATKComponentJava.jar -encoding utf-8 ATKComponentJavaTest.java
-执行命令：java -cp .;ATKComponentJava.jar ATKComponentJavaTest
-
-![cmd命令行](media/3-Java案例实现/cmd命令行.png)
+编译命令：javac -cp ATKComponentJava.jar -encoding utf-8 com/atk/test/ATKComponentJavaTest.java
+执行命令：java -cp .;ATKComponentJava.jar com/atk/test/ATKComponentJavaTest

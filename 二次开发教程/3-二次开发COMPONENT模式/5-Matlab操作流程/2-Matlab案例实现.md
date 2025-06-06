@@ -9,6 +9,8 @@
 ```matlab
 //ATKComponentMatlabTest.m
 
+import com.atk.component.*;
+
 %设置编码类型，用于区分字符
 ATKComponentJavaModule.SetCallCodeType('matlab');
 
