@@ -160,10 +160,9 @@ public class ATKComponentJavaTest{
 	pIVADriverMCS.RunMCS();
 	pIVADriverMCS.ApplyAllProfileChanges();
 	//3.17，生成数据到文件
-	String strReportFilePath = pIAtkObjectRoot.OutputDataReport(pISatellite, "J2000位置速度", "5 Nov 2022 00:00:00.000", "6 Nov 2022 00:00:00.000");
-	pIAtkObjectRoot.GetAnimation().OutputPropCortsData(pISatellite);
-	//3.18，输出动画数据
-	pIAtkObjectRoot.GetAnimation().OutputData();
+	String strReportFilePath = pIAtkObjectRoot.OutputDataReport(pISatellite, "J2000 Position Velocity", "5 Nov 2022 00:00:00.000", "6 Nov 2022 00:00:00.000");
+	//3.18，输出数据报告目录
+	System.out.println("输出数据报告:"+strReportFilePath);
   }
 }
 ```
