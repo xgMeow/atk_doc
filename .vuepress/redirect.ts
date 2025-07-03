@@ -36,7 +36,7 @@ export default {
 
         "/topics/Scenario/CoverageDefinition":                 "/4.基础使用指南/4.1创建场景.html#设置场景属性",     //场景-属性：右下角的“help”按钮
 
-        "/topics/Release/ChangeLog":                            "/发布说明/v3.5.md",
+        "/topics/Release/ChangeLog":                            "/发布说明/最新版发布说明.md",
         
         "/topics/senario/create":       "/4.基础使用指南/4.1创建场景.html#xxx",     // 
         "/topics/senario/xxx":          "/4.基础使用指南/4.1创建场景.html#xxxx",     // 
