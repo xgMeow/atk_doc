@@ -251,7 +251,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | RMagnitude.TripValue  | 设置属性使用  StoppingConditions.RMagnitude.TripValue        |
 | TrueAnomaly.TripValue | 设置属性使用  StoppingConditions.TrueAnomaly.TripValue       |
 | MeanAnomaly.TripValue | 设置属性使用  StoppingConditions.MeanAnomaly.TripValue       |
-| ArgLat.TripValue      | 设置属性使用  StoppingConditions.ArgumentOfLati-  tude.TripValue |
+| ArgLat.TripValue      | 设置属性使用  StoppingConditions.ArgumentOfLatitude.TripValue |
 | StateCalc.TripValue   | 设置属性使用  StoppingConditions.StateCalc.TripValue         |
 
 机动段控制量属性名称：
@@ -276,10 +276,10 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | Finite.Longitude.TripValue       | 设置属性使用  StoppingConditions.Longitude.TripValue         |
 | Finite.Latitude.TripValue        | 设置属性使用  StoppingConditions.Latitud.TripValue           |
 | Finite.Altitude.TripValue        | 设置属性使用  StoppingConditions.Altitude.TripValue          |
-| Finite.RMagni-  tude.TripValue   | 设置属性使用  StoppingConditions.RMagnitude.TripValue        |
-| Finite.TrueAnom-  aly.TripValue  | 设置属性使用  StoppingConditions.TrueAnomaly.TripValue       |
-| Fi-  nite.MeanAnomaly.TripVa lue | 设置属性使用  StoppingConditions.MeanAnomaly.TripValue       |
-| Finite.ArgLat.TripValue          | 设置属性使用  StoppingConditions.ArgumentOfLati-  tude.TripValue |
+| Finite.RMagnitude.TripValue   | 设置属性使用  StoppingConditions.RMagnitude.TripValue        |
+| Finite.TrueAnomaly.TripValue  | 设置属性使用  StoppingConditions.TrueAnomaly.TripValue       |
+| Finite.MeanAnomaly.TripVa lue | 设置属性使用  StoppingConditions.MeanAnomaly.TripValue       |
+| Finite.ArgLat.TripValue          | 设置属性使用  StoppingConditions.ArgumentOfLatitude.TripValue |
 | Finite.StateCalc.TripValue       | 设置属性使用  StoppingConditions.StateCalc.TripValue         |
 
 更新段控制量属性名称：
@@ -469,7 +469,7 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 Astrogator */Satellite/FastTransfer SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver.Results "Radius Of Apoapsis"
 ```
 ```
-Astrogator */Satellite/FastTransfer SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver.Results "RAAN" "X" ');
+Astrogator */Satellite/FastTransfer SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver.Results "RAAN" "X"
 ```
 ```
 Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" Desired 84328394 m
