@@ -8,7 +8,7 @@
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -39,7 +39,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOExitGEO.D
 用法： 
 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 
 说明：
@@ -69,11 +69,11 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOGEORendez
 
  
 
-作用： 设置 RPOGEORendezvousNolead 段属性
+作用： 设置 `RPOGEORendezvousNolead` 段属性
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -108,7 +108,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOGEORendez
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -133,11 +133,11 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOFollowSun
 
  
 
-作用： 设置 `RPOForcedMotionCircumnav` 段属性
+作用： 设置 `RPOFMCircumnav` 段属性
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -169,11 +169,11 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOForcedMot
 
  
 
-作用： 设置 RPOForcedMotionWaypoint 段属性
+作用： 设置 `RPOFMW` 段属性
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -190,7 +190,7 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List
 
 举例： 
 ```
-Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOForcedMotionWaypoint.Waypoint_Radial 50000
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOFMW.Waypoint_Radial 50000
 ```
  
 
@@ -202,7 +202,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOForcedMot
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.< Parameters> <List of Results >
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List of Results >
 ```
 说明：
 
@@ -226,7 +226,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOHop.Desir
 
  
 
-作用： 设置 `RPONaturalMotionCircumnav` 段属性
+作用： 设置 `RPONMCircumnav` 段属性
 
 用法： 
 ```
@@ -249,7 +249,7 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List 
 
 举例： 
 ```
-Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPONaturalMotionCircumnav.SemiMinor_Axis 50000
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPONMCircumnav.SemiMinor_Axis 50000
 ```
  
 
