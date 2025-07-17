@@ -29,7 +29,7 @@ conID = atkOpen('hostStr'，PortStr);
 说明：
 - `conID` - 连接句柄
 - `hostStr` - IP地址
-- `PortStr` - 端口号，ATK端口号为6655
+- `PortStr` - 端口号，ATK默认端口号为6655
 
 ## atkConnect
 
