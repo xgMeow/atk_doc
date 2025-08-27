@@ -4,7 +4,7 @@
 
 ## 语法
 
-```matlab
+```atks
 Y = asinh(X)
 ```
 
