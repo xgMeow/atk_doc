@@ -1,21 +1,23 @@
 
 # ATK脚本
 
-ATK脚本定位为一种**领域专用语言**，目前支持基本运算符、流程控制语句等，**并原生支持绑定ATK对象与算法组件的属性**
+ATK脚本定位为一种**领域专用语言**，目前支持基本运算符、流程控制语句等，并原生支持**绑定ATK对象与算法组件的属性**
 
-ATK脚本扩展了一些专有功能，例如**支持直接访问ATK算法组件的属性，并新增了绑定赋值运算符`=&`与延迟赋值运算符`:=`来支持脚本变量与ATK算法组件属性的绑定**
+ATK脚本扩展了一些专有功能，例如支持直接访问ATK算法组件的属性，并新增了绑定赋值运算符`=&`与延迟赋值运算符`:=`来支持脚本变量与ATK算法组件属性的绑定
 
-ATK脚本的语法主要参考了julia语言，并实现了基础矩阵运算、基础数学函数、基础绘图函数以及ATK引擎相关函数等来支撑对ATK计算能力的扩展
+支持通过[`reactive`关键词](6-界面函数/reactive关键词.md)创建响应式变量，并通过声明式语法调用界面函数构建自定义界面
+
+ATK脚本的语法主要参考了julia语言，并实现了基础矩阵运算、基础数学函数、基础绘图函数、界面函数以及ATK引擎相关函数等来支撑对ATK计算能力与界面能力的扩展
 
 :::warning
 
-ATK脚本解释器并未进行jit优化，其解释执行效率不高，不建议应用于计算密集型任务，推荐用于以下场景：
+ATK脚本解释器并未进行jit优化，其**解释执行效率不高**，不建议应用于计算密集型任务，推荐用于以下场景：
 
 - 打通仿真计算时的场景对象之间的数据流
 
 - 执行自动化场景构建
 
-- 执行重复性的数据输出
+- 执行重复性的数据报告输出
 
 - 在不升级软件的情况下扩展ATK尚不具备的计算能力
 
@@ -104,6 +106,11 @@ ATK脚本支持的基础数学函数请参考[绘图函数](4-绘图函数/READM
 ### ATK相关函数
 
 ATK脚本支持的ATK相关函数请参考[ATK函数](5-ATK函数/README.md)
+
+
+### 绘图相关函数
+
+ATK脚本支持的界面控件函数请参考[界面函数](6-界面函数/README.md)
 
 
 
@@ -197,3 +204,57 @@ VX = 10
 例如，在上面的ATK脚本中，在更改`VX`变量的值后，将同步影响`Ecc`变量的值
 
 :::
+
+### 声明式语法创建响应式界面
+
+
+
+```atks
+
+# 新建初始段模型
+initState = NewObject("SegmentInitialState")
+
+# 通过reactive关键词创建响应式变量，且与初始段算法模型属性进行双向绑定
+
+reactive x_ref      =&  initState.InitialState.Cartesian.X
+reactive y_ref      =&  initState.InitialState.Cartesian.Y
+reactive z_ref      =&  initState.InitialState.Cartesian.Z
+reactive vx_ref     =&  initState.InitialState.Cartesian.VX
+reactive vy_ref     =&  initState.InitialState.Cartesian.VY
+reactive vz_ref     =&  initState.InitialState.Cartesian.VZ
+ 
+reactive a_ref      =&  initState.InitialState.Keplerian.SmajAx
+reactive e_ref      =&  initState.InitialState.Keplerian.Ecc
+reactive i_ref      =&  initState.InitialState.Keplerian.Inc
+reactive raan_ref   =&  initState.InitialState.Keplerian.RAAN
+reactive argper_ref =&  initState.InitialState.Keplerian.ArgPeri
+reactive truea_ref  =&  initState.InitialState.Keplerian.TrueA
+
+# 创建界面
+CreateDialog(
+    Grid(
+        ("X",              InputField(x_ref )    ),
+        ("Y",              InputField(y_ref )    ),
+        ("Y",              InputField(z_ref )    ),
+        ("VX",             InputField(vx_ref)    ),
+        ("VY",             InputField(vy_ref)    ),
+        ("VZ",             InputField(vz_ref)    ),
+   
+        ("半长轴",         InputField(a_ref)      ),
+        ("偏心率",         InputField(e_ref)      ),
+        ("轨道倾角",       InputField(i_ref)      ),
+        ("升交点赤经",     InputField(raan_ref)   ),
+        ("近地点纬度幅角", InputField(argper_ref) ),
+        ("真近点角",       InputField(truea_ref)  )
+    )
+)
+
+
+# 进入事件循环
+
+while(true)
+    pause(100)
+end
+```
+
+![效果图](media/2-ATK脚本/image.png)
