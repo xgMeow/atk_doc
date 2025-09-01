@@ -81,13 +81,14 @@ Astrogator <Satellite Object Path> InsertSegment <Attribute Path> SegmentType
     - 圆形受控绕飞段 `RPOFMCircumnav`
     - 直线逼近段 `RPOFMW`
     - 单次跳跃段 `RPOHop`
+    - 单次跳跃停止段 `RPOHopAndStop`
     - 定点保持段 `RPOPerchEqualSpacing`
     - 水滴绕飞段 `RPOTearDrop` 
-    - 自然绕飞段 RPONMCircumnav
-    - 太阳同步绕飞段 RPOFollowSun
-    - GEO 轨道撤离段 RPOExitGEO
-    - GEO 轨道漂移交会段 RPOGEORendezvousDrifting
-    - GEO 轨道交会段 RPOGEORendezvousNolead
+    - 自然绕飞段 `RPONMCircumnav`
+    - 太阳同步绕飞段 `RPOFollowSun`
+    - GEO 轨道撤离段 `RPOExitGEO`
+    - GEO 轨道漂移交会段 `RPOGEORendezvousDrifting`
+    - GEO 轨道交会段 `RPOGEORendezvousNolead`
 :::
 
 举例：
