@@ -1,56 +1,38 @@
-# 脚本工具
 
-## 功能介绍
+# ATK脚本
 
-本功能模块可以实现调用内置的[ATK脚本语言解释器](#atk脚本简介)或外部脚本语言来扩展ATK软件的计算能力
+ATK脚本定位为一种**领域专用语言**，目前支持基本运算符、流程控制语句等，并原生支持**绑定ATK对象与算法组件的属性**
 
-ATK脚本支持基本运算符与流程控制语句，**能直接访问ATK算法组件的属性**，扩展了**绑定赋值运算符**`=&`来支持脚本变量与ATK算法组件属性的绑定
+ATK脚本扩展了一些专有功能，例如支持直接访问ATK算法组件的属性，并新增了绑定赋值运算符`=&`与延迟赋值运算符`:=`来支持脚本变量与ATK算法组件属性的绑定
 
-外部脚本语言的调用功能支持**动态加载计算机中已有的计算环境**，目前支持Python、Matlab
+支持通过[`reactive`关键词](6-界面函数/reactive关键词.md)创建响应式变量，并通过声明式语法调用界面函数构建自定义界面
 
-## 功能位置
-
-可以在机动规划的序列段、瞄准序列段中访问该功能，具体位置如下图:
-
-![机动规划序列段脚本工具入口](media/5.18脚本工具/image.png)
-
-
-## 使用方法
-
-
-### 绑定属性
-
-在编程工作区的变量表中，新建一个变量后，点击变量行的`Edit`按钮，可以跳转到如下的变量绑定窗口
-
-![变量绑定](media/5.18脚本工具/image-1.png)
-
-变量绑定窗口的左侧为ATK对象树，右侧为当前所选对象的属性树，在右侧选择变量后，即可将变量与ATK对象的属性相绑定
-
+ATK脚本的语法主要参考了julia语言，并实现了基础矩阵运算、基础数学函数、基础绘图函数、界面函数以及ATK引擎相关函数等来支撑对ATK计算能力与界面能力的扩展
 
 :::warning
-对于ATK脚本，工作区里的变量是采用[绑定赋值](#基本运算符)定义的。所以在ATK脚本运行时，变量的值与所绑定的算法模型属性**是始终同步的**。
 
-对于外部脚本，工作区里的变量不是在运行时同步的，而是运行结束后同步的。所以在外部脚本运行时，变量的值与所绑定的算法模型属性**不是始终同步的**。
+ATK脚本解释器并未进行jit优化，其**解释执行效率不高**，不建议应用于计算密集型任务，推荐用于以下场景：
+
+- 打通仿真计算时的场景对象之间的数据流
+
+- 执行自动化场景构建
+
+- 执行重复性的数据报告输出
+
+- 在不升级软件的情况下扩展ATK尚不具备的计算能力
 
 :::
 
-### 编写与执行脚本
+## 功能位置
 
-点击`脚本编辑器`按钮，跳转到脚本编辑界面，在脚本编辑器中编写代码，并选择脚本执行器，目前的脚本执行器有`ATK脚本`、`Python`、`Matlab`
+- 运行`ATKConsole` 程序， 在windows 下为 `ATKConsole.exe`，在linux下请运行`ATKConsole.sh`
 
-![ATK脚本编写](media/5.18脚本工具/image-2.png)
+- 打开集成选项卡中的客户端，采用ATK脚本作为解释器引擎
 
-编写完成后，点击运行即可触发脚本执行，并会在脚本执行结束后更新工作区变量的值。
+- 打开集成选项卡中的控制台，可选择ATK脚本解释器进行运行
 
-如果勾选了`运行脚本`，则在序列段、瞄准序列段每次执行时都会自动触发脚本执行。
 
-## ATK脚本简介
 
-ATK脚本定位为一种**领域专用语言**，目前支持基本运算符、流程控制语句等，**并原生支持绑定ATK对象与算法组件的属性**
-
-ATK脚本扩展了一些专有功能，例如**支持直接访问ATK算法组件的属性，并新增了绑定赋值运算符`=&`与延迟赋值运算符`:=`来支持脚本变量与ATK算法组件属性的绑定**
-
-ATK脚本的语法主要参考了julia语言
 
 ### 数据类型
 
@@ -115,19 +97,22 @@ ATK脚本的语法主要参考了julia语言
 
 ### 基础数学函数
 
-ATK脚本语言支持的基础数学函数如下：
+ATK脚本支持的基础数学函数请参考[数学函数](3-数学函数/README.md)
 
-1. 三角函数：`sin`、`cos`、`tan`、`sec`、`csc`、`cot`
+### 绘图相关函数
 
-2. 反三角函数：`asin`、`acos`、`atan`、`asec`、`acsc`、`acot`、`atan2`
+ATK脚本支持的基础数学函数请参考[绘图函数](4-绘图函数/README.md)
 
-3. 双曲函数：`sinh`、`cosh`、`tanh`、`sech`、`csch`、`coth`
+### ATK相关函数
 
-4. 反双曲函数：`asinh`、`acosh`、`atanh`、`asech`、`acsch`、`acoth`
+ATK脚本支持的ATK相关函数请参考[ATK函数](5-ATK函数/README.md)
 
-5. 对数函数：`log`、`log10`、`log2`、`log1p`
 
-6. 其他函数：`sqrt`、`exp`、`abs`、`ceil`、`floor`
+### 绘图相关函数
+
+ATK脚本支持的界面控件函数请参考[界面函数](6-界面函数/README.md)
+
+
 
 ### 流程控制
 
@@ -220,23 +205,56 @@ VX = 10
 
 :::
 
+### 声明式语法创建响应式界面
 
-## 调用外部Python环境
 
 
-### 选择Python动态库
+```atks
 
-在执行Python脚本时，会提示需要选择一个Python环境，可以选择电脑中已安装的Python动态库。
+# 新建初始段模型
+initState = NewObject("SegmentInitialState")
 
-例如在windows下选择`python38.dll`、`python311.dll`，linux下选择`libpython.so`
+# 通过reactive关键词创建响应式变量，且与初始段算法模型属性进行双向绑定
 
-![选择Python动态库](media/5.18脚本工具/image-5.png)
+reactive x_ref      =&  initState.InitialState.Cartesian.X
+reactive y_ref      =&  initState.InitialState.Cartesian.Y
+reactive z_ref      =&  initState.InitialState.Cartesian.Z
+reactive vx_ref     =&  initState.InitialState.Cartesian.VX
+reactive vy_ref     =&  initState.InitialState.Cartesian.VY
+reactive vz_ref     =&  initState.InitialState.Cartesian.VZ
+ 
+reactive a_ref      =&  initState.InitialState.Keplerian.SmajAx
+reactive e_ref      =&  initState.InitialState.Keplerian.Ecc
+reactive i_ref      =&  initState.InitialState.Keplerian.Inc
+reactive raan_ref   =&  initState.InitialState.Keplerian.RAAN
+reactive argper_ref =&  initState.InitialState.Keplerian.ArgPeri
+reactive truea_ref  =&  initState.InitialState.Keplerian.TrueA
 
-### 脚本环境内置函数
+# 创建界面
+CreateDialog(
+    Grid(
+        ("X",              InputField(x_ref )    ),
+        ("Y",              InputField(y_ref )    ),
+        ("Y",              InputField(z_ref )    ),
+        ("VX",             InputField(vx_ref)    ),
+        ("VY",             InputField(vy_ref)    ),
+        ("VZ",             InputField(vz_ref)    ),
+   
+        ("半长轴",         InputField(a_ref)      ),
+        ("偏心率",         InputField(e_ref)      ),
+        ("轨道倾角",       InputField(i_ref)      ),
+        ("升交点赤经",     InputField(raan_ref)   ),
+        ("近地点纬度幅角", InputField(argper_ref) ),
+        ("真近点角",       InputField(truea_ref)  )
+    )
+)
 
-`ATKExecuteCommand`函数可以执行[ATK Connect命令](/二次开发教程/1-二次开发CONNECT模式/1-Connect模式输入和输出.md)，例如
 
+# 进入事件循环
+
+while(true)
+    pause(100)
+end
 ```
-ATKExecuteCommand("Astrogator */Satellite/卫星1 ApplyCorrections MainSequence.SegmentList.瞄准序列段")
-```
 
+![效果图](media/2-ATK脚本/image.png)
