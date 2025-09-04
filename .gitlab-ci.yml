@@ -52,6 +52,7 @@ pages:
     paths:
     - public
   script:
+    - mkdir ./public || true
     - cp  -r .dist/gitlab/* ./public
     - zip -r ./public/help-standalone.zip .dist/standalone/
   
