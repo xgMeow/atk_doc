@@ -28,7 +28,7 @@ build:standalone:
     - npm run build:standalone
 
 
-.deploy:pages:
+.deploy:pages-old:
   stage: deploy
   tags:
     - linux
@@ -41,18 +41,16 @@ build:standalone:
     - zip -r /mnt/project/gitlab/gitlab-rails/shared/pages/jinke18/atk-doc/help-standalone.zip .dist/standalone/
 
 
-pages:
+deploy:pages:
   stage: deploy
   tags:
     - linux
+    - gitlab
   dependencies:
     - build:gitlab
     - build:standalone
-  artifacts:
-    paths:
-    - public
   script:
-    - mkdir ./public || true
-    - cp  -r .dist/gitlab/* ./public
-    - zip -r ./public/help-standalone.zip .dist/standalone/
+    #- mkdir ./public || true
+    - cp  -r .dist/gitlab/* /var/opt/gitlab/gitlab-rails/shared/pages
+    - zip -r /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip .dist/standalone/
   
