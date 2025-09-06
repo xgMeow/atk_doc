@@ -49,13 +49,18 @@ export default defineClientConfig({
                 fullpath = fullpath.split("#")[0]
             }
             let split_path = fullpath.split("/") || []; 
+
+            // console.log("fullpath", fullpath)
+            // console.log("split_path", split_path)
+
             for(let i=0;i<split_path.length;i++){
                 let path_new = "/" + split_path.slice(i).join("/");
                 let route = _resolveRoute(path_new);
                 if(!route.notFound){
                     // 在离线模式下缓存当前文档所在的文件夹路径到root_dir
                     if(!root_dir || i>0){
-                        root_dir = split_path.slice(0, i).join("/")   
+                        // linux 下必须以/开头, 这样windows也没有问题
+                        root_dir = "/" + split_path.slice(0, i).join("/")   
                         // router.options.history.base = "file:///" + root_dir;
                     }
                     // console.log(route)
@@ -68,6 +73,9 @@ export default defineClientConfig({
                     if(to_path.endsWith("/")){
                         to_path = to_path + "index.html";
                     }
+                    // console.log("root_dir", root_dir)
+                    // console.log("to_path", to_path)
+                    // console.log("to.hash", to.hash)
 
                     to.fullPath = root_dir + to_path + to.hash;
 

@@ -70,6 +70,26 @@ const offlinifyBarsScript = fileName => {
   console.log(`Script offlinified: ${fileName}`)
 }
 
+const offlinifySearchPro = fileName => {
+  processData(path.resolve(scriptsPath, fileName), data => {
+    // console.log("fileName", fileName)
+    // console.log("data", data)
+    let match = data.match(/"([^":]*?worker\.js)"/)
+    if(match)
+    {
+      let workerjs = path.resolve(distPath, match[1])
+      //console.log("workerjs", workerjs)
+      let script = fs.readFileSync(workerjs, {encoding:"utf8"})
+      let scriptContent = JSON.stringify(script)
+      let replaceScript = `new Worker(URL.createObjectURL(new Blob([${scriptContent}], {type:'application/javascript'})),{})`
+      data = data.replace(/new Worker\(.*?\)/, replaceScript)
+      fs.rmSync(workerjs)
+    }
+    return data
+  })
+  console.log(`SearchPro offlinified: ${fileName}`)
+}
+
 const styles = fs.readdirSync(stylesPath)
 styles.forEach(style => offlinifyStyle(style))
 
@@ -77,9 +97,13 @@ const scripts = fs.readdirSync(scriptsPath)
 scripts.forEach(script => {
   if (script.startsWith('app.')) {
     // offlinifyAppScript(script)
-  } else{
+  }else if(script.endsWith("app.js")){
     // Hopefully that script keeps to be named this way no matter what
     // offlinifyBarsScript(script)
+  }else if(script.endsWith(".txt")){
+
+  }else{
+    offlinifySearchPro(script)
   }
 })
 

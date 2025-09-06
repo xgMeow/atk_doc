@@ -90,14 +90,15 @@ export const useHopeTheme = ({ type }) =>
       sitemap: !standalone,
       readingTime: false,
       // 开启搜索
-      searchPro: standalone ? false : {
+      searchPro: //standalone ? false : 
+      {
         autoSuggestions: false,
         queryHistoryCount: 5,
         resultHistoryCount: 5,
-        indexContent: true,
-        worker: `search-pro-${Date.now()}.worker.js`,
+        indexContent: false,
+        worker: `atk-search.worker.js`,
       },
-      search: !!standalone,
+      //search: !!standalone,
 
       components: {
         components: ["Badge", "VPCard"],

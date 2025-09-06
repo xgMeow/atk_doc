@@ -7,7 +7,7 @@ export const useNavbar = ({ type }) => {
     return navbar([
       {
         text: "下载离线版手册",
-        link: "http://192.168.0.254:8898/help-standalone.zip",
+        link: "http://192.168.0.253:8888/help-standalone.zip",
       },
       {
         text: "二次开发教程",
@@ -18,11 +18,11 @@ export const useNavbar = ({ type }) => {
   }
   else if (standalone) {
     return navbar([
-      {
-        text: "在线手册",
-        link: "https://atkdocs.smsat.space/",
-        icon: '/images/logo.png'
-      },
+      // {
+      //   text: "在线手册",
+      //   link: "https://atkdocs.smsat.space/",
+      //   icon: '/images/logo.png'
+      // },
       {
         text: "二次开发教程",
         link: "/二次开发教程/",
