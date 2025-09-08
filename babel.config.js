@@ -1,0 +1,13 @@
+module.exports = {
+  presets:[
+    //"@vue/babel-preset-app"
+    [
+      "@babel/preset-env",
+      {
+        targets:{
+          browsers:['> 1%', 'last 2 versions', 'not ie <= 8', 'firefox >= 52']
+        }
+      }            
+    ]
+  ]
+}

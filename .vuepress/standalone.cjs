@@ -82,7 +82,7 @@ const offlinifySearchPro = fileName => {
       let script = fs.readFileSync(workerjs, {encoding:"utf8"})
       let scriptContent = JSON.stringify(script)
       let replaceScript = `new Worker(URL.createObjectURL(new Blob([${scriptContent}], {type:'application/javascript'})),{})`
-      data = data.replace(/new Worker\(.*?\)/, replaceScript)
+      data = data.replace(/new Worker\(.*?\{\}\)/, replaceScript)
       fs.rmSync(workerjs)
     }
     return data

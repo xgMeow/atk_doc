@@ -3,8 +3,9 @@ import {useHopeTheme} from "./theme.js";
 import { standaloneBundler } from './bundler-standalone/index.js'
 import path from "path"
 import viteBundler from "@vuepress/bundler-vite";
+import webpackBundler from "@vuepress/bundler-webpack";
 
-export const useConfig = ({type}) => {
+export const useConfig = ({type, plat=""}) => {
   let standalone = type == "standalone";
   return defineUserConfig({
     base: "/",
@@ -49,7 +50,7 @@ export const useConfig = ({type}) => {
       }
     },
     shouldPrefetch: false,
-    theme: useHopeTheme({type}),
+    theme: useHopeTheme({type, plat}),
 
     bundler: standalone?
       standaloneBundler({
@@ -61,6 +62,18 @@ export const useConfig = ({type}) => {
             config.output.asyncChunks = false;
             // config.optimization.splitChunks= {chunks:"all"};
           }
+        },
+        chainWebpack(config, isServer, isBuild) {
+          if(!isServer)
+          {
+            config.module
+            .rule('js')
+            .test(/\.js$/)
+            .use("babel-loader")
+            .loader("babel-loader")
+            .end()
+          }
+
         },
         // evergreen: true,
       }): 
