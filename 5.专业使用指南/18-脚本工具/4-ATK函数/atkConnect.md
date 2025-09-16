@@ -1,6 +1,6 @@
 # atkConnect
 
-向已建立连接的远程ATK发送Connect命令
+向已建立连接的远程ATK通过网络通信发送Connect命令
 
 ## 语法
 
