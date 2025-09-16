@@ -27,6 +27,18 @@ build:standalone:
     - Copy-Item -Path F:\jk\atk-doc\node_modules -Destination $PWD -Recurse
     - npm run build:standalone
 
+build:standalone-kylin:
+  stage: build  
+  tags:
+    - npm
+    - windows
+  artifacts:
+    paths:
+    - .dist/standalone-kylin
+  script:
+    - Copy-Item -Path F:\jk\atk-doc\node_modules -Destination $PWD -Recurse
+    - npm run build:standalone-kylin
+
 
 .deploy:pages-old:
   stage: deploy
@@ -49,8 +61,10 @@ deploy:pages:
   dependencies:
     - build:gitlab
     - build:standalone
+    - build:standalone-kylin
   script:
     #- mkdir ./public || true
     - cp  -r .dist/gitlab/* /var/opt/gitlab/gitlab-rails/shared/pages
-    - zip -r /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip .dist/standalone/
+    - zip -r /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip        .dist/standalone/
+    - zip -r /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone-kylin.zip  .dist/standalone-kylin/
   

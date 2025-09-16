@@ -3,7 +3,6 @@
 	"version": "2.0.0",
 	"description": "A project of vuepress-theme-hope",
 	"license": "MIT",
-	"type": "module",
 	"scripts": {
 		"update-package": "npx vp-update",
 		"clean-dev": "vuepress dev . --clean-cache",
@@ -12,8 +11,10 @@
 		"dev-debug": "vuepress dev --debug .",
 		"build:online": "vuepress build --config ./.vuepress/config-online.ts  --dest .dist/online .",
 		"build:standalone": "vuepress build --config ./.vuepress/config-standalone.ts --dest .dist/standalone . && npm run script:standalone",
+		"build:standalone-kylin": "vuepress build --config ./.vuepress/config-standalone-kylin.ts --dest .dist/standalone-kylin . && npm run script:standalone-kylin",
 		"build:gitlab": "vuepress build --config ./.vuepress/config-gitlab.ts --dest .dist/gitlab .",
-		"script:standalone": "node ./.vuepress/standalone.cjs .dist/standalone"
+		"script:standalone": "node ./.vuepress/standalone.cjs .dist/standalone",
+		"script:standalone-kylin": "node ./.vuepress/standalone.cjs .dist/standalone-kylin"
 	},
 	"dependencies": {
 		"@vuepress/bundler-vite": "2.0.0-rc.9",
@@ -34,5 +35,15 @@
 		"walk": "^2.3.15"
 	},
 	"devDependencies": {
-	}
+		"@babel/core":"^7.28.4",
+		"@babel/preset-env":"^7.28.3",
+		"@vue/babel-preset-app":"^5.0.9",
+		"babel-loader":"^10.0.0"
+	},
+	"browerslist":[
+		"> 1%",
+		"last 2 version",
+		"not ie <= 8",
+		"firefox >= 52"
+	]
 }

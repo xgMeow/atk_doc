@@ -4,10 +4,11 @@ import sidebar from "./sidebar.js";
 import { redirect } from "vuepress-theme-hope";
 import redirectconfig from "./redirect.js";
 
-export const useHopeTheme = ({ type }) => 
+export const useHopeTheme = ({ type, plat="" }) => 
 {
   let standalone = type == "standalone";
   let gitlab = type == "gitlab";
+  let kylin = plat == "kylin"
   return hopeTheme(
   {
     // 是否显示打印按钮
@@ -90,7 +91,7 @@ export const useHopeTheme = ({ type }) =>
       sitemap: !standalone,
       readingTime: false,
       // 开启搜索
-      searchPro: //standalone ? false : 
+      searchPro: kylin ? false : 
       {
         autoSuggestions: false,
         queryHistoryCount: 5,
@@ -98,7 +99,7 @@ export const useHopeTheme = ({ type }) =>
         indexContent: false,
         worker: `atk-search.worker.js`,
       },
-      //search: !!standalone,
+      search: !!kylin,
 
       components: {
         components: ["Badge", "VPCard"],
