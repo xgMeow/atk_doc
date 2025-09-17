@@ -1,7 +1,7 @@
 export default {
     // 给ATK界面用的重定向网页，需要给ATK提供`/topics/`后面的关键词，界面点击`帮助`即可跳转到相应的界面
     config:{ 
-        // 高级工具
+        // 高级工具（路径尽可能短一点，将ProfessionalTools改为Tool，下面这些不动了，也别添加新的了）
         "/topics/ProfessionalTools/Access":                       "/5.专业使用指南/1-可见性工具.html",     //在工具-可见性弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/Coverage":                     "/5.专业使用指南/2-覆盖工具.html",       //在工具-覆盖性弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/BatchedCoordTransformation":   "/5.专业使用指南/4-批量坐标转换工具.html",   //在工具-批量坐标转换弹出的右下角增加“help”按钮 
@@ -14,7 +14,23 @@ export default {
         "/topics/ProfessionalTools/ReentryRecovery":              "/5.专业使用指南/15-再入回收模块.html",   //在工具-再入回收弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/LifeTime":                     "/5.专业使用指南/16-寿命预报模块.html",   //在工具-寿命预报弹出的右下角增加“help”按钮 
         "/topics/ProfessionalTools/VectorGeometryTool":           "/5.专业使用指南/17-矢量几何工具.html",   //在工具-矢量几何工具弹出的右下角增加“help”按钮 
-        "/topics/ProfessionalTools/ScriptTool":                   "/5.专业使用指南/18-脚本工具/index.html",     
+        "/topics/ProfessionalTools/ScriptTool":                   "/5.专业使用指南/18-脚本工具/index.html",   
+        
+        // 工具
+        "/topics/Tool/Access":                       "/5.专业使用指南/1-可见性工具.html",             //在工具-可见性弹出的右下角增加“help”按钮 
+        "/topics/Tool/Coverage":                     "/5.专业使用指南/2-覆盖工具.html",               //在工具-覆盖性弹出的右下角增加“help”按钮 
+        "/topics/Tool/BatchedCoordTransformation":   "/5.专业使用指南/4-批量坐标转换工具.html",       //在工具-批量坐标转换弹出的右下角增加“help”按钮 
+        "/topics/Tool/CAT":                          "/5.专业使用指南/5-接近分析工具.html",           //在工具-接近分析弹出的右下角增加“help”按钮 
+        "/topics/Tool/CamSafetyAnalysis":            "/5.专业使用指南/6-碰撞规避工具.html",           //在工具-碰撞规避弹出的右下角增加“help”按钮 
+        "/topics/Tool/ConstellationAnalysis":        "/5.专业使用指南/7-星座设计工具.html",           //在工具-星座设计弹出的右下角增加“help”按钮 
+        "/topics/Tool/RegionCoverage":               "/5.专业使用指南/9-区域覆盖模块.html",           //在工具-区域覆盖弹出的右下角增加“help”按钮 
+        "/topics/Tool/CUiConstellationDesign":       "/5.专业使用指南/11-高级星座设计功能模块.html",   //在工具-高级星座设计弹出的右下角增加“help”按钮 
+        "/topics/Tool/Maneuer":                      "/5.专业使用指南/14-机动分析功能模块.html",       //在工具-机动分析弹出的右下角增加“help”按钮 
+        "/topics/Tool/ReentryRecovery":              "/5.专业使用指南/15-再入回收模块.html",           //在工具-再入回收弹出的右下角增加“help”按钮 
+        "/topics/Tool/LifeTime":                     "/5.专业使用指南/16-寿命预报模块.html",           //在工具-寿命预报弹出的右下角增加“help”按钮 
+        "/topics/Tool/VectorGeometryTool":           "/5.专业使用指南/17-矢量几何工具.html",           //在工具-矢量几何工具弹出的右下角增加“help”按钮 
+        "/topics/Tool/ScriptTool":                    "/5.专业使用指南/18-脚本工具/index.html",     
+        
 
         // 机动规划 AstroMaster
         "/topics/AstroMaster/InitialState":                  "/5.专业使用指南/3-轨道机动规划工具/2-初始段.html",
@@ -42,6 +58,8 @@ export default {
         "/topics/Objects/CoverageDefinition":                 "/3.案例教程/3.11区域覆盖案例.html#创建任务场景与对象",     //覆盖定义-属性：右下角的“help”按钮 
 
         "/topics/Scenario/CoverageDefinition":                 "/4.基础使用指南/4.1创建场景.html#设置场景属性",     //场景-属性：右下角的“help”按钮
+
+        "/topics/Intergrating/Client":                          "/二次开发教程/4-ATK客户端.md",
 
         "/topics/Release/ChangeLog":                            "/发布说明/最新版发布说明.md",
         
