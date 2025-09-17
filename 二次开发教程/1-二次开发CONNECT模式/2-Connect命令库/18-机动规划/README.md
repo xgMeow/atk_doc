@@ -480,11 +480,11 @@ Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSequence.SegmentLi
 ```
  
 
-## 规划获得段约束值
+## 规划属性页获得段约束值
 
  
 
-作用：获得规划每个段的约束值
+作用：获得属性页约束值
 
 用法： 
 ```
@@ -495,3 +495,22 @@ Astrogator_RM <Satellite Object Path> GetMCSConstraintValue <AttributePath>.Prof
 ```
 Astrogator_RM */Satellite/Satellite1 GetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" tolerance
 ```
+
+
+
+## 规划获得段约束值
+
+ 
+
+作用：获得规划每个段的约束值
+
+用法： 
+```
+Astrogator_RM <Satellite Object Path> GetValue <AttributePath>.Results.<ResultName>.Value
+```
+
+举例： 
+```
+Astrogator_RM */Satellite/Satellite1 GetValue MainSequence.SegmentList.Propagate.Results.StateCalcX.Value
+```
+
