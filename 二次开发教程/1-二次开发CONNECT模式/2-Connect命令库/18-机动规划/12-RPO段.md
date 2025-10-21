@@ -1,6 +1,40 @@
 # RPO段
 
-## RPOGEO 轨道撤离段
+## RPO段重命名
+
+
+作用： 设置 RPO段重命名
+
+用法： 
+```
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.ComponentName Rename
+```
+
+举例： 
+```
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOExitGEO.ComponentName 111
+```
+ 
+
+## RPO段设置参考航天器
+
+
+作用： 设置 RPO段参考航天器
+
+用法： 
+```
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.Reference <ObjectPath>
+```
+
+举例： 
+```
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOExitGEO.Reference "Satellite/Satellite3"
+```
+
+## RPO段设置参数
+
+
+### RPOGEO 轨道撤离段
 
  
 
@@ -30,7 +64,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOExitGEO.D
 ```
  
 
-## RPOGEO 轨道漂移交会段
+### RPOGEO 轨道漂移交会段
 
  
 
@@ -65,7 +99,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOGEORendez
 ```
  
 
-## RPOGEO 轨道交会段
+### RPOGEO 轨道交会段
 
  
 
@@ -100,7 +134,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOGEORendez
 ```
  
 
-## RPO 太阳同步绕飞段
+### RPO 太阳同步绕飞段
 
  
 
@@ -129,7 +163,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOFollowSun
 ```
  
 
-## RPO 圆形受控绕飞段
+### RPO 圆形受控绕飞段
 
  
 
@@ -165,7 +199,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOForcedMot
 ```
  
 
-## RPO直线逼近段
+### RPO直线逼近段
 
  
 
@@ -194,7 +228,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOFMW.Waypo
 ```
  
 
-## RPO 单次跳跃段
+### RPO 单次跳跃段
 
  
 
@@ -221,7 +255,7 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List 
 Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOHop.Desired_Radial 50000
 ```
  
-## RPO 跳跃停止段
+### RPO 跳跃停止段
 
  
 
@@ -249,7 +283,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOHopAndSto
 ```
  
 
-## RPO 自然绕飞段
+### RPO 自然绕飞段
 
  
 
@@ -280,7 +314,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPONMCircumn
 ```
  
 
-## RPO 定点保持段
+### RPO 定点保持段
 
  
 
@@ -306,7 +340,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOPerchEqua
 ```
  
 
-## RPO 水滴绕飞段
+### RPO 水滴绕飞段
 
  
 
