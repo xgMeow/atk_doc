@@ -66,16 +66,16 @@ export default {
         "/topics/senario/create":       "/4.基础使用指南/4.1创建场景.html#xxx",     // 
         "/topics/senario/xxx":          "/4.基础使用指南/4.1创建场景.html#xxxx",     // 
 
-        "/topics/Attitude/AttitudeFixedInAxes":                 "/4.基础使用指南/7-基础模型/2-姿态定义/1-固定姿态.md",
-        "/topics/Attitude/AttitudeFixedInCBF":                  "/4.基础使用指南/7-基础模型/2-姿态定义/2-固定于天体固定系姿态.md",
-        "/topics/Attitude/AttitudeFixedInCBI":                  "/4.基础使用指南/7-基础模型/2-姿态定义/3-固定于天体惯性系姿态.md",
-        "/topics/Attitude/AttitudeAlignedConstrained":          "/4.基础使用指南/7-基础模型/2-姿态定义/4-对齐约束姿态.md",
-        "/topics/Attitude/AttitudeMutilSegment":                "/4.基础使用指南/7-基础模型/2-姿态定义/5-多分段姿态.md",
-        "/topics/Attitude/AttitudeRealTime":                    "/4.基础使用指南/7-基础模型/2-姿态定义/6-实时姿态.md",
-        "/topics/Attitude/AttitudeSTKAttitude":                 "/4.基础使用指南/7-基础模型/2-姿态定义/7-STK文件姿态.md",
-        "/topics/Attitude/AttitudeSpinning":                    "/4.基础使用指南/7-基础模型/2-姿态定义/9-旋转姿态.md",
-        "/topics/Attitude/AttitudeTargetPointing":              "/4.基础使用指南/7-基础模型/2-姿态定义/10-目标指向姿态.md",
-        "/topics/Attitude/AttitudeVVLHCBI":                     "/4.基础使用指南/7-基础模型/2-姿态定义/12-惯性系VVLH姿态.md",
-        "/topics/Attitude/AttitudeVVLHCBF":                     "/4.基础使用指南/7-基础模型/2-姿态定义/13-固连系VVLH姿态.md"
+        "/topics/Attitude/AttitudeFixedInAxes":                 "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/1-固定姿态.md",
+        "/topics/Attitude/AttitudeFixedInCBF":                  "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/2-固定于天体固定系姿态.md",
+        "/topics/Attitude/AttitudeFixedInCBI":                  "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/3-固定于天体惯性系姿态.md",
+        "/topics/Attitude/AttitudeAlignedConstrained":          "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/4-对齐约束姿态.md",
+        "/topics/Attitude/AttitudeMutilSegment":                "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/5-多分段姿态.md",
+        "/topics/Attitude/AttitudeRealTime":                    "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/6-实时姿态.md",
+        "/topics/Attitude/AttitudeSTKAttitude":                 "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/7-STK文件姿态.md",
+        "/topics/Attitude/AttitudeSpinning":                    "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/9-旋转姿态.md",
+        "/topics/Attitude/AttitudeTargetPointing":              "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/10-目标指向姿态.md",
+        "/topics/Attitude/AttitudeVVLHCBI":                     "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/12-惯性系VVLH姿态.md",
+        "/topics/Attitude/AttitudeVVLHCBF":                     "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/13-固连系VVLH姿态.md"
     }
 }
