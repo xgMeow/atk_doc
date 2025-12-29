@@ -76,7 +76,8 @@ export default {
         "/topics/Attitude/AttitudeSpinning":                    "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/9-旋转姿态.md",
         "/topics/Attitude/AttitudeTargetPointing":              "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/10-目标指向姿态.md",
         "/topics/Attitude/AttitudeVVLHCBI":                     "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/12-惯性系VVLH姿态.md",
-        "/topics/Attitude/AttitudeVVLHCBF":                     "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/13-固连系VVLH姿态.md"
-        
+        "/topics/Attitude/AttitudeVVLHCBF":                     "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/13-固连系VVLH姿态.md",
+        "/topics/Attitude/AttitudeEcfAligndVel":                "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/15-ECF对速度定向.md",
+        "/topics/Attitude/AttitudeEciAligndVel":                "/4.基础使用指南/7-基础模型（实验）/2-姿态定义/16-ECI对速度定向.md"
     }
 }
