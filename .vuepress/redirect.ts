@@ -29,7 +29,13 @@ export default {
         "/topics/Tool/ReentryRecovery":              "/5.专业使用指南/15-再入回收模块.html",           //在工具-再入回收弹出的右下角增加“help”按钮 
         "/topics/Tool/LifeTime":                     "/5.专业使用指南/16-寿命预报模块.html",           //在工具-寿命预报弹出的右下角增加“help”按钮 
         "/topics/Tool/VectorGeometryTool":           "/5.专业使用指南/17-矢量几何工具.html",           //在工具-矢量几何工具弹出的右下角增加“help”按钮 
-        "/topics/Tool/ScriptTool":                    "/5.专业使用指南/18-脚本工具/index.html",     
+        "/topics/Tool/ScriptTool":                   "/5.专业使用指南/18-脚本工具/index.html",     
+        "/topics/Tool/LWCAT":                        "/5.专业使用指南/19-发射窗口接近分析工具.html",            //在工具-发射窗口接近分析弹出的右下角增加“help”按钮
+        "/topics/Tool/AdvCAT/Main":                  "/5.专业使用指南/20-高级接近分析模块.html#主配置界面",      //在对象-高级接近分析主配置界面，右下角的“help”按钮
+        "/topics/Tool/AdvCAT/Advanced":              "/5.专业使用指南/20-高级接近分析模块.html#高级界面",        //在对象-高级接近分析高级界面，右下角的“help”按钮
+        "/topics/Tool/AdvCAT/Nonelinear":            "/5.专业使用指南/20-高级接近分析模块.html#非线性计算界面",  //在对象-高级接近分析非线性计算界面，右下角的“help”按钮
+        "/topics/Tool/AdvCAT/Display":               "/5.专业使用指南/20-高级接近分析模块.html#显示界面",        //在对象-高级接近分析显示界面，右下角的“help”按钮
+        "/topics/Tool/LaserCAT":                     "/5.专业使用指南/21-激光接近分析工具.html",                //在工具-激光接近分析弹出的右下角增加“help”按钮
         
 
         // 机动规划 AstroMaster
