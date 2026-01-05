@@ -44,7 +44,7 @@ build:standalone-kylin:
   stage: deploy
   tags:
     - linux
-    - gitlab
+   # - gitlab  #by@k 20260105 
   dependencies:
     - build:gitlab
     - build:standalone
@@ -57,7 +57,7 @@ deploy:pages:
   stage: deploy
   tags:
     - linux
-    - gitlab
+    # - gitlab  #by@k 20260105 
   dependencies:
     - build:gitlab
     - build:standalone
