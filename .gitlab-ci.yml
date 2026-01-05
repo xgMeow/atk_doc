@@ -66,7 +66,7 @@ deploy:pages:
     - build:standalone-kylin
   script:
     #- mkdir ./public || true
-    -sudo cp  -rv .dist/gitlab/* /var/opt/gitlab/gitlab-rails/shared/pages
-    -sudo zip -rv /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip        .dist/standalone/
-    -sudo zip -rv /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone-kylin.zip  .dist/standalone-kylin/
+    - sudo cp  -rv .dist/gitlab/* /var/opt/gitlab/gitlab-rails/shared/pages
+    - sudo zip -rv /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip        .dist/standalone/
+    - sudo zip -rv /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone-kylin.zip  .dist/standalone-kylin/
   
