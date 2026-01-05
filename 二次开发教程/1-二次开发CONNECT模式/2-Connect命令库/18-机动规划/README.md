@@ -141,7 +141,7 @@ Astrogator */Satellite/Satellite1 DeleteSegment MainSequence.SegmentList.Target_
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path> <Attribute> <Value> [<Unit>]
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Attribute> <Value> [<Unit>]
 ```
 
 说明：具体的属性类型请查看规划属性
