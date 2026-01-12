@@ -18,4 +18,4 @@
 
 ### 配置参数
 
-1. ConstaintOffset: 偏移角，指向地心的向量偏移的角度。
+ConstaintOffset: 偏移角，指向地心的向量偏移的角度。
