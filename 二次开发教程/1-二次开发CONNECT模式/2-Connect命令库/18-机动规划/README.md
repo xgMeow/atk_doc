@@ -141,7 +141,7 @@ Astrogator */Satellite/Satellite1 DeleteSegment MainSequence.SegmentList.Target_
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path> <Attribute> <Value> [<Unit>]
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Attribute> <Value> [<Unit>]
 ```
 
 说明：具体的属性类型请查看规划属性
@@ -455,7 +455,6 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 | weight                                                | 设置或获取权重系数                      |
 | desired                                               | 设置或获取期望值                      |
 | Objfun\{Constraint\|Minimize\|Maximize\|<br>MinimizeandConstraint\|MaximizeandConstraint\}  | 设置或获取类型\{约束\|最小化\|最大化\|最小化和约束\|最大化和约束\}        |
-| desired                                               | 设置或获取期望值                      |
 | LowerBound                                            | 设置或获取最小值                      |
 | UpperBound                                            | 设置或获取最大值                       |
 | Unit                                                  | 获取单位                     |

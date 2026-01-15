@@ -44,7 +44,8 @@ build:standalone-kylin:
   stage: deploy
   tags:
     - linux
-    - gitlab
+    - gitlab  
+  
   dependencies:
     - build:gitlab
     - build:standalone
@@ -58,13 +59,14 @@ deploy:pages:
   tags:
     - linux
     - gitlab
+
   dependencies:
     - build:gitlab
     - build:standalone
     - build:standalone-kylin
   script:
     #- mkdir ./public || true
-    - cp  -r .dist/gitlab/* /var/opt/gitlab/gitlab-rails/shared/pages
-    - zip -r /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip        .dist/standalone/
-    - zip -r /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone-kylin.zip  .dist/standalone-kylin/
+    - sudo cp  -rv .dist/gitlab/* /var/opt/gitlab/gitlab-rails/shared/pages
+    - sudo zip -rv /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone.zip        .dist/standalone/
+    - sudo zip -rv /var/opt/gitlab/gitlab-rails/shared/pages/help-standalone-kylin.zip  .dist/standalone-kylin/
   

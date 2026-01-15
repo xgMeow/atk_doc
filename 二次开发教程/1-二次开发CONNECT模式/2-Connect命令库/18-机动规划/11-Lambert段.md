@@ -1,36 +1,83 @@
 # Lambert段
 
-## Propagator
-
+## CentralBodyCode
  
 
-作用：设置轨道预报器参数
+作用：设置摄动力中心天体
 
 用法： 
 ```
-Astrogator <Satellite Object Path> SetValue <Attribute Path>.Propagator {Value}
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.{Attribute} <Value>
 ```
 
-说明： `Value` 按顺序输入属性为中心天体, 引力场模型, 引力场模型次数,  引力场模型阶数, 大气阻力摄动使用状态, 大气阻力摄动大气模型, 太阳辐射 通量/地磁指数输入方式, 太阳辐射通量/地磁指数平均 F10.7, 太阳辐射通量/地 磁指数每日 F10.7, 太阳辐射通量/地磁指数 Ap, 太阳光压摄动, 三体摄动 1 太阳, 三体摄动 2 根据中心体确定, 三体摄动 2 模型类型, 三体摄动 2 模型, 三体摄动 2 阶数, 三体摄动 2 次数, 三体摄动 3 根据中心体确定, 三体摄动 3 模型类型, 三体摄动 3 模型, 三体摄动 3 阶数, 三体摄动 3 次数；
-
- 
-
-| 属性                 | 可设置参数                                                   |
-| -------------------- | ------------------------------------------------------------ |
-| 引力场模型           | 对于地球  EGM96,EGM2008,GEMT1,GGM01C,GGM02C,  JGM2,JGM3,WGS84,WGS84_EGM96  对于月球  GLGM2,LP75D,LP75G,LP100J,LP100K,LP150Q ,LP165P  对于火星GMM1,GMM2B,Mars50c |
-| 大气阻力摄动大气模型 | EExponential , E1976StdAtm,   ENRLMSISE00 , EMSISE90 , EMSIS86 |
-| 三体摄动 2 模型      | 中心天体为地球： GMM1,GMM2B,Mars50c 中心天体为月球和火星：  EGM96,EGM2008,GEMT1,GGM01C,GGM02C, JGM2,JGM3,WGS84,WGS84_EGM96 |
-| 三体摄动 3 模型      | 中心天体为月球： GMM1,GMM2B,Mars50c 中心天体为地球和火星：  GLGM2,LP75D,LP75G,LP100J,LP100K,LP150Q ,LP165P |
-
-注意：
-
-1. 中心天体目前包括 Earth , Moon , Mars
-2. 获得此属性值暂未实现
+说明： CentralBodyName对应顺序：Mercury-0,Venus-1,Earth-2,Mars-3,Jupiter-4,Saturn-5,Uranus-6,Neptune-7,Pluto-8,Moon-9,Sun-10
 
 举例： 
 ```
-Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.LambertTarget.Propagator Earth EGM96 3 5 true ENRLMSISE00 false 105 150 3.5 false true true 1 GMM2B 3 5 true 0 LP75D 1 2
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.LambertTarget.CentralBodyCode 3
 ```
+ 
+
+## Propagator
+ 
+作用：设置轨道预报器参数
+
+用法： 
+
+```
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.ForceModel.{Parameters} {Value}
+```
+
+| Parameters                                    |Value                                             | 说明                                             | 
+| --------------------------------------------- |------------------------------  | ---------------------------------------------    |
+| `Gravity.GravModel`                           | 如下类型说明                    | 引力场模型                    |
+| `Gravity.MaxDegree`                           |                                | 引力阶数                      |
+| `Gravity.MaxOrder`                            |                                | 引力次数                      |
+| `Drag.UseDrag`                                | {true | false}                 | 是否采用大气阻力摄动           |
+| `Drag.AtmModel`                               |                                | 大气阻力摄动大气模型           |
+| `Drag.UseFluxGeoFile`                         |                                | 是否采用太阳辐射和地磁文件      |
+| `Drag.F10p7`                                  |                                | 平均F10.7                     |
+| `Drag.DailyF10p7`                             |                                | 每日F10.7                     |
+| `Drag.Ap`                                     |                                | 地磁指数AP                    |
+| `SRP.UseSRP`                                  |                                | 是否采用太阳光压摄动           |
+| `ThirdBodies.CentralBodyName.UseGravity`      |                                | 是否采用当前中心天体三体摄动    |
+| `ThirdBodies.CentralBodyName.Gm`              |                                | 当前中心天体引力值             |
+| `ThirdBodies.CentralBodyName.Degree`          |                                | 当前中心天体阶数               |
+| `ThirdBodies.CentralBodyName.Order`           |                                | 当前中心天体次数               |
+| `ThirdBodies.CentralBodyName.GravModel`       |                                | 当前中心天体模型               |
+| `ThirdBodies.CentralBodyName.GravType`        |                                | 当前中心天体类型               |
+
+
+::: note 类型说明
+<br>
+引力场模型 : <br><br>
+对于地球  EGM96,EGM2008,GEMT1,GGM01C,GGM02C,JGM2,JGM3,WGS84,WGS84_EGM96<br><br>
+对于月球  GLGM2,LP75D,LP75G,LP100J,LP100K,LP150Q ,LP165P <br><br>
+对于火星GMM1,GMM2B,Mars50c,MRO110C <br><br>
+对于水星  lcarus1987,ZonalsToJ4 <br><br>
+对于金星  MGNP180U,ZonalsToJ4 <br><br>
+对于木星  JUP230,jup230Spice,ZonalsToJ4 <br><br>
+对于土星  Astron2004,sat252Spice,ZonalsToJ4 <br><br>
+对于天王星  ura083Spice,ZonalsToJ4 <br><br>
+对于海王星  AstronAstro1991,nep016_6Spice,ZonalsToJ4 <br><br>
+对于冥王星  plu017Spice,ZonalsToJ4 <br><br>
+对应输入序号，从0开始，例如：
+```
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Propagate.ForceModel.Gravity.GravModel EGM96
+```
+<br><br>CentralBodyName包括：Mercury,Venus,Earth,Mars,Jupiter,Saturn,Uranus,Neptune,Pluto,Moon,Sun
+:::
+
+
+::: note 注意：
+获得此属性值暂未实现
+:::
+
+举例： 
+```
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.LambertTarget.ForceModel.Gravity.GravModel EGM96
+```
+
  
 
 ## MaxPropTime
@@ -377,5 +424,24 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.SegmentColor <Value
 Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.LambertTarget.SegmentColor 4278190335
 ```
 
+  
+## ComponentName
+
+
+作用：段重命名
+
+用法： 
+```
+Astrogator <Satellite Object Path> SetValue <Attribute Path>.ComponentName <Value>
+```
+ 
+::: info 注意
+此属性值暂不支持获取
+:::
+
+举例： 
+```
+Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.LambertTarget.ComponentName abc
+```
 
  
