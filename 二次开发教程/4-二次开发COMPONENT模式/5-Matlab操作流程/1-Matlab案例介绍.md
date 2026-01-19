@@ -9,8 +9,8 @@
 
 - AstroLib.dll，AtObjExt.dll，AtVGT.dll，AtObjVGT.dll，AstroObj.dll，IAtkObject.dll，ATKComponentJava.dll ，ATKComponent模式依赖动态库，由Java封装包加载导入；
 
-- ATKComponentMatlabTest.m，Matlab案例脚本，建议创建在ATK安装包根目录， 具体内容参考下文案例实现里的代码。包含一个轨道快速转移案例的具体实现过程，该Matlab案例脚本通过Matlab软件解释运行。注意，Matlab要求脚本默认编码格式GBK，先设置脚本编码格式，再编辑案例代码。
+- AtkInput/IntegratingWithATK/ATKComponentMatlabTest.m，Matlab案例脚本，建议创建在ATK安装包根目录， 具体内容参考下文案例实现里的代码。包含一个轨道快速转移案例的具体实现过程，该Matlab案例脚本通过Matlab软件解释运行。注意，Matlab要求脚本默认编码格式GBK，先设置脚本编码格式，再编辑案例代码。
 
  
 
-![依赖文件](media/1-Matlab案例介绍/依赖文件.png)
+![依赖文件](media/1-Matlab案例介绍/依赖文件_zy.png)

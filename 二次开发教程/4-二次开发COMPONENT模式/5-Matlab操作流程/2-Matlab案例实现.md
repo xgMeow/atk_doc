@@ -59,11 +59,11 @@ pIVAManeuverImpulsive = pIVAMCSManeuver.GetManeuver();
 pIVAAttitudeControlImpulsiveThrustVector = pIVAManeuverImpulsive.GetAttitudeControl();
 pIVAAttitudeControlImpulsiveThrustVector.SetThrustAxesName('Satellite VNC(Earth)');
 pIVAMCSManeuver.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianX);
-pIVAMCSManeuver.getResults().Add('Radius_Of_Apoapsis');
+pIVAMCSManeuver.GetResults().Add('Radius_Of_Apoapsis');
 %第一个瞄准段添添加属性页
 pIVAProfileDifferentialCorrector = pIVAMCSTargetSequence.GetProfiles().Add('Differential Corrector');
 pIVADCControl = pIVAProfileDifferentialCorrector.GetControlParameters().GetControlByPaths('Maneuver', 'ImpulseX');
-pIVADCResult = pIVAProfileDifferentialCorrector.GetResults().GetResultByPaths('Maneuver', 'RadiusOfApoapsis');
+pIVADCResult = pIVAProfileDifferentialCorrector.GetResults().GetResultByPaths('Maneuver', 'StateCalcRadiusOfApoapsis');
 %属性页中控制变量属性设置
 pIVADCControl.SetEnable(true);
 pIVADCControl.SetMaxStep(100);
@@ -79,7 +79,7 @@ pIVADCResult.SetWeight(1);
 %第二个预报段属性设置
 pIVAStoppingConditionElement1 = pIVAMCSPropagate1.GetStoppingConditions().Add('RMagnitude');
 pIVAStoppingCondition1 = pIVAStoppingConditionElement1.GetProperties();
-pIVAStoppingCondition1.SetTrip(42164.197);
+pIVAStoppingCondition1.SetTrip(42164197);
 pIVAStoppingCondition1.SetTolerance(1e-6);
 pIVAStoppingCondition1.SetRepeatCount(1);
 pIVAStoppingCondition1.SetCriterion(EVACriterion.eVACriterionCrossEither);
@@ -90,8 +90,8 @@ pIVAAttitudeControlImpulsiveThrustVector1 = pIVAManeuverImpulsive1.GetAttitudeCo
 pIVAAttitudeControlImpulsiveThrustVector1.SetThrustAxesName('Satellite VNC(Earth)');
 pIVAMCSManeuver1.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianX);
 pIVAMCSManeuver1.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianZ);
-pIVAMCSManeuver1.getResults().Add('Eccentricity');
-pIVAMCSManeuver1.getResults().Add('Cosine_of_Vertical_FPA');
+pIVAMCSManeuver1.GetResults().Add('Eccentricity');
+pIVAMCSManeuver1.GetResults().Add('Cosine_of_Vertical_FPA');
 %第二个瞄准段添加属性页
 pIVAProfileDifferentialCorrector1 = pIVAMCSTargetSequence1.GetProfiles().Add('Differential Corrector');
 %属性页中控制变量属性设置
@@ -146,11 +146,9 @@ strReportFilePath
 
 	1. 复制ATK安装包根目录路径，设置为Matlab当前路径；
 
-	2. 调用运行Matlab初始化脚本：initATK('E:\ATK软件\Release-ATK-v3.0.4.114')；
+	2. 双击打开Matlab案例脚本ATKComponentMatlabTest.m；
 
-	3. 双击打开Matlab案例脚本ATKComponentMatlabTest.m；
-
-	4. 点击运行Matlab案例脚本，如图所示。
+	3. 点击运行Matlab案例脚本，如图所示。
 
 
-![操作流程](media/2-Matlab案例实现/Matlab操作流程.png)
+![操作流程](media/2-Matlab案例实现/Matlab操作流程_zy.png)
