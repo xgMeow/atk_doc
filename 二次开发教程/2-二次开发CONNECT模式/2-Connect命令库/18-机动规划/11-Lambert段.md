@@ -24,7 +24,7 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.Propagator {Value}
 
 注意：
 
-1. 中心天体目前包括 Earth , Moon , Mars
+1. 中心天体目前包括 `Earth` , `Moon` , `Mars`
 2. 获得此属性值暂未实现
 
 举例： 
@@ -87,7 +87,7 @@ Astrogator <Satellite Object Path> SetValue <Astrogator ObjectPath>.LambertTarge
 
 ::: details 属性设置详细说明（点击展开）
 
-- `<CoordinateType>`为"Cartesian"时
+- `<CoordinateType>`为`Cartesian`时
 
  
 
@@ -100,7 +100,7 @@ Astrogator <Satellite Object Path> SetValue <Astrogator ObjectPath>.LambertTarge
 | Vy      | 默认单位时 m/sec, 包括单位 m/sec , km/sec |
 | Vz      | 默认单位时 m/sec, 包括单位 m/sec , km/sec |
 
-- `<CoordinateType>`为"Keplerian"时
+- `<CoordinateType>`为`Keplerian`时
 
  
 
