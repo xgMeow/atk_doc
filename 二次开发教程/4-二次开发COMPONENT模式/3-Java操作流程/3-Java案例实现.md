@@ -109,7 +109,7 @@ public class ATKComponentJavaTest{
 	//3.10，第二个预报段属性设置
 	IVAStoppingConditionElement pIVAStoppingConditionElement1 = pIVAMCSPropagate1.GetStoppingConditions().Add("RMagnitude");
 	IVAStoppingCondition pIVAStoppingCondition1 = (IVAStoppingCondition)(pIVAStoppingConditionElement1.GetProperties());
-	pIVAStoppingCondition1.SetTrip(42164.197);
+	pIVAStoppingCondition1.SetTrip(42164197);
 	pIVAStoppingCondition1.SetTolerance(1e-6);
 	pIVAStoppingCondition1.SetRepeatCount(1);
 	pIVAStoppingCondition1.SetCriterion(EVACriterion.eVACriterionCrossEither);
@@ -169,7 +169,7 @@ public class ATKComponentJavaTest{
 
 ## Java案例执行命令
 
-切换磁盘：E:
-切换路径：cd E:\ATK软件\Release-ATK-v3.0.0.1120
-编译命令：javac -cp ATKComponentJava.jar -encoding utf-8 com/atk/test/ATKComponentJavaTest.java
-执行命令：java -cp .;ATKComponentJava.jar com/atk/test/ATKComponentJavaTest
+1. 切换磁盘：E:
+2. 切换路径：cd E:\cssx\ATK-4.0-rc.1
+3. 编译命令：javac -cp ATKComponentJava.jar -encoding utf-8 com/atk/test/ATKComponentJavaTest.java
+4. 执行命令：java -cp .;ATKComponentJava.jar com/atk/test/ATKComponentJavaTest

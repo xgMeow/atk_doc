@@ -19,7 +19,7 @@ dir:
 
 将 ATK 安装包解压，如下图所示：
 
-![ATK 安装包解压](media/2-ATK安装/image.png)
+![ATK 安装包解压](media/2-ATK安装/image_zy.png)
 
 打开 `AtkInput/Register_2015.exe` 进行注册激活，如下图所示：
 
@@ -27,7 +27,7 @@ dir:
 
 激活完成后就可以打开根目录下 ATK.exe 进行使用，如下图所示：
 
-![打开 ATK 工具](media/2-ATK安装/image-2.png)
+![打开 ATK 工具](media/2-ATK安装/image-2_zy.png)
 
 ## MagicDraw与ATK联合仿真插件安装
 
