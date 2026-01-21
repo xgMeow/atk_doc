@@ -12,86 +12,103 @@ dir:
 
 作用：设置轨道为轨道规划
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> SetProp
 ```
+:::
 
-注意：此命令只针对卫星使用
+::: tip 注意
+- 此命令只针对卫星使用
+:::
 
-举例： 
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 SetProp
 ```
- 
+:::
+
+
 
 ## 运行轨道规划
 
-
 作用：运行轨道规划
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> RunMCS
 ```
+:::
 
-注意：此命令只针对卫星使用
+::: tip 注意
+- 此命令只针对卫星使用
+:::
 
-举例： 
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 RunMCS
 ```
- 
-## 轨道规划段复制粘贴
+:::
 
+
+
+## 轨道规划段复制粘贴
 
 作用：轨道规划段复制粘贴
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> Paste CopySegmentPath PasteSegmentPath
 ```
+:::
 
-注意：此命令只针对卫星使用
+::: tip 注意
+- 此命令只针对卫星使用
+:::
 
-举例： 
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 Paste MainSequence.SegmentList.Propagate.- MainSequence.SegmentList.InitialState
 ```
- 
+:::
+
+
 
 ## 规划插入段
 
- 
-
 作用：在任务控制序列或子序列中插入段
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> InsertSegment <Attribute Path> SegmentType
 ```
-::: info 说明
-1. 若`<Attribute Path>`输入已存在段路径+段名，新段将插入到此段之前；若`<Attribute Path>`输入段路径+`-`，新段将插入到此任务控制序列最后一段之后；
-
-2. 若`<Attribute Path>`仅为`-`，新段将插入到第一个任务控制序列列表下的最后一个段之后。
-
-3. 若`<Attribute Path>`仅为段名，新段将插入到第一个名字与之匹配的段之前。
-
-4. 插入 RPO 相关段时， 相关名称对应如下：
-    - 圆形受控绕飞段 `RPOFMCircumnav`
-    - 直线逼近段 `RPOFMW`
-    - 单次跳跃段 `RPOHop`
-    - 单次跳跃停止段 `RPOHopAndStop`
-    - 定点保持段 `RPOPerchEqualSpacing`
-    - 水滴绕飞段 `RPOTearDrop` 
-    - 自然绕飞段 `RPONMCircumnav`
-    - 太阳同步绕飞段 `RPOFollowSun`
-    - GEO 轨道撤离段 `RPOExitGEO`
-    - GEO 轨道漂移交会段 `RPOGEORendezvousDrifting`
-    - GEO 轨道交会段 `RPOGEORendezvousNolead`
 :::
 
-举例：
+::: info 说明
+- 若`<Attribute Path>`输入已存在段路径+段名，新段将插入到此段之前；若`<Attribute Path>`输入段路径+`-`，新段将插入到此任务控制序列最后一段之后；
+
+- 若`<Attribute Path>`仅为`-`，新段将插入到第一个任务控制序列列表下的最后一个段之后。
+
+- 若`<Attribute Path>`仅为段名，新段将插入到第一个名字与之匹配的段之前。
+
+- 插入 RPO 相关段时， 相关名称对应如下：
+
+| 相关段 | 名称 |
+|-|-|
+| 圆形受控绕飞段 | `RPOFMCircumnav` |
+| 直线逼近段 | `RPOFMW` |
+| 单次跳跃段 | `RPOHop` |
+| 单次跳跃停止段 | `RPOHopAndStop` |
+| 定点保持段 | `RPOPerchEqualSpacing` |
+| 水滴绕飞段 | `RPOTearDrop` |
+| 自然绕飞段 | `RPONMCircumnav` |
+| 太阳同步绕飞段 | `RPOFollowSun` |
+| GEO 轨道撤离段 | `RPOExitGEO` |
+| GEO 轨道漂移交会段 | `RPOGEORendezvousDrifting` |
+| GEO 轨道交会段 | `RPOGEORendezvousNolead` |
+:::
+
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 InsertSegment MainSequence.SegmentList.Maneuver1 Propagate
 ```
@@ -107,81 +124,95 @@ Astrogator */Satellite/Satellite1 InsertSegment Maneuver1 Propagate
 ```
 Astrogator */Satellite/Satellite1 InsertSegment MainSequence.SegmentList.- RPOFMCircumnav
 ```
- 
+:::
 
 ## 规划删除段
 
- 
-
 作用：从任务控制序列或子序列中删除段
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> DeleteSegment <Attribute Path>
 ```
-说明：在任务控制序列中删除一个段并且不在子序列中进行嵌套，不需要
+:::
 
-包含路径；输入你想要删除新的段的名字即可
+::: info 说明
+- 在任务控制序列中删除一个段并且不在子序列中进行嵌套，不需要包含路径；输入你想要删除新的段的名字即可
+:::
 
-举例：
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 DeleteSegment MainSequence.SegmentList.Target_Sequence.SegmentList.Target_Sequence.SegmentList.Propagate2
 ```
+
 ```
 Astrogator */Satellite/Satellite1 DeleteSegment MainSequence.SegmentList.Target_Sequence
 ```
+
 ```
 Astrogator */Satellite/Satellite1 DeleteSegment MainSequence.SegmentList.Target_Sequence.SegmentList.Target_Sequence.SegmentList.-
 ```
+:::
+
+
 
 ## 规划设置属性值
- 
 
 作用：向轨道机动模块传递值
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Attribute> <Value> [<Unit>]
 ```
+:::
 
-说明：具体的属性类型请查看规划属性
+::: info 说明
+- 具体的属性类型请查看规划属性
+:::
 
-举例： 
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.Initial_State.CoordinateType" "Modified Keplerian"
 ```
- 
+:::
 
-## 规划获得属性值
 
- 
+
+## 规划获得属性值 
 
 作用：获得规划段的属性值
 
-用法： 
+::: note 用法
 ```
 Astrogator_RM <Satellite Object Path> GetValue <Attribute Path>.<Attribute>
 ```
+:::
 
-举例：
+::: note 举例
 
 ```
 Astrogator_RM */Satellite/FastTransfer GetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver.ImpulsiveMnvr.Cartesian.X
 ```
- 
+
+:::
+
+
 
 ## 规划增加段控制量
 
 作用：为瞄准序列段内的段增加控制变量
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> AddMCSSegmentControl <AttributePath> <Attribute>
 ```
+:::
 
-说明：该命令的属性是个独立变量。瞄准序列中某段的数值元素被选为独立变量。可设置数值元素请查看规划属性-瞄准序列段-Variables
+::: info 说明
+- 该命令的属性是个独立变量。瞄准序列中某段的数值元素被选为独立变量。可设置数值元素请查看规划属性-瞄准序列段-Variables
+:::
 
-举例：
+::: note 举例
 ```
 Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver ImpulsiveMnvr.Cartesian.X
 ```
@@ -189,21 +220,24 @@ Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSequence.SegmentList.
 ```
 Astrogator */Satellite/Satellite1 AddMCSSegmentControl MainSequence.SegmentList.Target_Sequence.SegmentList.Propagate StoppingConditions.Duration.TripValue
 ```
- 
+
+:::
+
+
 
 ## 规划设置段控制量
 
-
-
 作用：为瞄准序列段内的段设置控制变量以及他们的参数
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.Differential_Corrector  <ParentObjectName> <ControlName> <Attribute> <Value> [<Unit>]
 ```
-说明：
+:::
 
-初始段控制量属性名称：
+::: info 说明
+
+- 初始段控制量属性名称：
 
 | Attribute             | 说明                                                   |
 | --------------------- | ------------------------------------------------------ |
@@ -238,9 +272,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | SRPArea               | 设置属性使用 `InitialState.SRPArea`                       |
 | FuelMass              | 设置属性使用 `InitialState.FuelMass`                      |
 
-预报段控制量属性名称：
-
- 
+- 预报段控制量属性名称：
 
 | Attribute             | 说明                                                         |
 | --------------------- | -----------------------------------------------------------  | 
@@ -255,9 +287,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | ArgLat.TripValue      | 设置属性使用  `StoppingConditions.ArgumentOfLatitude.TripValue` |
 | StateCalc.TripValue   | 设置属性使用  `StoppingConditions.StateCalc.TripValue`          |
 
-机动段控制量属性名称：
-
- 
+- 机动段控制量属性名称：
 
 | Attribute                        | 说明                                                         |
 | -------------------------------- | ----------------------------------------------------------- |
@@ -283,9 +313,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | Finite.ArgLat.TripValue          | 设置属性使用 `StoppingConditions.ArgumentOfLatitude.TripValue` |
 | Finite.StateCalc.TripValue       | 设置属性使用 `StoppingConditions.StateCalc.TripValue`          |
 
-更新段控制量属性名称：
-
- 
+- 更新段控制量属性名称：
 
 | Attribute     | 说明                    |
 | ------------- | ----------------------- |
@@ -296,9 +324,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | ValueDragArea | 设置属性使用 `DragAreaVal` |
 | ValueCd       | 设置属性使用 `CdVal`       |
 
-保持段控制量属性名称：
-
- 
+- 保持段控制量属性名称：
 
 | Attribute             | 说明                                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -313,9 +339,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | ArgLat.TripValue      | 设置属性使用  `StoppingConditions.ArgumentOfLatitude.TripValue` |
 | StateCalc.TripValue   | 设置属性使用  `StoppingConditions.StateCalc.TripValue`          |
 
-兰伯特段控制量属性名称：
-
- 
+- 兰伯特段控制量属性名称：
 
 | Attribute             | 说明                                    |
 | --------------------- | --------------------------------------- |
@@ -332,9 +356,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | Keplerian.W           | 设置属性使用  `LambertState.Keplerian.W`     |
 | Keplerian.TA          | 设置属性使用  `LambertState.Keplerian.TA`    |
 
-微分修正可设置参数属性：
-
- 
+- 微分修正可设置参数属性：
 
 | Value                 | Unit                                         |
 | --------------------- | -------------------------------------------- |
@@ -345,9 +367,7 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | Scale                 | 设置或获取归一化参数                           |
 | FinalValue            | 获取最终值                                    |
 
-序列二次规划与智能优化算法可设置参数属性：
-
- 
+- 序列二次规划与智能优化算法可设置参数属性：
 
 | Value                 | Unit                                         |
 | --------------------- | -------------------------------------------- |
@@ -360,9 +380,13 @@ Astrogator <Satellite Object Path> SetMCSControlValue <AttributePath>.Profiles.D
 | UpperBound            | 设置或获取最大值                               |
 | FinalValue            | 获取最终值                                    |
 
-注意：除初始段 Epoch 属性，预报段停止条件 Epoch 外，控制量属性与Attribute 单位一致
+:::
 
-举例：
+::: tip 注意
+- 除初始段 Epoch 属性，预报段停止条件 Epoch 外，控制量属性与Attribute 单位一致
+:::
+
+::: note 举例
 
 ```
 Astrogator */Satellite/FastTransfer SetMCSControlValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver ImpulsiveMnvr.Cartesian.X Active true
@@ -371,56 +395,66 @@ Astrogator */Satellite/FastTransfer SetMCSControlValue MainSequence.SegmentList.
 Astrogator */Satellite/FastTransfer SetMCSControlValue MainSequence.SegmentList.Target_Sequence1.Profiles.Differential_Corrector Maneuver ImpulsiveMnvr.Cartesian.X MaxStep 300 m/sec
 ```
  
+:::
+
+
 
 ## 规划获得段控制量
 
- 
-
 作用：获得规划瞄准序列段内段的控制变量
 
-用法： 
+::: note 用法
 ```
 Astrogator_RM <Satellite Object Path> GetMCSControlValue <AttributePath>.Profiles.<Search Profile> <ParentObjectName> <ControlName> <Attribute>
 ```
+:::
 
-举例：
+::: note 举例
 
 ```
 Astrogator_RM */Satellite/FastTransfer GetMCSControlValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver ImpulsiveMnvr.Cartesian.X MaxStep
 ```
- 
+
+:::
+
+
 
 ## 规划删除段控制量
  
-
 作用：删除瞄准序列段内段的控制变量
 
-用法： 
+::: note 用法
 ```
 Astrogator <Satellite Object Path> RemoveMCSSegmentControl <Attribute Path> <Attribute>
 ```
-举例：
+:::
+
+::: note 举例
 
 ```
 Astrogator */Satellite/Satellite1 RemoveMCSSegmentControl MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver ImpulsiveMnvr.Cartesian.X
 ```
- 
+
+:::
+
+
 
 ## 规划设置段约束值
 
 作用：轨道规划设置段的约束值
 
-用法： 
+::: note 用法
 
 ```
 Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profiles.<Search Profile> <ParentObjectName> <ResultName> <Attribute> <Value> [<Unit>]
 ```
 
-说明：具体属性设置请查看规划属性-约束
+:::
 
-微分修正可设置参数属性：
+::: info 说明
+- 具体属性设置请查看规划属性-约束
 
- 
+- 微分修正可设置参数属性：
 
 | Value | Unit |
 | ----- | ---- |
@@ -430,7 +464,7 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 | weight    | 设置权重系数                             |
 | desired   | 设置期望值                               |
 
-序列二次规划与智能优化算法可设置参数属性：
+- 序列二次规划与智能优化算法可设置参数属性：
 <!-- 
 <table>
 <tbody>
@@ -462,9 +496,9 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 | Achieved                                              | 获取当前值                           |
 | Difference                                            | 获取误差值                      |
 
+:::
 
-
-举例：
+::: note 举例
 
 ```
 Astrogator */Satellite/FastTransfer SetValue MainSequence.SegmentList.Target_Sequence.SegmentList.Maneuver.Results "Radius Of Apoapsis"
@@ -478,39 +512,41 @@ Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSequence.SegmentLi
 ```
 Astrogator */Satellite/FastTransfer SetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver Rel_Mean_Mean_Anomaly tolerance 0.2
 ```
- 
+
+:::
+
+
 
 ## 规划属性页获得段约束值
 
- 
-
 作用：获得属性页约束值
 
-用法： 
+::: note 用法
 ```
 Astrogator_RM <Satellite Object Path> GetMCSConstraintValue <AttributePath>.Profiles. Differential_Corrector <ParentObjectName> <ResultName> <Attribute>
 ```
+:::
 
-举例： 
+::: note 举例
 ```
 Astrogator_RM */Satellite/Satellite1 GetMCSConstraintValue MainSequence.SegmentList.Target_Sequence.Profiles.Differential_Corrector Maneuver "Radius Of Apoapsis" tolerance
 ```
+:::
 
 
 
 ## 规划获得段约束值
 
- 
-
 作用：获得规划每个段的约束值
 
-用法： 
+::: note 用法
 ```
 Astrogator_RM <Satellite Object Path> GetValue <AttributePath>.Results.<ResultName>.Value
 ```
+:::
 
-举例： 
+::: note 举例
 ```
 Astrogator_RM */Satellite/Satellite1 GetValue MainSequence.SegmentList.Propagate.Results.StateCalcX.Value
 ```
-
+:::
