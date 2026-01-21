@@ -31,9 +31,9 @@ dir:
 
 ## MagicDraw与ATK联合仿真插件安装
 
-将` IntegratingWithATK\connect\win\MBSE\MagicDrawToATK-Plug `文件夹复制到 `Cameo Systems Modele Demo\plugins` 目录下，如下图所示。
+将` IntegratingWithATK\connect\win\MBSE\MagicDrawToATK-Plug `解压后，把文件夹复制到安装路径中的 `Cameo Systems Modele Demo\plugins` 目录下，如下图所示。
 
-![配置联合仿真插件](media/3-MagicDraw与ATK联合仿真插件安装/image.png)
+![配置联合仿真插件](media/3-MagicDraw与ATK联合仿真插件安装/image_zy.png)
 
 在菜单栏选中 `Options-Environment-Plugins`，可以在 `CATIA Magic` 软件上确认工具安装成功，如下图所示。
 
