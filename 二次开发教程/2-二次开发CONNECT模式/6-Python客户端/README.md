@@ -18,60 +18,64 @@ Python客户端支持Connect命令，用来完成与ATK软件之间的命令解�
 
 ## atkOpen
 
-用法：
-
+::: note 用法
 ```
 conID = atkOpen('hostStr', PortStr)
 ```
+:::
 
-说明：
+::: info 说明
 - `conID` - 连接句柄
 - `hostStr` - 进行连接的网络地址，默认为：'127.0.0.1'
 - `PortStr` - 进行连接的端口号，默认为：6655
+:::
 
-举例：
-
+::: tip 举例
 ```
 conID = atkOpen('127.0.0.1', 6655);
 ```
 
-或者
-
 ```
 conID = atkOpen();
 ```
+:::
+
+
 
 ## atkConnect
 
-用法：
-
+::: note 用法
 ```
 rtnData = atkConnect(conID, 'command', 'objPath', 'cmdParamString')
 ```
+:::
 
-说明：
+::: info 说明
 - `conID` - 来自 `atkOpen` 的句柄
 - `Command` - 具体请查看 `Connect` 命令库
 - `objPath` - 接受命令的对象路径
 - `cmdParamString` - 命令属性字符串
 - `rtnData` - 从 atk 返回的响应的字符串
+:::
 
-举例：
-
+::: tip 举例
 ```
 atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12');
 ```
+:::
+
+
 
 ## atkClose
 
-用法：
+::: note 用法
 ```
 atkClose(conID)
 ```
+:::
 
-说明：
-
-`conID` - 来自 `atkOpen` 的连接句柄
-
+::: info 说明
+- `conID` - 来自 `atkOpen` 的连接句柄
+:::
 
 <Catalog />
