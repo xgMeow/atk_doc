@@ -2,7 +2,7 @@
 title: Java接口
 ---
 
-::: info
+::: info 说明
 设置属性后需重新打开对象属性界面属性数据才会更新。
 :::
 
@@ -19,48 +19,56 @@ jar包使用Java 1.8.0版本，打开Java客户端与ATK进行连接，如下图
 
 ## atkOpen
 
-用法：
-
+::: note 用法
 ```
 conID = atkOpen('hostStr', PortStr)
 ```
+:::
 
-说明：
+
+
+::: info 说明
 - `conID` - 连接句柄
 - `hostStr` - 进行连接的网络地址
 - `PortStr` - 进行连接的端口号
+:::
+
+
 
 ## atkConnect
 
-用法：
-
+::: note 用法
 ```
 rtnData = atkConnect(conID, 'command', 'objPath', 'cmdParamString')
 ```
+:::
 
-说明：
+::: info 说明
 - `conID` - 来自 `atkOpen` 的句柄
 - `Command` - 具体请查看 `Connect` 命令库
 - `objPath` - 接受命令的对象路径
 - `cmdParamString` - 命令属性字符串
 - `rtnData` - 从 atk 返回的响应的字符串
+:::
 
-举例：
-
+::: tip 举例
 ```
 atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12');
 ```
+:::
+
+
 
 ## atkClose
 
-用法：
+::: note 用法
 ```
 atkClose(conID)
 ```
+:::
 
-说明：
-
-`conID` - 来自 `atkOpen` 的连接句柄
-
+::: info 说明
+- `conID` - 来自 `atkOpen` 的连接句柄
+:::
 
 <Catalog />
