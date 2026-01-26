@@ -3,7 +3,7 @@
 ## RPO段重命名
 
 
-作用： 设置 RPO段重命名
+作用： 设置 `RPO` 段重命名
 
 ::: note 用法： 
 ```
@@ -21,7 +21,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOExitGEO.C
 ## RPO段设置参考航天器
 
 
-作用： 设置 RPO段参考航天器
+作用： 设置 `RPO` 段参考航天器
 
 ::: note 用法： 
 ```
@@ -42,7 +42,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOExitGEO.R
 
  
 
-作用： 设置 RPOExitGEO 段属性
+作用： 设置 `RPOExitGEO` 段属性
 
 ::: note 用法： 
 ```
@@ -133,7 +133,7 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List 
 | `Desired_InTrackRate`    | m/sec    | `[-1000,1000]`     |
 | `Desired_CrossTrackRate` | m/sec    | `[-1000,1000]`     |
 | `Propagator_Time`        |          | `[0.001,86400]`    |
-| `Wait_Time`              | sec      | [0.001,86400]      |
+| `Wait_Time`              | sec      | `[0.001,86400]`      |
 | `Rendezvous_Time`        | UTCG     |                    |
 | `MaxIter`                |          | `[-1,1000]`        |
 | `SolveMethod`            |          | `[-1,4]`           |
@@ -253,7 +253,7 @@ Astrogator */Satellite/Satellite1 SetValue MainSequence.SegmentList.RPOFMW.Waypo
 
  
 
-作用： 设置 RPOHop 段属性
+作用： 设置 `RPOHop` 段属性
 
 ::: note 用法： 
 ```
@@ -388,12 +388,12 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.<Parameters> <List 
 
 | 参数名称               | 数据类型 | 范围               |
 | --------------------- | -------- | ----------------- |
-| `NumCircles`          |          | [0,1000]          |
-| `TearDrop_TurnAround` | m        | [-100000,100000]  |
-| `TearDrop_Maneuver`   | m        | [-100000,100000]  |
-| `Transfer_Duration`   | sec      | [0.001,86400]     |
-| `Way_MaxDegrees`      | rad      | [0.001,360]       |
-| `SolveMethod`         |          | [-1,4]            |
+| `NumCircles`          |          | `[0,1000]`          |
+| `TearDrop_TurnAround` | m        | `[-100000,100000]`  |
+| `TearDrop_Maneuver`   | m        | `[-100000,100000]`  |
+| `Transfer_Duration`   | sec      | `[0.001,86400]`     |
+| `Way_MaxDegrees`      | rad      | `[0.001,360]`       |
+| `SolveMethod`         |          | `[-1,4]`            |
 :::
  
 ::: tip 举例： 
