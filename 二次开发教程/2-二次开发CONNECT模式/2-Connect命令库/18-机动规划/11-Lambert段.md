@@ -27,8 +27,8 @@ Astrogator <Satellite Object Path> SetValue <Attribute Path>.Propagator {Value}
 
 ::: warning 注意：
 
-1. 中心天体目前包括 `Earth` , `Moon` , `Mars`
-2. 获得此属性值暂未实现
+- 中心天体目前包括 `Earth` , `Moon` , `Mars`
+- 获得此属性值暂未实现
 :::
 
 ::: tip 举例： 
