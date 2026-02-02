@@ -21,7 +21,7 @@ ATK客户端提供了内置客户端与外置客户端，可以与ATK软件进�
 
 1. `atkOpen`、`atkConnect`、`atkClose`
 
-用于与ATK建立网络通信连接、通过网络发送[Connect命令](/二次开发教程/1-二次开发CONNECT模式/2-Connect命令库/)、关闭网络连接。
+用于与ATK建立网络通信连接、通过网络发送[Connect命令](/二次开发教程/2-二次开发CONNECT模式/2-Connect命令库/)、关闭网络连接。
 
 示例：
 ```atks
@@ -32,7 +32,7 @@ atkClone(conID)                                 # 关闭网络连接
 
 2. `ExecuteCommand`
 
-用于直接执行[Connect命令](/二次开发教程/1-二次开发CONNECT模式/2-Connect命令库/)，不依赖网络通信。
+用于直接执行[Connect命令](/二次开发教程/2-二次开发CONNECT模式/2-Connect命令库/)，不依赖网络通信。
 
 ## ATK外置客户端(python客户端)
 
@@ -42,7 +42,7 @@ atkClone(conID)                                 # 关闭网络连接
 
 `atkOpen`、`atkConnect`、`atkClose`
 
-用于与ATK建立网络通信连接、通过网络发送[Connect命令](/二次开发教程/1-二次开发CONNECT模式/2-Connect命令库/)、关闭网络连接。
+用于与ATK建立网络通信连接、通过网络发送[Connect命令](/二次开发教程/2-二次开发CONNECT模式/2-Connect命令库/)、关闭网络连接。
 
 
 示例：
