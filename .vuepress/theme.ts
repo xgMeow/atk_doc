@@ -84,7 +84,7 @@ export const useHopeTheme = ({ type, plat="" }) =>
       // },
       git: {
         createdTime: true,
-        contributors: false,
+        contributors: true,
         updatedTime: true,
       },
       seo: !standalone,
