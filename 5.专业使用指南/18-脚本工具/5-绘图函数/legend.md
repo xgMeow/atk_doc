@@ -9,9 +9,9 @@ legend()
 legend(labels)
 ```
 ## 说明
-legend() 为每个绘制的数据序列创建一个带有描述性标签的图例，对于标签，图例默认使用 "dataN" 形式的标签。
+legend() ：为每个绘制的数据序列创建一个带有描述性标签的图例，对于标签，图例默认使用 "dataN" 形式的标签。
 
-legend(labels) 使用字符串设置标签, 例如legend("cos(x)", "cos(2x)")
+legend(labels) ：使用字符串设置标签, 例如legend("cos(x)", "cos(2x)")
 
 ## 示例
 
