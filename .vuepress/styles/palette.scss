@@ -1,5 +1,5 @@
 // you can change colors here
-$theme-color: #096dd9;
+$theme-color: rgb(20, 86, 240);
 // $color-transition: 0s;
 // $transform-transition: 0s;
 .theme-hope-conten::-webkit-scrollbar-thumb:vertical{
@@ -8,4 +8,5 @@ $theme-color: #096dd9;
     background-color: #e6e6e6;
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
-  }
+}
+$sidebar-top-bottom-padding:6px;

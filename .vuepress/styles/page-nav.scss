@@ -90,11 +90,8 @@
   background: var(--menu-color-blue-low);
 }
 
-
-
 h1 {
   font-size: 22px;
-  color: #d57747;
   margin-bottom: 0!important;
   width: calc(100% - 180px);
   overflow: hidden;
@@ -103,14 +100,10 @@ h1 {
 
 h2 {
   font-size: 18px;
-  padding-bottom: .3rem;
-  border-bottom: 1px solid #ccc
+  // padding-bottom: .3rem;
+  // border-bottom: 1px solid #ccc
 }
 
 h3 {
   font-size: 16px
-}
-
-h3,h4 {
-  color: #d57747
 }
