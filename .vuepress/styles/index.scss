@@ -2,7 +2,12 @@
 img {
   vertical-align: middle;
 }
-
+.theme-hope-content > img {
+  max-width: 100%;
+  // filter: drop-shadow(var(--img-shadow-color) 0px 6px 6px);
+  display: block;
+  margin: 0 auto;
+}
 
 :root {
   --back-to-top-icon: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik01MTIgODQzLjJjLTM2LjIgMC02Ni40LTEzLjYtODUuOC0yMS44LTEwLjgtNC42LTIyLjYgMy42LTIxLjggMTUuMmw3IDEwMmMuNCA2LjIgNy42IDkuNCAxMi42IDUuNmwyOS0yMmMzLjYtMi44IDktMS44IDExLjQgMmw0MSA2NC4yYzMgNC44IDEwLjIgNC44IDEzLjIgMGw0MS02NC4yYzIuNC0zLjggNy44LTQuOCAxMS40LTJsMjkgMjJjNSAzLjggMTIuMi42IDEyLjYtNS42bDctMTAyYy44LTExLjYtMTEtMjAtMjEuOC0xNS4yLTE5LjYgOC4yLTQ5LjYgMjEuOC04NS44IDIxLjgiLz48cGF0aCBkPSJtNzk1LjQgNTg2LjItOTYtOTguMkM2OTkuNCAxNzIgNTEzIDMyIDUxMyAzMlMzMjQuOCAxNzIgMzI0LjggNDg4bC05NiA5OC4yYy0zLjYgMy42LTUuMiA5LTQuNCAxNC4yTDI2MS4yIDgyNGMxLjggMTEuNCAxNC4yIDE3IDIzLjYgMTAuOEw0MTkgNzQ0czQxLjQgNDAgOTQuMiA0MCA5Mi4yLTQwIDkyLjItNDBsMTM0LjIgOTAuOGM5LjIgNi4yIDIxLjYuNiAyMy42LTEwLjhsMzctMjIzLjhjLjQtNS4yLTEuMi0xMC40LTQuOC0xNE01MTMgMzg0Yy0zNCAwLTYxLjQtMjguNi02MS40LTY0czI3LjYtNjQgNjEuNC02NGMzNCAwIDYxLjQgMjguNiA2MS40IDY0UzU0NyAzODQgNTEzIDM4NCIvPjwvc3ZnPg==");
@@ -582,15 +587,15 @@ h4 {
 table{
   display: block;
   // font-family: 'Times New Roman', Times;
-  margin: 0 auto;/*水平居中*/
+  margin: 12px auto;
   width: fit-content;
-}/*更改表格的样式使其居中显示*/
+}
 
 p{
   font-size: 17px;
   // font-family: 'Times New Roman', Times;
   line-height:2;
-  text-indent: 2em;
+  // text-indent: 2em; // 缩进2个字符
 }/*正文首行缩进*/
 
 li p {
