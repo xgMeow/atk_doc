@@ -211,5 +211,8 @@
   transition: background var(--vp-ct), color var(--vp-ct), border var(--vp-ct) box-shadow var(--vp-ct);
 }
 .vp-sidebar a{
-  font-size: 16px;
+  font-size: 1.1em;
+}
+.vp-sidebar-group .vp-sidebar-group .vp-sidebar-header{
+  font-size: 1.1em;
 }
