@@ -14,7 +14,7 @@ export const useHopeTheme = ({ type, plat="" }) =>
     // 是否显示打印按钮
     print: true,
     //pure: true,
-    darkmode: "switch", //"toggle",
+    darkmode: "disable", //"toggle",
     // 全屏按钮
     // fullscreen: true,
     // 当前网站部署到的域名
