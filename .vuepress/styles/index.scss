@@ -1,10 +1,31 @@
 // place your custom styles here
 img {
   vertical-align: middle;
+  margin: 0 4px;
+}
+// 文章中的链接
+a{
+  color: #235ee1;
+  margin: 0 2px;
+}
+
+code {
+  color: #476582;
+  background-color: #f1f1f1;
+  padding: .15em .5em;
+  border-radius: 4px;
+  font-size: inherit;
+}
+
+strong {
+  color: #213547;
+}
+
+.theme-hope-content a:not(.header-anchor):hover {
+  text-decoration: none;
 }
 .theme-hope-content > img {
   max-width: 100%;
-  // filter: drop-shadow(var(--img-shadow-color) 0px 6px 6px);
   display: block;
   margin: 0 auto;
 }
@@ -196,6 +217,7 @@ p{
   --page-color:#fff;
   // --navbar-bg-color:#0055cf;
   --navbar-bg-color:linear-gradient(to top, #003cb4, #0084ff);
+  --title-color:#213545;
 }
 // html[data-theme=lignt]  #app  {
 //   --menu-color-black:#000;
@@ -609,6 +631,7 @@ ol li{
 
 p, ul, ol{
   line-height: 2;
+  color: #213547;
 }
 
 .hint-container-title{
@@ -639,14 +662,14 @@ figcaption{
 
 .vp-page h2::before {
   content: counter(h2counter) ". ";  /* 显示如 "1. " */
-  color: #0b3588;
+  color: var(--title-color);
   margin-right: 6px;
   font-weight: bold !important;
 }
 
 .vp-page h3::before {
   content: counter(h2counter) "." counter(h3counter) ". ";  /* 显示如 "1.1. " */
-  color: #0b3588;
+  color: var(--title-color);
   margin-right: 6px;
   font-weight: bold !important;
 }
@@ -656,7 +679,7 @@ figcaption{
 .vp-page h1 a, .vp-page h2 a, .vp-page h3 a, .vp-page h4 a, .vp-page h5 a, .vp-page h6 a {
   font-weight: bold !important;
   // font-family: 'Times New Roman', Times;
-  color: #0b3588;
+  color: var(--title-color);
 }
 
 *{
@@ -721,5 +744,22 @@ figcaption{
       color: #646a73;
       background-color: #e8e9e9;
     }
+  }
+}
+
+kbd {
+  padding: 4px 6px;
+  margin: 0 6px;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-size: inherit;
+  background: none;
+  box-shadow: 1px 1px 1px 0 #e5e5e5;
+  border: 1px solid #e5e5e5;
+  font-family: inherit;
+
+  img {
+    margin: 0;
   }
 }
