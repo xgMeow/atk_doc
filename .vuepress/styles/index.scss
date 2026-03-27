@@ -650,36 +650,37 @@ figcaption{
     counter-reset: h2counter;  /* 定义计数器名为 h2counter */
 }
 
-.vp-page h2 {
-  counter-increment: h2counter;
-  counter-reset: h3counter;   /* 每遇到一个新 h2，重置 h3 计数器 */
-}
+// .vp-page h2 {
+//   counter-increment: h2counter;
+//   counter-reset: h3counter;   /* 每遇到一个新 h2，重置 h3 计数器 */
+// }
 
-.vp-page h3 {
-  counter-increment: h3counter;
-  counter-reset: h4counter;   /* 可选，根据需要继续 */
-}
+// .vp-page h3 {
+//   counter-increment: h3counter;
+//   counter-reset: h4counter;   /* 可选，根据需要继续 */
+// }
 
-.vp-page h2::before {
-  content: counter(h2counter) ". ";  /* 显示如 "1. " */
-  color: var(--title-color);
-  margin-right: 6px;
-  font-weight: bold !important;
-}
+// .vp-page h2::before {
+//   content: counter(h2counter) ". ";  /* 显示如 "1. " */
+//   color: var(--title-color);
+//   margin-right: 6px;
+//   font-weight: bold !important;
+// }
 
-.vp-page h3::before {
-  content: counter(h2counter) "." counter(h3counter) ". ";  /* 显示如 "1.1. " */
-  color: var(--title-color);
-  margin-right: 6px;
-  font-weight: bold !important;
-}
+// .vp-page h3::before {
+//   content: counter(h2counter) "." counter(h3counter) ". ";  /* 显示如 "1.1. " */
+//   color: var(--title-color);
+//   margin-right: 6px;
+//   font-weight: bold !important;
+// }
 
 
 // 所有标题都加粗
-.vp-page h1 a, .vp-page h2 a, .vp-page h3 a, .vp-page h4 a, .vp-page h5 a, .vp-page h6 a {
+.vp-page h1 a, .vp-page h2 a, .vp-page h3 a, .vp-page h4 a, .vp-page h5 a, .vp-page h6 a, .vp-catalog-main-title {
   font-weight: bold !important;
   // font-family: 'Times New Roman', Times;
   color: var(--title-color);
+  font-family: var(--font-family-heading);
 }
 
 *{
@@ -757,7 +758,8 @@ kbd {
   background: none;
   box-shadow: 1px 1px 1px 0 #e5e5e5;
   border: 1px solid #e5e5e5;
-  font-family: inherit;
+  font-family: var(--font-family);
+  letter-spacing: 1px;
 
   img {
     margin: 0;
