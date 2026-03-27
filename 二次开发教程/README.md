@@ -15,13 +15,3 @@ Connect模式、MBSE模式可使用的脚本命令请参考Connect模式功能�
 
 
 <Catalog />
-
-<!--
-
-replace[code]
-
-```.*(\n[\s\S]*?\n)```
-```cpp$1```
-
-
--->
