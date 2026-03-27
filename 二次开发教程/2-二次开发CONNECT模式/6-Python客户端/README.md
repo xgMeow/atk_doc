@@ -1,13 +1,7 @@
 ---
 title: Python接口
 ---
-<!--
-Python客户端是ATK软件向用户提供的一种支持Connect命令和Python语法混合解析运行的界面工具。支持Python遍历判断等逻辑语法的同时，也支持在Python代码中调用Connect命令接口与ATK连接通信。
 
-Python客户端位置如下图：
-
-![Python客户端程序位置](media/README/python客户端位置.png)
--->
 Python客户端是ATK软件向用户提供的一种支持Connect命令和Python语法混合解析运行的界面工具。支持Python遍历判断等逻辑语法的同时，也支持在Python代码中调用Connect命令接口与ATK连接通信。目前界面属性窗口不具备实时更新功能，故而设置属性后需重新打开对象属性界面属性数据才会更新。Python客户端需用户自行下载安装，ATK提供ATK与Python通信库文件再安装包目录下IntegratingWithATK\connect\Python文件夹中，用户需将使用库与使用函数添加到使用目录，如下图：
 
 ![使用文件目录](media/README/image0120-1.png)
