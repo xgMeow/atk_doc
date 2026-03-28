@@ -22,6 +22,4 @@ ATK：Aerospace Tool Kit。
 
 离线版帮助文件已集成到ATK安装包中，直接通过浏览器打开html文件即可
 
-<!-- [离线版文档下载](https://cdn.smsat.space/download/atk-doc-offline.zip) -->
-
 <Catalog />
