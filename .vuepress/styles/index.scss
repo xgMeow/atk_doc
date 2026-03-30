@@ -218,6 +218,7 @@ p{
   // --navbar-bg-color:#0055cf;
   --navbar-bg-color:linear-gradient(to top, #003cb4, #0084ff);
   --title-color:#213545;
+  --note-bg-color:#f6f6f7;
 }
 // html[data-theme=lignt]  #app  {
 //   --menu-color-black:#000;
@@ -764,4 +765,22 @@ kbd {
   img {
     margin: 0;
   }
+}
+
+.hint-container.important, .hint-container.info, .hint-container.note, .hint-container.tip, .hint-container.warning, .hint-container.caution{
+  padding: 1rem;
+  border-radius: 0;
+}
+
+blockquote {
+  border-color: #4870ac;
+  color: #40464f;
+  background: #f6f8fa;
+}
+
+.theme-hope-content pre{
+  border: 1px solid #e5e6e7;
+}
+div[class*=language-]{
+  background: #fafafa;
 }
