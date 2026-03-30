@@ -57,7 +57,7 @@ export default {
         "/topics/Objects/Satellite/OrbitPlanningRPO":         "/3.案例教程/12-RPO案例.html",                    //卫星属性-轨道-轨道预报器-机动规划-选中RPO后；右下角的“help”按钮 
         "/topics/Objects/Satellite/AstroUq":                  "/3.案例教程/13-偏差分析案例.html",                 //卫星属性-轨道-轨道预报器-偏差分析；右下角的“help”按钮
         "/topics/Objects/Facility":                           "/4.基础使用指南/2-创建对象.html#地面站的属性设置",      //地面站-属性；右下角的“help”按钮 
-        "/topics/Objects/Sensor":                             "/4.基础使用指南/2-创建对象.html#敏感器的属性设置",      //敏感器-属性；右下角的“help”按钮 
+        "/topics/Objects/Sensor":                             "/4.基础使用指南/2-创建对象.html#传感器的属性设置",      //传感器-属性；右下角的“help”按钮 
         "/topics/Objects/Receiver":                             "/4.基础使用指南/2-创建对象.html#接收器的属性设置",      //接收器-属性；右下角的“help”按钮 
         "/topics/Objects/Transmitter":                             "/4.基础使用指南/2-创建对象.html#发射器的属性设置",      //发射器-属性；右下角的“help”按钮 
         "/topics/Objects/SatelliteCollection":                "/3.案例教程/9-巨型星座设计案例.html",             //卫星集群-属性：右下角的“help”按钮 
