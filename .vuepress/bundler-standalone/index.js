@@ -855,7 +855,7 @@ var build = async (options, app) => {
       });
     }
     let pages_dir = app.dir.temp("pages");
-    make_empty_vue(pages_dir);
+    //make_empty_vue(pages_dir); // 去掉离线版本的所有的js文件
     fs.removeSync(app.dir.dest("assets/js"))
     let cssfiles = fs.readdirSync(app.dir.dest("assets/css"))
     // fs.removeSync(app.dir.dest("assets/css"))

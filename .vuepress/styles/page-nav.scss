@@ -74,13 +74,6 @@
     }
   }
 }
-.theme-hope-conten::-webkit-scrollbar-thumb:vertical{
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  border-radius: 8px;
-  background-color: #e6e6e6;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
-}
 .vp-page-nav .nav-link:hover .hint {
   color: var(--menu-text-color); 
   font-size: 0.875rem;
@@ -94,7 +87,7 @@ h1 {
   font-size: 22px;
   margin-bottom: 0!important;
   width: calc(100% - 180px);
-  overflow: hidden;
+  // overflow: hidden;
   word-break: break-all
 }
 

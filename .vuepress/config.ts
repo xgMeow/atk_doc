@@ -12,6 +12,8 @@ export const useConfig = ({type, plat=""}) => {
     lang: "zh-CN",
     title: standalone ? "ATK 帮助文档(离线版)": "ATK 帮助文档",
     description: "加快工业软件国产化，服务航天强国建设",
+    // 配置网站图标
+    head: [['link', { rel: 'icon', href: '/images/logo.png'}]],
     alias:{
       "@theme-hope/components/PageNav": path.resolve(__dirname,"./components/PageNav.js",),
       //"@theme-hope/components/transitions/index": path.resolve(__dirname,"./components/transitions/index",),
@@ -19,6 +21,7 @@ export const useConfig = ({type, plat=""}) => {
       "@theme-hope/modules/sidebar/components/SidebarChild": path.resolve(__dirname,"./modules/sidebar/components/SidebarChild",),
       "@theme-hope/modules/sidebar/components/SidebarGroup": path.resolve(__dirname,"./modules/sidebar/components/SidebarGroup",),
       "@theme-hope/modules/sidebar/components/SidebarLinks": path.resolve(__dirname,"./modules/sidebar/components/SidebarLinks",),
+      "@components": path.resolve(__dirname,"./components",),
     },
     markdown:{
       code:{
