@@ -21,7 +21,7 @@
     <div class="file-list-wrapper" v-show="!isListCollapsed">
       <!-- 简洁配置栏 -->
       <div v-if="rootPath" class="root-status">
-        <span class="label">ATK根路径：</span>
+        <span class="label">ATK 根路径：</span>
         <span :class="{ 'placeholder': !rootPath }">
           {{ rootPath || '未配置' }}
         </span>
@@ -35,7 +35,8 @@
         </div>
         <div v-else v-for="(item, index) in displayPaths" :key="index" class="list-item">
           <div class="path-content">
-            <span class="path-icon">{{ item.isFile ? '📄' : '📁' }}</span>
+            <!-- 动态图标 -->
+            <span class="path-icon" v-html="getIconHtml(item)"></span>
             <div class="path-info">
               <div class="display-name" v-if="item.displayName !== item.fullPath">
                 {{ item.displayName }}
@@ -83,6 +84,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import scenarioIcon from './images/scenario.png'; // 根据实际路径调整
 
 // ==================== Props 定义 ====================
 const props = defineProps({
@@ -91,10 +93,17 @@ const props = defineProps({
    * 支持两种格式：
    * 1. 字符串：直接作为路径使用
    * 2. 对象：{ path: string, name?: string }
-   * 例如：[
-   *   'SimpleExample\\SimpleExample.atk',
-   *   { path: 'SimpleExample\\SimpleExample.txt', name: '入门案例想定' }
-   * ]
+   * 例如：
+      const files = [
+        // 纯字符串，显示路径最后一段作为名称
+        'SimpleExample\\SimpleExample.atk',
+        // 带自定义名称的对象
+        { path: 'SimpleExample\\SimpleExample.txt', name: '入门案例想定' },
+        // 文件夹路径（没有扩展名），会显示文件夹图标
+        'plugins\\',
+        // 自定义名称的文件夹
+        { path: 'docs\\', name: '文档目录' }
+      ];
    */
   relativePaths: {
     type: Array,
@@ -107,6 +116,26 @@ const props = defineProps({
   storageKey: {
     type: String,
     default: 'app_software_root_path'
+  },
+
+  /**
+   * 自定义图标配置
+   */
+  iconConfig: {
+    type: Object,
+    default: () => ({
+      // 特定文件扩展名对应的图标
+      fileTypeIcons: {
+        '.atk': scenarioIcon,
+        '.xml': scenarioIcon,
+      },
+      // 默认文件图标（可替换为图片路径或emoji）
+      defaultFileIcon: '📄',
+      // 默认文件夹图标
+      defaultFolderIcon: '📁',
+      // 图片文件扩展名列表（这些文件会显示图片预览）
+      imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp'],
+    })
   }
 });
 
@@ -172,6 +201,19 @@ const isFilePath = (path) => {
 };
 
 /**
+ * 从路径中提取文件扩展名
+ * @param {string} path 路径
+ * @returns {string} 扩展名（包含点，如 .atk）
+ */
+const getFileExtension = (path) => {
+  if (!path) return '';
+  const fileName = extractBaseName(path);
+  const lastDotIndex = fileName.lastIndexOf('.');
+  if (lastDotIndex === -1) return '';
+  return fileName.substring(lastDotIndex).toLowerCase();
+};
+
+/**
  * 从路径中提取最后一段（文件名或文件夹名）
  * @param {string} path 路径
  * @returns {string}
@@ -184,6 +226,49 @@ const extractBaseName = (path) => {
   }
   const parts = trimmed.split('\\');
   return parts[parts.length - 1] || '';
+};
+
+/**
+ * 判断是否为图片文件
+ * @param {string} path 路径
+ * @returns {boolean}
+ */
+const isImageFile = (path) => {
+  const ext = getFileExtension(path);
+  return props.iconConfig.imageExtensions.includes(ext);
+};
+
+/**
+ * 获取文件图标HTML
+ * @param {Object} item 文件项
+ * @returns {string} 图标HTML
+ */
+const getIconHtml = (item) => {
+  // 如果是文件夹，返回文件夹图标
+  if (!item.isFile) {
+    return props.iconConfig.defaultFolderIcon;
+  }
+
+  const ext = getFileExtension(item.fullPath);
+  
+  // 检查是否有特定文件类型的图标配置
+  if (props.iconConfig.fileTypeIcons[ext]) {
+    const iconUrl = props.iconConfig.fileTypeIcons[ext];
+    // 如果是URL，返回img标签
+    if (iconUrl.startsWith('/') || iconUrl.startsWith('http')) {
+      return `<img src="${iconUrl}" alt="${ext}图标" class="icon-img" />`;
+    }
+    return iconUrl;
+  }
+
+  // 如果是图片文件，返回图片预览
+  if (isImageFile(item.fullPath)) {
+    // 这里返回img标签，显示图片预览（注意：实际路径可能不存在，使用onerror处理）
+    return `<img src="${item.fullPath}" alt="图片预览" class="icon-img" onerror="this.style.display='none';this.parentElement.innerHTML='🖼️'" />`;
+  }
+
+  // 默认返回文件图标
+  return props.iconConfig.defaultFileIcon;
 };
 
 /**
@@ -288,16 +373,6 @@ const clearAndClose = () => {
 /**
  * 自动获取当前页面的 URL 并填充到输入框
  */
-// const autoFetchUrl = () => {
-//   try {
-//     const currentUrl = window.location.href;
-//     modalPath.value = currentUrl;
-//     showMessage('🌐 已自动获取当前页面URL');
-//   } catch (error) {
-//     console.error('获取当前URL失败:', error);
-//     showMessage('❌ 获取URL失败，请手动输入');
-//   }
-// };
 const autoFetchUrl = () => {
   try {
     let currentUrl = window.location.href;
@@ -418,7 +493,8 @@ onMounted(() => {
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 2px 12px #eff2f5; */
+  border: 2px solid #edf1fa;
   padding: 20px;
   margin: 20px auto;
   transition: all 0.2s ease;
@@ -471,8 +547,9 @@ onMounted(() => {
 
 .root-status {
   font-size: 14px;
-  color: #495057;
-  background: #f8f9fa;
+  color: #213545;
+  background: #f3f4f6;
+  font-weight: bold;
   padding: 8px 14px;
   border-radius: 8px;
   display: flex;
@@ -532,7 +609,7 @@ onMounted(() => {
 
 /* 文件列表区域 */
 .file-list {
-  max-height: 500px;
+  max-height: 320px;
   overflow-y: auto;
   border-radius: 8px;
 }
@@ -544,6 +621,13 @@ onMounted(() => {
   font-size: 14px;
   background: #f8f9fa;
   border-radius: 8px;
+}
+
+.icon-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  vertical-align: middle;
 }
 
 .list-item {
@@ -574,6 +658,17 @@ onMounted(() => {
 .path-icon {
   font-size: 18px;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.path-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .path-info {
@@ -807,16 +902,16 @@ onMounted(() => {
 }
 
 .file-list::-webkit-scrollbar-track {
-  background: #f1f3f5;
+  background: #fff !important;
   border-radius: 10px;
 }
 
 .file-list::-webkit-scrollbar-thumb {
-  background: #ced4da;
+  background: #adb5bd;
   border-radius: 10px;
 }
 
 .file-list::-webkit-scrollbar-thumb:hover {
-  background: #adb5bd;
+  background: #9ba2aa;
 }
 </style>
