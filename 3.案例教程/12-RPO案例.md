@@ -1,7 +1,6 @@
 # RPO案例
 <PathViewer
   :relative-paths="files"
-  storage-key="ATK_Examples_root_path"
 />
 
 ## 案例想定
