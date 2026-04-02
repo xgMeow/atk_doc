@@ -14,7 +14,8 @@
   // padding-inline-start: calc(var(--sidebar-space) - var(--sidebar-width));
 
   background: var(--sidebar-bg-color);
-  box-shadow: 2px 0 8px var(--card-shadow);
+  // box-shadow: 2px 0 8px var(--card-shadow);
+  // border-right: 8px solid #f2f2f5;
 
   font-size: 0.94rem;
 
@@ -24,7 +25,6 @@
 
   backdrop-filter: saturate(150%) blur(12px);
   scrollbar-color: var(--theme-color) var(--border-color);
-  // scrollbar-width: thin;
 
   @media (max-width: hope-config.$pad) {
     font-size: 0.86em;
@@ -96,23 +96,22 @@
   }
 }
 
+
+// 滚动条隐藏，放上去显示
 .vp-sidebar {
-  scrollbar-color: transparent transparent; /* 设置透明隐藏滚动条 */
-  // overflow: hidden;
+  scrollbar-color: transparent #eff2f5; /* 设置透明隐藏滚动条 */
+  overflow-y: scroll;  /* 垂直滚动条始终显示 */
 }
 .vp-sidebar:hover {
-  // overflow: auto;
-  scrollbar-color: #e5e5e5 transparent; /* 显示滚动条 */
-}
-::-webkit-scrollbar-thumb:vertical {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  border-radius: 8px;
-  background-color: #e6e6e6;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
-
+  scrollbar-color: #d5dae0 #eff2f5; /* 显示滚动条 */
 }
 
+pre {
+  scrollbar-color: transparent transparent;
+}
+pre:hover {
+  scrollbar-color: #d5dae0 transparent; 
+}
 #navbar.vp-navbar {
   width: 100%;
 }
