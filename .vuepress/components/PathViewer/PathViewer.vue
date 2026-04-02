@@ -21,6 +21,7 @@
     <div class="file-list-wrapper" v-show="!isListCollapsed">
       <!-- 简洁配置栏 -->
       <div v-if="rootPath" class="root-status">
+        <img src="/images/logo.png" alt="STK图标" class="icon-img" />
         <span class="label">ATK 根路径：</span>
         <span :class="{ 'placeholder': !rootPath }">
           {{ rootPath || '未配置' }}
@@ -115,7 +116,7 @@ const props = defineProps({
    */
   storageKey: {
     type: String,
-    default: 'app_software_root_path'
+    default: 'ATK_root_path'
   },
 
   /**
