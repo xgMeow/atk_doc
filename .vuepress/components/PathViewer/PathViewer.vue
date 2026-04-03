@@ -715,6 +715,7 @@ onMounted(() => {
   justify-content: center;
   width: 24px;
   height: 24px;
+  overflow: hidden;
 }
 
 .path-icon img {
