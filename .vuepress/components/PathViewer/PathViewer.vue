@@ -2,9 +2,12 @@
   <div class="path-viewer">
     <div class="title-box">
       <div class="title">
-        <!-- 折叠箭头 + 标题文字 -->
         <div class="title-row">
-          <span class="collapse-arrow" @click="toggleCollapse" :aria-label="isListCollapsed ? '展开文件列表' : '折叠文件列表'">
+          <span
+            class="collapse-arrow"
+            @click="toggleCollapse"
+            :aria-label="isListCollapsed ? '展开文件列表' : '折叠文件列表'"
+          >
             {{ isListCollapsed ? '▶' : '▼' }}
           </span>
           <span class="title-text">文件列表</span>
@@ -17,26 +20,30 @@
         <button class="config-btn" @click="openConfigDialog">配置软件根路径</button>
       </div>
     </div>
+
     <!-- 文件列表（支持折叠/展开） -->
     <div class="file-list-wrapper" v-show="!isListCollapsed">
-      <!-- 简洁配置栏 -->
       <div v-if="rootPath" class="root-status">
-        <img src="/images/logo.png" alt="STK图标" class="icon-img" />
         <span class="label">ATK 根路径：</span>
-        <span :class="{ 'placeholder': !rootPath }">
-          {{ rootPath || '未配置' }}
-        </span>
+        <span>{{ rootPath }}</span>
       </div>
-      <div v-if="!rootPath" class="tip-alert">
-        当前未配置软件安装路径，展示的是相对路径，配置后可获取完整绝对路径
-      </div>
+     <template v-if="!rootPath">
+        <div class="tip-alert">
+          当前未配置软件安装路径，展示的是相对路径，配置后可获取完整绝对路径
+        </div>
+        <!-- 如果检测到路径但未配置，显示快速配置提示 -->
+        <div v-if="isLocalFile && autoDetectedPath && !rootPath" class="quick-config-hint">
+          🔍 检测到可能的软件路径：{{ autoDetectedPath }}
+          <button class="quick-config-btn" @click="quickFillAndOpen">点击配置</button>
+        </div>
+      </template>
+  
       <div class="file-list">
         <div v-if="displayPaths.length === 0" class="empty-state">
           📂 暂无文件列表
         </div>
         <div v-else v-for="(item, index) in displayPaths" :key="index" class="list-item">
           <div class="path-content">
-            <!-- 动态图标 -->
             <span class="path-icon" v-html="getIconHtml(item)"></span>
             <div class="path-info">
               <div class="display-name" v-if="item.displayName !== item.fullPath">
@@ -62,9 +69,31 @@
           请输入软件安装目录的绝对路径，之后文件列表会自动拼接为完整路径。
         </p>
         <div class="input-group">
-          <input v-model="modalPath" type="text" placeholder="例如: D:\ProgramTool\ATK-4.0-rc.4"
-            @keyup.enter="saveConfig" />
-          <button class="btn-auto-fetch" @click="autoFetchUrl" title="自动获取当前页面URL">自动获取</button>
+          <input
+            v-model="modalPath"
+            type="text"
+            placeholder="例如: D:\ProgramTool\ATK-4.0-rc.4"
+            @keyup.enter="saveConfig"
+          />
+          <!-- 只在本地 file:// 协议下显示自动获取按钮 -->
+          <button
+            v-if="isLocalFile"
+            class="btn-auto-fetch"
+            @click="autoFetchFromUrl"
+            title="从当前页面URL自动提取软件根路径"
+          >
+            自动获取
+          </button>
+        </div>
+        <div v-if="autoDetectedPath && isLocalFile" class="auto-detect-hint">
+          🔍 检测到可能的软件路径：{{ autoDetectedPath }}
+        </div>
+        <!-- 新增的功能示例提示 -->
+        <div class="example-hint">
+          💡 <strong>使用示例：</strong>假设您输入根路径 <code>D:\ProgramTool\ATK-4.0-rc.4</code>，
+          文件列表中如有路径 <code>Help\Examples\01-入门案例</code>，
+          系统会自动拼接为 <code>D:\ProgramTool\ATK-4.0-rc.4\Help\Examples\01-入门案例</code>，
+          点击对应项的“复制路径”按钮即可一键复制完整路径。
         </div>
         <div class="modal-actions">
           <button class="btn-clear" @click="clearAndClose">清除配置</button>
@@ -84,417 +113,444 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import scenarioIcon from './images/scenario.png'; // 根据实际路径调整
+import { ref, computed, onMounted } from 'vue'
+// import scenarioIcon from './images/scenario.png'
 
-// ==================== Props 定义 ====================
-const props = defineProps({
-  /**
-   * 相对路径列表
-   * 支持两种格式：
-   * 1. 字符串：直接作为路径使用
-   * 2. 对象：{ path: string, name?: string }
-   * 例如：
-      const files = [
-        // 纯字符串，显示路径最后一段作为名称
-        'SimpleExample\\SimpleExample.atk',
-        // 带自定义名称的对象
-        { path: 'SimpleExample\\SimpleExample.txt', name: '入门案例想定' },
-        // 文件夹路径（没有扩展名），会显示文件夹图标
-        'plugins\\',
-        // 自定义名称的文件夹
-        { path: 'docs\\', name: '文档目录' }
-      ];
-   */
-  relativePaths: {
-    type: Array,
-    default: () => ['SimpleExample\\SimpleExample.atk']
-  },
-
-  /**
-   * 存储根路径的 localStorage key
-   */
-  storageKey: {
-    type: String,
-    default: 'ATK_root_path'
-  },
-
-  /**
-   * 自定义图标配置
-   */
-  iconConfig: {
-    type: Object,
-    default: () => ({
-      // 特定文件扩展名对应的图标
-      fileTypeIcons: {
-        '.atk': scenarioIcon,
-        '.xml': scenarioIcon,
-      },
-      // 默认文件图标（可替换为图片路径或emoji）
-      defaultFileIcon: '📄',
-      // 默认文件夹图标
-      defaultFolderIcon: '📁',
-      // 图片文件扩展名列表（这些文件会显示图片预览）
-      imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp'],
-    })
-  }
-});
-
-// ==================== 响应式状态 ====================
-const rootPath = ref('');        // 当前生效的根路径
-const message = ref('');         // 提示消息
-const showDialog = ref(false);   // 弹窗显示控制
-const modalPath = ref('');       // 弹窗内临时输入的路径
-const isListCollapsed = ref(false); // 文件列表折叠状态（默认展开）
-
-// 用于管理提示消息的定时器
-let messageTimer = null;
-
-// ==================== 辅助函数 ====================
+// ==================== 工具函数 ====================
 /**
- * 标准化路径分隔符并去除尾部斜杠
- * @param {string} path 原始路径
- * @returns {string} 标准化后的路径
+ * 将路径中的正斜杠统一转换为反斜杠，并去除末尾多余的反斜杠
+ * @param {string} path - 原始路径
+ * @returns {string} 规范化后的路径
  */
 const normalizePath = (path) => {
-  if (!path) return '';
-  // 统一将正斜杠转为反斜杠（Windows风格）
-  let normalized = path.replace(/\//g, '\\');
-  // 去除尾部的反斜杠
-  if (normalized.endsWith('\\')) {
-    normalized = normalized.slice(0, -1);
-  }
-  return normalized;
-};
+  if (!path) return ''
+  let normalized = path.replace(/\//g, '\\')
+  if (normalized.endsWith('\\')) normalized = normalized.slice(0, -1)
+  return normalized
+}
 
 /**
- * 拼接根路径和相对路径
- * @param {string} root 根路径（可能为空）
- * @param {string} relative 相对路径
+ * 拼接根路径和相对路径，生成完整路径
+ * @param {string} root - 根路径（可能为空）
+ * @param {string} relative - 相对路径
  * @returns {string} 完整路径
  */
 const joinPath = (root, relative) => {
-  if (!root) return relative;
-  // 去除相对路径开头的反斜杠
-  let rel = relative;
-  if (rel.startsWith('\\')) {
-    rel = rel.slice(1);
-  }
-  const normalizedRoot = normalizePath(root);
-  return `${normalizedRoot}\\${rel}`;
-};
+  if (!root) return relative
+  let rel = relative
+  if (rel.startsWith('\\')) rel = rel.slice(1)
+  const normalizedRoot = normalizePath(root)
+  return `${normalizedRoot}\\${rel}`
+}
 
 /**
- * 判断路径是否为文件（基于最后一部分是否包含扩展名）
- * @param {string} path 完整路径或相对路径
+ * 判断路径是否为文件（包含扩展名且不是以点开头的隐藏文件）
+ * @param {string} path - 路径
  * @returns {boolean}
  */
 const isFilePath = (path) => {
-  if (!path) return false;
-  // 去除尾部斜杠（如果有）后再取最后一段
-  let trimmed = path;
-  if (trimmed.endsWith('\\')) {
-    trimmed = trimmed.slice(0, -1);
-  }
-  const lastPart = trimmed.split('\\').pop();
-  // 判断最后一段是否包含点，且不是以点开头（隐藏文件也算文件）
-  return lastPart.includes('.') && !lastPart.startsWith('.');
-};
+  if (!path) return false
+  let trimmed = path
+  if (trimmed.endsWith('\\')) trimmed = trimmed.slice(0, -1)
+  const lastPart = trimmed.split('\\').pop()
+  return lastPart.includes('.') && !lastPart.startsWith('.')
+}
 
 /**
- * 从路径中提取文件扩展名
- * @param {string} path 路径
- * @returns {string} 扩展名（包含点，如 .atk）
- */
-const getFileExtension = (path) => {
-  if (!path) return '';
-  const fileName = extractBaseName(path);
-  const lastDotIndex = fileName.lastIndexOf('.');
-  if (lastDotIndex === -1) return '';
-  return fileName.substring(lastDotIndex).toLowerCase();
-};
-
-/**
- * 从路径中提取最后一段（文件名或文件夹名）
- * @param {string} path 路径
- * @returns {string}
+ * 提取文件名（基础名称）
+ * @param {string} path - 完整路径
+ * @returns {string} 文件名或最后一段
  */
 const extractBaseName = (path) => {
-  if (!path) return '';
-  let trimmed = path;
-  if (trimmed.endsWith('\\')) {
-    trimmed = trimmed.slice(0, -1);
-  }
-  const parts = trimmed.split('\\');
-  return parts[parts.length - 1] || '';
-};
+  if (!path) return ''
+  let trimmed = path
+  if (trimmed.endsWith('\\')) trimmed = trimmed.slice(0, -1)
+  const parts = trimmed.split('\\')
+  return parts[parts.length - 1] || ''
+}
 
 /**
- * 判断是否为图片文件
- * @param {string} path 路径
+ * 获取文件扩展名（小写）
+ * @param {string} path - 文件路径
+ * @returns {string} 扩展名（如 '.atk'），若没有则返回空字符串
+ */
+const getFileExtension = (path) => {
+  const fileName = extractBaseName(path)
+  const lastDotIndex = fileName.lastIndexOf('.')
+  if (lastDotIndex === -1) return ''
+  return fileName.substring(lastDotIndex).toLowerCase()
+}
+
+/**
+ * 判断是否为图片文件（基于扩展名）
+ * @param {string} path - 文件路径
+ * @param {Array} imageExtensions - 图片扩展名列表
  * @returns {boolean}
  */
-const isImageFile = (path) => {
-  const ext = getFileExtension(path);
-  return props.iconConfig.imageExtensions.includes(ext);
-};
+const isImageFile = (path, imageExtensions) => {
+  const ext = getFileExtension(path)
+  return imageExtensions.includes(ext)
+}
 
 /**
- * 获取文件图标HTML
- * @param {Object} item 文件项
- * @returns {string} 图标HTML
+ * 从当前页面的 file:// URL 中提取软件根路径
+ * 策略：优先查找 'help' 目录，取 help 的父目录作为根路径；如果未找到，则查找包含 softwareIdentifier 的目录段
+ * @param {string} url - 当前页面 URL
+ * @param {string} softwareIdentifier - 软件标识关键词
+ * @returns {string|null} 提取的根路径，失败返回 null
  */
-const getIconHtml = (item) => {
-  // 如果是文件夹，返回文件夹图标
-  if (!item.isFile) {
-    return props.iconConfig.defaultFolderIcon;
-  }
-
-  const ext = getFileExtension(item.fullPath);
-  
-  // 检查是否有特定文件类型的图标配置
-  if (props.iconConfig.fileTypeIcons[ext]) {
-    const iconUrl = props.iconConfig.fileTypeIcons[ext];
-    // 如果是URL，返回img标签
-    if (iconUrl.startsWith('/') || iconUrl.startsWith('http')) {
-      return `<img src="${iconUrl}" alt="${ext}图标" class="icon-img" />`;
-    }
-    return iconUrl;
-  }
-
-  // 如果是图片文件，返回图片预览
-  if (isImageFile(item.fullPath)) {
-    // 这里返回img标签，显示图片预览（注意：实际路径可能不存在，使用onerror处理）
-    return `<img src="${item.fullPath}" alt="图片预览" class="icon-img" onerror="this.style.display='none';this.parentElement.innerHTML='🖼️'" />`;
-  }
-
-  // 默认返回文件图标
-  return props.iconConfig.defaultFileIcon;
-};
-
-/**
- * 显示短暂提示消息
- * @param {string} msg 消息内容
- */
-const showMessage = (msg) => {
-  // 清除之前的定时器
-  if (messageTimer) {
-    clearTimeout(messageTimer);
-  }
-  // 设置新消息
-  message.value = msg;
-  // 设置新定时器
-  messageTimer = setTimeout(() => {
-    message.value = '';
-    messageTimer = null;
-  }, 2000);
-};
-
-// ==================== 存储相关 ====================
-/**
- * 从 localStorage 加载根路径
- */
-const loadRootPath = () => {
+const extractRootPathFromUrl = (url, softwareIdentifier) => {
+  if (!url || !url.startsWith('file://')) return null
   try {
-    const saved = localStorage.getItem(props.storageKey);
-    if (saved) {
-      rootPath.value = saved;
-    }
-  } catch (error) {
-    console.error('读取本地配置失败:', error);
-  }
-};
+    // 去掉 file:// 前缀，并解码 URL 编码的中文
+    let path = url.replace(/^file:\/\/\/?/, '')
+    path = decodeURIComponent(path)
+    path = normalizePath(path)
 
-/**
- * 保存根路径到 localStorage
- * @param {string} path 要保存的路径
- */
-const saveRootPath = (path) => {
-  try {
-    if (path) {
-      localStorage.setItem(props.storageKey, path);
-    } else {
-      localStorage.removeItem(props.storageKey);
-    }
-  } catch (error) {
-    console.error('保存本地配置失败:', error);
-  }
-};
+    const pathParts = path.split('\\')
 
-/**
- * 设置根路径（内部使用，并持久化）
- * @param {string} newPath 新的根路径（空字符串表示清除）
- */
-const setRootPathValue = (newPath) => {
-  const normalized = normalizePath(newPath);
-  rootPath.value = normalized;
-  saveRootPath(normalized);
-  if (normalized) {
-    showMessage(`✅ 根路径已设置: ${normalized}`);
-  } else {
-    showMessage('🔄 已清除根路径配置，现显示原始相对路径');
-  }
-};
-
-// ==================== 弹窗操作 ====================
-/**
- * 打开配置弹窗
- */
-const openConfigDialog = () => {
-  modalPath.value = rootPath.value; // 预填当前路径
-  showDialog.value = true;
-};
-
-/**
- * 关闭弹窗
- */
-const closeDialog = () => {
-  showDialog.value = false;
-  console.log('弹窗已关闭');
-};
-
-/**
- * 保存配置（从弹窗输入）
- */
-const saveConfig = () => {
-  const newPath = modalPath.value.trim();
-  setRootPathValue(newPath);
-  closeDialog();
-};
-
-/**
- * 清除配置并关闭弹窗
- */
-const clearAndClose = () => {
-  setRootPathValue('');
-  closeDialog();
-};
-
-// ==================== 自动获取 URL ====================
-/**
- * 自动获取当前页面的 URL 并填充到输入框
- */
-const autoFetchUrl = () => {
-  try {
-    let currentUrl = window.location.href;
-    // 解码 URL 中的中文等特殊字符
-    currentUrl = decodeURIComponent(currentUrl);
-    // 将正斜杠转换为反斜杠，使路径格式统一
-    currentUrl = currentUrl.replace(/\//g, '\\');
-    modalPath.value = currentUrl;
-    showMessage('🌐 已自动获取当前页面URL');
-  } catch (error) {
-    console.error('获取当前URL失败:', error);
-    showMessage('❌ 获取URL失败，请手动输入');
-  }
-};
-
-// ==================== 折叠/展开功能 ====================
-/**
- * 切换文件列表折叠状态
- */
-const toggleCollapse = () => {
-  isListCollapsed.value = !isListCollapsed.value;
-};
-
-// ==================== 复制功能 ====================
-/**
- * 复制路径到剪贴板
- * @param {string} text 要复制的文本
- */
-const copyPath = async (text) => {
-  const fallbackCopy = () => {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    document.body.appendChild(textarea);
-    textarea.select();
-    const success = document.execCommand('copy');
-    document.body.removeChild(textarea);
-    if (success) {
-      showMessage(`✅ 复制成功: ${text}`);
-    } else {
-      showMessage('❌ 复制失败，请手动复制');
-    }
-  };
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    try {
-      await navigator.clipboard.writeText(text);
-      showMessage(`✅ 复制成功: ${text}`);
-    } catch (err) {
-      console.error('Clipboard API 复制失败:', err);
-      fallbackCopy();
-    }
-  } else {
-    fallbackCopy();
-  }
-};
-
-// ==================== 计算属性 ====================
-/**
- * 展示的路径列表
- * 每个元素包含原始相对路径、完整路径、显示名称、是否为文件的标识
- */
-const displayPaths = computed(() => {
-  if (!props.relativePaths || props.relativePaths.length === 0) {
-    return [];
-  }
-
-  return props.relativePaths.map((item) => {
-    // 解析输入项：可以是字符串或对象
-    let originalPath = '';
-    let customName = null;
-
-    if (typeof item === 'string') {
-      originalPath = item;
-    } else if (item && typeof item === 'object') {
-      originalPath = item.path || '';
-      customName = item.name || null;
-    } else {
-      console.warn('无效的路径项:', item);
-      return null;
-    }
-
-    const fullPath = joinPath(rootPath.value, originalPath);
-    // 判断是否为文件
-    const isFile = isFilePath(fullPath);
-    // 决定显示名称：优先使用自定义名称，否则从完整路径中提取基名
-    let displayName = '';
-    if (customName !== null && customName !== '') {
-      displayName = customName;
-    } else {
-      // 没有自定义名称时，使用路径的最后一段作为显示名称
-      displayName = extractBaseName(fullPath);
-      // 如果提取后为空（例如根目录），则回退到完整路径
-      if (!displayName) {
-        displayName = fullPath;
+    // 策略1：优先查找 'help' 目录，取 help 的父目录作为根路径
+    for (let i = 0; i < pathParts.length; i++) {
+      const part = pathParts[i]
+      if (part && part.toLowerCase() === 'help') {
+        if (i > 0) return pathParts.slice(0, i).join('\\')
+        break
       }
     }
 
-    return {
-      original: originalPath,
-      fullPath: fullPath,
-      displayName: displayName,
-      isFile: isFile,
-    };
-  }).filter(item => item !== null); // 过滤掉无效项
-});
+    // 策略2：查找包含软件标识的目录
+    for (let i = 0; i < pathParts.length; i++) {
+      const part = pathParts[i]
+      if (part && part.includes(softwareIdentifier)) {
+        return pathParts.slice(0, i + 1).join('\\')
+      }
+    }
+
+    return null
+  } catch (error) {
+    console.error('提取根路径失败:', error)
+    return null
+  }
+}
+
+// ==================== Props 定义 ====================
+const props = defineProps({
+  relativePaths: {
+    type: Array,
+  },
+  storageKey: {
+    type: String,
+    default: 'ATK_root_path',
+  },
+  softwareIdentifier: {
+    type: String,
+    default: 'ATK',
+  },
+  iconConfig: {
+    type: Object,
+    default: () => ({
+      fileTypeIcons: {
+        '.atk': '<svg t="1775133327450" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12975" width="256" height="256"><path d="M98.9 577.2h350v350h-350zM98.9 112.6h350v350h-350zM567.3 577.2h350v350h-350zM520.493 287.543L742.31 65.725l221.818 221.818L742.31 509.36z" fill="#ff9212" p-id="12976"></path></svg>',
+        '.xml': '<svg t="1775133327450" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12975" width="256" height="256"><path d="M98.9 577.2h350v350h-350zM98.9 112.6h350v350h-350zM567.3 577.2h350v350h-350zM520.493 287.543L742.31 65.725l221.818 221.818L742.31 509.36z" fill="#ff9212" p-id="12976"></path></svg>'
+      },
+      defaultFileIcon: '📄',
+      defaultFolderIcon: '📁',
+      defaultImgIcon: '🖼️',
+      imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp'],
+    }),
+  },
+})
+ 
+// ==================== 响应式状态 ====================
+const rootPath = ref('') // 用户配置的根路径
+const message = ref('') // 提示消息文本
+const showDialog = ref(false) // 是否显示配置弹窗
+const modalPath = ref('') // 弹窗中输入的临时路径
+const isListCollapsed = ref(false) // 文件列表是否折叠
+const isLocalFile = ref(false) // 当前是否在 file:// 协议下
+const autoDetectedPath = ref('') // 自动检测到的软件根路径
+
+let messageTimer = null // 消息定时器句柄
+
+// ==================== 辅助方法 ====================
+/**
+ * 显示短暂提示消息（5秒后自动消失）
+ * @param {string} msg - 消息内容
+ */
+const showMessage = (msg) => {
+  if (messageTimer) clearTimeout(messageTimer)
+  message.value = msg
+  messageTimer = setTimeout(() => {
+    message.value = ''
+    messageTimer = null
+  }, 5000)
+}
+
+/**
+ * 获取文件/文件夹对应的图标 HTML
+ * @param {Object} item - 包含 fullPath 和 isFile 属性的对象
+ * @returns {string} HTML 字符串或文本图标
+ */
+const getIconHtml = (item) => {
+  if (!item.isFile) return props.iconConfig.defaultFolderIcon
+
+  const ext = getFileExtension(item.fullPath)
+  const customIcon = props.iconConfig.fileTypeIcons[ext]
+  if (customIcon) {
+    // 如果是 URL 或绝对路径，使用 img 标签
+    if (customIcon.startsWith('/') || customIcon.startsWith('http')) {
+      return `<img src="${customIcon}" alt="${ext}图标" class="icon-img" />`
+    }
+    return customIcon
+  }
+
+  if (isImageFile(item.fullPath, props.iconConfig.imageExtensions)) {
+    return props.iconConfig.defaultImgIcon
+  }
+
+  return props.iconConfig.defaultFileIcon
+}
+
+/**
+ * 保存根路径到 localStorage，并更新状态
+ * @param {string} path - 新的根路径
+ */
+const setRootPathValue = (newPath) => {
+  const normalized = normalizePath(newPath)
+  rootPath.value = normalized
+  try {
+    if (normalized) {
+      localStorage.setItem(props.storageKey, normalized)
+    } else {
+      localStorage.removeItem(props.storageKey)
+    }
+  } catch (error) {
+    console.error('保存本地配置失败:', error)
+  }
+  if (normalized) {
+    showMessage(`✅ 根路径已设置: ${normalized}`)
+  } else {
+    showMessage('🔄 已清除根路径配置，现显示原始相对路径')
+  }
+}
+
+/**
+ * 检测当前环境并尝试自动获取软件根路径（仅检测，不自动保存）
+ */
+const detectAndAutoFetch = () => {
+  const currentUrl = window.location.href
+  // 测试用固定 URL 进行调试
+  // const currentUrl = "file:///D:/ProgramTool/ATK-4.0-rc.4/Help/html/3.案例教程/1-入门案例.html";
+  if (currentUrl.startsWith('file://')) {
+    isLocalFile.value = true
+    const detectedPath = extractRootPathFromUrl(currentUrl, props.softwareIdentifier)
+    if (detectedPath) {
+      autoDetectedPath.value = detectedPath
+      if (!rootPath.value) {
+        showMessage(`🔍 检测到软件根路径: ${detectedPath}，请点击“配置软件根路径”并保存`)
+      }
+    } else {
+      autoDetectedPath.value = ''
+    }
+  } else {
+    isLocalFile.value = false
+    autoDetectedPath.value = ''
+  }
+}
+
+/**
+ * 从 localStorage 加载已保存的根路径配置
+ */
+const loadRootPath = () => {
+  try {
+    const saved = localStorage.getItem(props.storageKey)
+    if (saved) {
+      rootPath.value = saved
+    }
+  } catch (error) {
+    console.error('读取本地配置失败:', error)
+  }
+  // 无论是否有保存的配置，都执行检测（用于显示自动获取按钮和提示）
+  detectAndAutoFetch()
+}
+
+// ==================== 事件处理（用户交互） ====================
+/** 打开配置弹窗，预填当前值或检测到的路径 */
+const openConfigDialog = () => {
+  if (rootPath.value) {
+    modalPath.value = rootPath.value
+  } else if (autoDetectedPath.value) {
+    modalPath.value = autoDetectedPath.value
+  } else {
+    modalPath.value = ''
+  }
+  showDialog.value = true
+}
+
+/** 关闭配置弹窗 */
+const closeDialog = () => {
+  showDialog.value = false
+}
+
+/** 保存配置弹窗中的路径 */
+const saveConfig = () => {
+  const newPath = modalPath.value.trim()
+  setRootPathValue(newPath)
+  closeDialog()
+}
+
+/** 清除配置并关闭弹窗 */
+const clearAndClose = () => {
+  setRootPathValue('')
+  closeDialog()
+}
+
+/** 自动获取路径（仅填充到输入框，不自动保存） */
+const autoFetchFromUrl = () => {
+  const currentUrl = window.location.href
+  // 测试用固定 URL 进行调试
+  // const currentUrl = "file:///D:/ProgramTool/ATK-4.0-rc.4/Help/html/3.案例教程/1-入门案例.html";
+  if (!currentUrl.startsWith('file://')) {
+    showMessage('❌ 当前不在本地文件环境，无法自动获取')
+    return
+  }
+  const detectedPath = extractRootPathFromUrl(currentUrl, props.softwareIdentifier)
+  if (detectedPath) {
+    modalPath.value = detectedPath
+    autoDetectedPath.value = detectedPath // 更新检测到的路径
+    showMessage(`✅ 已自动获取软件路径: ${detectedPath}，请点击“保存”生效`)
+  } else {
+    showMessage('❌ 未能自动识别软件根路径，请手动输入')
+  }
+}
+
+/** 快速填充并打开弹窗（用于未配置时的快捷配置） */
+const quickFillAndOpen = () => {
+  if (autoDetectedPath.value) {
+    modalPath.value = autoDetectedPath.value
+    showDialog.value = true
+  } else {
+    openConfigDialog()
+  }
+}
+
+/** 折叠/展开文件列表 */
+const toggleCollapse = () => {
+  isListCollapsed.value = !isListCollapsed.value
+}
+
+/**
+ * 复制文本到剪贴板（支持降级方案）
+ * @param {string} text - 要复制的文本
+ */
+const copyPath = async (text) => {
+  const fallbackCopy = () => {
+    const textarea = document.createElement('textarea')
+    textarea.value = text
+    textarea.style.position = 'fixed'
+    textarea.style.opacity = '0'
+    document.body.appendChild(textarea)
+    textarea.select()
+    const success = document.execCommand('copy')
+    document.body.removeChild(textarea)
+    if (success) {
+      showMessage(`✅ 复制成功: ${text}`)
+    } else {
+      showMessage('❌ 复制失败，请手动复制')
+    }
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text)
+      showMessage(`✅ 复制成功: ${text}`)
+    } catch (err) {
+      console.error('Clipboard API 复制失败:', err)
+      fallbackCopy()
+    }
+  } else {
+    fallbackCopy()
+  }
+}
+
+// ==================== 计算属性 ====================
+/**
+ * 生成最终展示的文件列表
+ * 将相对路径与根路径拼接，并附加显示名称、是否为文件等信息
+ */
+const displayPaths = computed(() => {
+  if (!props.relativePaths || props.relativePaths.length === 0) return []
+
+  return props.relativePaths
+    .map((item) => {
+      let originalPath = ''
+      let customName = null
+
+      if (typeof item === 'string') {
+        originalPath = item
+      } else if (item && typeof item === 'object') {
+        originalPath = item.path || ''
+        customName = item.name || null
+      } else {
+        console.warn('无效的路径项:', item)
+        return null
+      }
+
+      const fullPath = joinPath(rootPath.value, originalPath)
+      const isFile = isFilePath(fullPath)
+
+      let displayName = ''
+      if (customName !== null && customName !== '') {
+        displayName = customName
+      } else {
+        displayName = extractBaseName(fullPath)
+        if (!displayName) displayName = fullPath
+      }
+
+      return { original: originalPath, fullPath, displayName, isFile }
+    })
+    .filter((item) => item !== null)
+})
 
 // ==================== 生命周期 ====================
 onMounted(() => {
-  loadRootPath();
-});
+  loadRootPath()
+})
 </script>
 
 <style scoped>
+.quick-config-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #28a745;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  background: #d4edda;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.quick-config-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-config-btn:hover {
+  background: #218838;
+}
 /* 整体容器 */
 .path-viewer {
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   background: #ffffff;
   border-radius: 10px;
-  /* box-shadow: 0 2px 12px #eff2f5; */
   border: 2px solid #edf1fa;
   padding: 20px;
   margin: 20px auto;
@@ -546,35 +602,6 @@ onMounted(() => {
   color: #1a202c;
 }
 
-.root-status {
-  font-size: 14px;
-  color: #213545;
-  background: #f3f4f6;
-  font-weight: bold;
-  padding: 8px 14px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  word-break: break-all;
-  margin: 16px 0;
-}
-
-.root-status .placeholder {
-  color: #868e96;
-  font-style: italic;
-}
-
-.tip-alert {
-  margin: 16px 0;
-  padding: 12px 16px;
-  background: #ecf5ff;
-  color: #409eff;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
 .config-hint {
   font-size: 12px;
   color: #868e96;
@@ -601,6 +628,30 @@ onMounted(() => {
 .config-btn:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+.root-status {
+  font-size: 14px;
+  color: #213545;
+  background: #f3f4f6;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  word-break: break-all;
+  margin: 16px 0;
+}
+
+.tip-alert {
+  margin: 16px 0;
+  background: #ecf5ff;
+  color: #409eff;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 6px 10px;
 }
 
 /* 文件列表区域包装器（用于折叠过渡） */
@@ -664,6 +715,7 @@ onMounted(() => {
   justify-content: center;
   width: 24px;
   height: 24px;
+  overflow: hidden;
 }
 
 .path-icon img {
@@ -746,7 +798,7 @@ onMounted(() => {
   background: #ffffff;
   border-radius: 16px;
   width: 90%;
-  max-width: 480px;
+  max-width: 500px;
   padding: 24px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
   animation: modalSlideIn 0.2s ease;
@@ -768,7 +820,7 @@ onMounted(() => {
 .input-group {
   display: flex;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .modal-container input {
@@ -806,10 +858,42 @@ onMounted(() => {
   border-color: #adb5bd;
 }
 
+.auto-detect-hint {
+  font-size: 12px;
+  color: #28a745;
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  background: #d4edda;
+  border-radius: 6px;
+  word-break: break-all;
+}
+
+/* 新增示例提示样式 */
+.example-hint {
+  font-size: 12px;
+  background: #f0f7ff;
+  border-left: 3px solid #0083fe;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+  color: #2c3e50;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.example-hint code {
+  background: #e9ecef;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #d63384;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+  margin-top: 8px;
 }
 
 .modal-actions button {
