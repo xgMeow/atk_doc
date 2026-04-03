@@ -24,20 +24,20 @@
     <!-- 文件列表（支持折叠/展开） -->
     <div class="file-list-wrapper" v-show="!isListCollapsed">
       <div v-if="rootPath" class="root-status">
-        <img src="/images/logo.png" alt="STK图标" class="icon-img" />
         <span class="label">ATK 根路径：</span>
-        <span :class="{ placeholder: !rootPath }">
-          {{ rootPath || '未配置' }}
-        </span>
+        <span>{{ rootPath }}</span>
       </div>
-      <div v-if="!rootPath" class="tip-alert">
-        当前未配置软件安装路径，展示的是相对路径，配置后可获取完整绝对路径
+     <template v-if="!rootPath">
+        <div class="tip-alert">
+          当前未配置软件安装路径，展示的是相对路径，配置后可获取完整绝对路径
+        </div>
         <!-- 如果检测到路径但未配置，显示快速配置提示 -->
-        <span v-if="isLocalFile && autoDetectedPath && !rootPath" class="quick-config-hint">
-          <br />🔍 检测到可能的软件路径：{{ autoDetectedPath }}
+        <div v-if="isLocalFile && autoDetectedPath && !rootPath" class="quick-config-hint">
+          🔍 检测到可能的软件路径：{{ autoDetectedPath }}
           <button class="quick-config-btn" @click="quickFillAndOpen">点击配置</button>
-        </span>
-      </div>
+        </div>
+      </template>
+  
       <div class="file-list">
         <div v-if="displayPaths.length === 0" class="empty-state">
           📂 暂无文件列表
@@ -88,6 +88,13 @@
         <div v-if="autoDetectedPath && isLocalFile" class="auto-detect-hint">
           🔍 检测到可能的软件路径：{{ autoDetectedPath }}
         </div>
+        <!-- 新增的功能示例提示 -->
+        <div class="example-hint">
+          💡 <strong>使用示例：</strong>假设您输入根路径 <code>D:\ProgramTool\ATK-4.0-rc.4</code>，
+          文件列表中如有路径 <code>Help\Examples\01-入门案例</code>，
+          系统会自动拼接为 <code>D:\ProgramTool\ATK-4.0-rc.4\Help\Examples\01-入门案例</code>，
+          点击对应项的“复制路径”按钮即可一键复制完整路径。
+        </div>
         <div class="modal-actions">
           <button class="btn-clear" @click="clearAndClose">清除配置</button>
           <button class="btn-save" @click="saveConfig">保存</button>
@@ -107,7 +114,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import scenarioIcon from './images/scenario.png'
+// import scenarioIcon from './images/scenario.png'
 
 // ==================== 工具函数 ====================
 /**
@@ -243,11 +250,12 @@ const props = defineProps({
     type: Object,
     default: () => ({
       fileTypeIcons: {
-        '.atk': scenarioIcon,
-        '.xml': scenarioIcon,
+        '.atk': '<svg t="1775133327450" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12975" width="256" height="256"><path d="M98.9 577.2h350v350h-350zM98.9 112.6h350v350h-350zM567.3 577.2h350v350h-350zM520.493 287.543L742.31 65.725l221.818 221.818L742.31 509.36z" fill="#ff9212" p-id="12976"></path></svg>',
+        '.xml': '<svg t="1775133327450" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12975" width="256" height="256"><path d="M98.9 577.2h350v350h-350zM98.9 112.6h350v350h-350zM567.3 577.2h350v350h-350zM520.493 287.543L742.31 65.725l221.818 221.818L742.31 509.36z" fill="#ff9212" p-id="12976"></path></svg>'
       },
       defaultFileIcon: '📄',
       defaultFolderIcon: '📁',
+      defaultImgIcon: '🖼️',
       imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp'],
     }),
   },
@@ -266,7 +274,7 @@ let messageTimer = null // 消息定时器句柄
 
 // ==================== 辅助方法 ====================
 /**
- * 显示短暂提示消息（2秒后自动消失）
+ * 显示短暂提示消息（5秒后自动消失）
  * @param {string} msg - 消息内容
  */
 const showMessage = (msg) => {
@@ -275,7 +283,7 @@ const showMessage = (msg) => {
   messageTimer = setTimeout(() => {
     message.value = ''
     messageTimer = null
-  }, 2000)
+  }, 5000)
 }
 
 /**
@@ -297,8 +305,7 @@ const getIconHtml = (item) => {
   }
 
   if (isImageFile(item.fullPath, props.iconConfig.imageExtensions)) {
-    // 图片文件尝试预览，加载失败时降级为 🖼️ 表情
-    return `<img src="${item.fullPath}" alt="图片预览" class="icon-img" onerror="this.style.display='none';this.parentElement.innerHTML='🖼️'" />`
+    return props.iconConfig.defaultImgIcon
   }
 
   return props.iconConfig.defaultFileIcon
@@ -331,8 +338,9 @@ const setRootPathValue = (newPath) => {
  * 检测当前环境并尝试自动获取软件根路径（仅检测，不自动保存）
  */
 const detectAndAutoFetch = () => {
-  // const currentUrl = window.location.href
-  const currentUrl = "file:///D:/ProgramTool/ATK-4.0-rc.4/Help/html/3.案例教程/1-入门案例.html";
+  const currentUrl = window.location.href
+  // 测试用固定 URL 进行调试
+  // const currentUrl = "file:///D:/ProgramTool/ATK-4.0-rc.4/Help/html/3.案例教程/1-入门案例.html";
   if (currentUrl.startsWith('file://')) {
     isLocalFile.value = true
     const detectedPath = extractRootPathFromUrl(currentUrl, props.softwareIdentifier)
@@ -399,8 +407,9 @@ const clearAndClose = () => {
 
 /** 自动获取路径（仅填充到输入框，不自动保存） */
 const autoFetchFromUrl = () => {
-  // const currentUrl = window.location.href
-  const currentUrl = "file:///D:/ProgramTool/ATK-4.0-rc.4/Help/html/3.案例教程/1-入门案例.html";
+  const currentUrl = window.location.href
+  // 测试用固定 URL 进行调试
+  // const currentUrl = "file:///D:/ProgramTool/ATK-4.0-rc.4/Help/html/3.案例教程/1-入门案例.html";
   if (!currentUrl.startsWith('file://')) {
     showMessage('❌ 当前不在本地文件环境，无法自动获取')
     return
@@ -518,6 +527,9 @@ onMounted(() => {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+  background: #d4edda;
+  padding: 6px 10px;
+  border-radius: 4px;
 }
 
 .quick-config-btn {
@@ -633,18 +645,13 @@ onMounted(() => {
   margin: 16px 0;
 }
 
-.root-status .placeholder {
-  color: #868e96;
-  font-style: italic;
-}
-
 .tip-alert {
   margin: 16px 0;
-  padding: 12px 16px;
   background: #ecf5ff;
   color: #409eff;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 12px;
+  padding: 6px 10px;
 }
 
 /* 文件列表区域包装器（用于折叠过渡） */
@@ -790,7 +797,7 @@ onMounted(() => {
   background: #ffffff;
   border-radius: 16px;
   width: 90%;
-  max-width: 480px;
+  max-width: 500px;
   padding: 24px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
   animation: modalSlideIn 0.2s ease;
@@ -853,17 +860,39 @@ onMounted(() => {
 .auto-detect-hint {
   font-size: 12px;
   color: #28a745;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   padding: 6px 10px;
   background: #d4edda;
   border-radius: 6px;
   word-break: break-all;
 }
 
+/* 新增示例提示样式 */
+.example-hint {
+  font-size: 12px;
+  background: #f0f7ff;
+  border-left: 3px solid #0083fe;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+  color: #2c3e50;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.example-hint code {
+  background: #e9ecef;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #d63384;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+  margin-top: 8px;
 }
 
 .modal-actions button {
