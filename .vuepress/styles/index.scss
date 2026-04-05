@@ -758,3 +758,21 @@ blockquote {
 div[class*=language-]{
   background: #fafafa;
 }
+
+details {
+  margin-bottom: 1rem;
+  border: 1px solid #eaecef;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  background-color: #f8f8f8;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+details[open] {
+  background-color: #fff;
+}
