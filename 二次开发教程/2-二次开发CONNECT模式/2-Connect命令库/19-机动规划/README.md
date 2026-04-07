@@ -4,8 +4,6 @@ index: true
 dir:
     link: true
 ---
-<!--Catalog /-->
-
 
 ## 设置轨道预报器为机动规划
 
@@ -465,21 +463,6 @@ Astrogator <Satellite Object Path> SetMCSConstraintValue <Attribute Path>.Profil
 | desired   | 设置期望值                               |
 
 - 序列二次规划与智能优化算法可设置参数属性：
-<!-- 
-<table>
-<tbody>
-    <tr>
-        <td>Active</td>
-        <td>设置或获取约束量是否使用，可输入true或false</td>
-    </tr>
-    <tr>
-        <td>Active</td>
-        <td>
-        Objfun{Constraint|Minimize|Maximize|<br>MinimizeandConstraint|MaximizeandConstraint}
-        </td>
-    </tr>
-</tbody>
-</table> -->
 
 | Value                                                 | Unit                                                         |
 | ---------------------                                 | ------------------------------------------------------------ |

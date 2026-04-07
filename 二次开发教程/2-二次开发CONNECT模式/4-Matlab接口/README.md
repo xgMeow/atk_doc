@@ -14,9 +14,6 @@ Matlab客户端是一种方便用户与ATK软件进行网络连接并操作的�
 
 ![Matlab界面](media/README/image1.png)
 
-
-`ATKConnectorDll64.dll`、`ATKConnectorDll64.lib`为基于Connect模式提供的库文件，用于和ATK建立网络连接，传递命令数据和解析返回结果；
-
 `mexATKConnect.mexw64`是一个可执行的Mex文件，提供用于Matlab环境的MEX函数，方便Matlab和`ATKConnectorDll64.dll`之间传递数据；
 
 `atkOpen.m`、`atkConnect.m`、`atkClose.m`是Matlab函数式M文件，通过使用MEX函数完成Matlab和ATK之间的连接建立和数据传递。

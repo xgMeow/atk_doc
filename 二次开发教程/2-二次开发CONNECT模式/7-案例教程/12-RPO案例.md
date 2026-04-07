@@ -89,6 +89,7 @@ atkConnect(conID, 'Astrogator', '*/Satellite/ServiceSatellite SetValue MainSeque
 # 设置求解算法为“序列二次规划”
 atkConnect(conID, 'Astrogator', '*/Satellite/ServiceSatellite SetValue MainSequence.SegmentList.RPOTearDrop.SolveMethod 2')
 # 设置参考航天器为工作星
+atkConnect(conID, 'Reference',  '*/Satellite/ServiceSatellite SetRefSatellite */Satellite/WorkSatellite')
 atkConnect(conID, 'Astrogator', '*/Satellite/ServiceSatellite SetValue MainSequence.SegmentList.RPOTearDrop.Reference "Satellite/WorkSatellite"')
 ```
 
@@ -177,6 +178,7 @@ atkConnect(conID, 'Astrogator', '*/Satellite/ServiceSatellite SetValue MainSeque
 # 设置求解算法为“序列二次规划”
 atkConnect(conID, 'Astrogator', '*/Satellite/ServiceSatellite SetValue MainSequence.SegmentList.RPOTearDrop.SolveMethod 2')
 # 设置参考航天器为工作星
+atkConnect(conID, 'Reference',  '*/Satellite/ServiceSatellite SetRefSatellite */Satellite/WorkSatellite')
 atkConnect(conID, 'Astrogator', '*/Satellite/ServiceSatellite SetValue MainSequence.SegmentList.RPOTearDrop.Reference "Satellite/WorkSatellite"')
 
 #7, 运行任务控制序列
