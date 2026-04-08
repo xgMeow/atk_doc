@@ -15,7 +15,7 @@ jar包使用Java 1.8.0版本，打开Java客户端与ATK进行连接，如下图
 ![客户端文件位置](media/README/image.png)
 
 
-客户端提供Java可执行程序；提供`ATKConnectorTools.jar`，用来完成ATK与Java客户端的数据传输与解析，其中包含atkOpen、atkConnect、atkClose函数用以完成ATK与Java客户端的链接与参数设置，使用atkOpen进行连接，使用atkConnect进行属性设置。使用atkClose与ATK断开连接；提供`startATKConnector.bat`文件用来实现客户端命令的输入输出。
+客户端提供Java可执行程序；提供`ATKConnectorTools.jar`，用来完成ATK与Java客户端的数据传输与解析，其中包含atkOpen、atkConnect、atkClose函数用以完成ATK与Java客户端的链接与参数设置，使用atkOpen进行连接，使用atkConnect进行属性设置。使用atkClose与ATK断开连接。
 
 ## atkOpen
 
