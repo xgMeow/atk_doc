@@ -10,8 +10,6 @@ ATK采用完全自主可控的研发模式，涵盖标准平台、可见性与�
 
 <OverView />
 
-<Catalog />
-
 <script setup>
 import OverView from "@components/OverView/OverView.vue";
 </script>

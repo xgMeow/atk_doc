@@ -114,7 +114,7 @@
 <style scoped>
 /* 全局容器样式 */
 .atk-architecture-container {
-  width: 100%;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -133,7 +133,7 @@
 .module-hexagon {
   width: 120px;
   height: 69.28px;
-  background-color: #1a5fb4;
+  background-color: #1551a3;
   position: relative;
   z-index: 2;
   display: flex;
@@ -157,13 +157,13 @@
 
 .module-hexagon::before {
   bottom: 100%;
-  border-bottom: 34.64px solid #1a5fb4;
+  border-bottom: 34.64px solid #1551a3;
 }
 
 .module-hexagon::after {
   top: 100%;
   width: 0;
-  border-top: 34.64px solid #1a5fb4;
+  border-top: 34.64px solid #1551a3;
 }
 
 /* 虚线连接框样式 */
@@ -171,9 +171,8 @@
   flex: 1;
   margin-left: 20px;
   padding: 25px 30px;
-  border: 2px dashed #66ccff;
+  border: 2px dashed #00a1e9;
   border-radius: 20px;
-  background-color: #f8fbff;
   position: relative;
   z-index: 1;
 }
@@ -193,11 +192,11 @@
 .content-item {
   width: 48%;
   padding: 8px 15px;
-  background-color: #e6f3ff;
+  background: linear-gradient(to right, #d4edfb, transparent);
   border-radius: 6px;
   font-size: 18px;
-  color: #333;
-  font-weight: 500;
+  color: #231916;
+  font-weight: bold;
   text-align: left;
 }
 
