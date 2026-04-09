@@ -20,7 +20,7 @@
           <a href="/5.专业使用指南/17-矢量几何工具.html" class="content-item link-item">矢量几何</a>
         </div>
         <div class="content-row">
-          <div class="content-item">图文报告</div>
+          <a href="/4.基础使用指南/0-ATK工作区介绍/01-菜单栏介绍/05-输出.html" class="content-item link-item">图文报告</a>
           <div class="content-item">模型管理</div>
         </div>
       </div>
@@ -84,7 +84,6 @@
         </div>
         <div class="content-row">
           <a href="/5.专业使用指南/7-星座设计工具.html" class="content-item link-item">星座设计</a>
-          <div class="content-item"></div>
         </div>
       </div>
     </div>
