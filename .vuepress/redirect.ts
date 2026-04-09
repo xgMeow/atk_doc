@@ -64,6 +64,7 @@ export default {
         "/topics/Objects/CoverageDefinition":                 "/4.基础使用指南/2-插入对象/10-对象属性/覆盖定义.html",     //覆盖定义-属性：右下角的“help”按钮 
         "/topics/Scenario/CoverageDefinition":                "/4.基础使用指南/1-创建场景/04-场景属性配置/",     //场景-属性：右下角的“help”按钮
         "/topics/Intergrating/Client":                        "/二次开发教程/2-二次开发CONNECT模式/1-ATK客户端.html",
+        "/topics/Intergrating/Introduction":                  "/二次开发教程/1-二次开发介绍.html",
         "/topics/Release/ChangeLog":                          "/发布说明/发布说明.html",
         "/topics/Attitude/AttitudeFixedInAxes":               "/4.基础使用指南/姿态定义/1-固定姿态.html",
         "/topics/Attitude/AttitudeFixedInCBF":                "/4.基础使用指南/姿态定义/2-固定于天体固定系姿态.html",
