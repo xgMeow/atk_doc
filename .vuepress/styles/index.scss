@@ -609,6 +609,10 @@ p, ul, ol{
   color: #213547;
 }
 
+ol{
+  margin-block-start:0px;
+}
+
 .hint-container-title{
   text-indent: 0em;
 }/*设置二次开发文档中警告、提示、注意等内容结构的样式,以及字体格式，首行不缩进*/
@@ -757,4 +761,60 @@ blockquote {
 }
 div[class*=language-]{
   background: #fafafa;
+}
+
+details {
+  margin-bottom: 1rem;
+  border: 1px solid #eaecef;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  background-color: #f8f8f8;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+details[open] {
+  background-color: #fff;
+}
+
+/* 
+ * 解决固定头部遮挡标题锚点的问题
+ * 
+ * 当页面存在固定导航栏（如 sticky 或 fixed 定位的头部）时，
+ * 点击标题锚点（例如 #v4-0-发布说明）后，浏览器会滚动到该标题，
+ * 但标题可能会被固定在顶部的导航栏遮挡。
+ * 
+ * 这里的策略是：
+ * - 通过负的 margin-top 将标题的“锚点定位参考点”向上移动，
+ *   让浏览器认为标题的实际位置比视觉位置更高。
+ * - 同时用正的 padding-top 撑开标题上方的空间，防止与其他内容重叠。
+ * 
+ * 这样，当通过锚点跳转时，标题就会显示在固定头部下方，而不是被遮住。
+ * 
+ */
+.theme-hope-content:not(.custom)>h1,
+.theme-hope-content:not(.custom)>h2,
+.theme-hope-content:not(.custom)>h3,
+.theme-hope-content:not(.custom)>h4,
+.theme-hope-content:not(.custom)>h5,
+.theme-hope-content:not(.custom)>h6 {
+  margin-top: -100px;   /* 将标题的锚点参考位置上移 100px，补偿固定头部高度 */
+  padding-top: 120px;   /* 用内边距撑开实际内容区域，避免文字与顶部的面包屑重叠 */
+}
+
+li.vp-toc-item.active{
+  background: #f0f4ff;
+}
+
+.hint-container.important p,
+.hint-container.info p,
+.hint-container.note p,
+.hint-container.tip p,
+.hint-container.warning p,
+.hint-container.caution p {
+  line-height: 2;
 }
