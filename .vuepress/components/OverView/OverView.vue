@@ -1,5 +1,6 @@
 <template>
   <div class="atk-architecture-container">
+    
     <!-- 标准平台模块 -->
     <div class="module-wrapper">
       <div class="module-hexagon">
@@ -8,18 +9,18 @@
       <div class="module-content">
         <div class="content-row">
           <div class="content-item">内核算法库</div>
-          <div class="content-item">二维可视化</div>
+          <a href="/4.基础使用指南/可视化/二维可视化.html" class="content-item link-item">二维可视化</a>
         </div>
         <div class="content-row">
           <div class="content-item">仿真平台</div>
-          <div class="content-item">三维可视化</div>
+          <a href="/4.基础使用指南/可视化/三维可视化.html" class="content-item link-item">三维可视化</a>
         </div>
         <div class="content-row">
-          <div class="content-item">对象管理</div>
-          <div class="content-item">矢量几何</div>
+          <a href="/4.基础使用指南/2-插入对象/" class="content-item link-item">对象管理</a>
+          <a href="/5.专业使用指南/17-矢量几何工具.html" class="content-item link-item">矢量几何</a>
         </div>
         <div class="content-row">
-          <div class="content-item">图文报告</div>
+          <a href="/4.基础使用指南/0-ATK工作区介绍/01-菜单栏介绍/05-输出.html" class="content-item link-item">图文报告</a>
           <div class="content-item">模型管理</div>
         </div>
       </div>
@@ -32,11 +33,11 @@
       </div>
       <div class="module-content">
         <div class="content-row">
-          <div class="content-item">可见性分析</div>
-          <div class="content-item">区域覆盖</div>
+          <a href="/5.专业使用指南/1-可见性工具.html" class="content-item link-item">可见性分析</a>
+          <a href="/5.专业使用指南/9-区域覆盖模块.html" class="content-item link-item">区域覆盖</a>
         </div>
         <div class="content-row">
-          <div class="content-item">覆盖分析</div>
+          <a href="/5.专业使用指南/2-覆盖工具.html" class="content-item link-item">覆盖分析</a>
           <div class="content-item">通信链路</div>
         </div>
       </div>
@@ -49,20 +50,20 @@
       </div>
       <div class="module-content">
         <div class="content-row">
-          <div class="content-item">接近分析</div>
-          <div class="content-item">批量坐标转换</div>
+          <a href="/5.专业使用指南/5-接近分析工具.html" class="content-item link-item">接近分析</a>
+          <a href="/5.专业使用指南/4-批量坐标转换工具.html" class="content-item link-item">批量坐标转换</a>
         </div>
         <div class="content-row">
-          <div class="content-item">高级接近</div>
-          <div class="content-item">偏差分析</div>
+          <a href="/5.专业使用指南/20-高级接近分析模块.html" class="content-item link-item">高级接近</a>
+          <a href="/5.专业使用指南/12-偏差分析.html" class="content-item link-item">偏差分析</a>
         </div>
         <div class="content-row">
-          <div class="content-item">发射窗口接近</div>
-          <div class="content-item">寿命预报</div>
+          <a href="/5.专业使用指南/19-发射窗口接近分析工具.html" class="content-item link-item">发射窗口接近</a>
+          <a href="/5.专业使用指南/16-寿命预报模块.html" class="content-item link-item">寿命预报</a>
         </div>
         <div class="content-row">
-          <div class="content-item">碰撞规避</div>
-          <div class="content-item">卫星系统</div>
+          <a href="/5.专业使用指南/6-碰撞规避工具.html" class="content-item link-item">碰撞规避</a>
+          <a href="/4.基础使用指南/2-插入对象/10-对象属性/卫星系统.html" class="content-item link-item">卫星系统</a>
         </div>
       </div>
     </div>
@@ -74,16 +75,15 @@
       </div>
       <div class="module-content">
         <div class="content-row">
-          <div class="content-item">机动规划</div>
-          <div class="content-item">高级星座</div>
+          <a href="/5.专业使用指南/3-轨道机动规划工具/" class="content-item link-item">机动规划</a>
+          <a href="/5.专业使用指南/11-高级星座设计功能模块.html" class="content-item link-item">高级星座</a>
         </div>
         <div class="content-row">
-          <div class="content-item">RPO工具</div>
-          <div class="content-item">巨型星座</div>
+          <a href="/5.专业使用指南/13-RPO功能模块.html" class="content-item link-item">RPO工具</a>
+          <a href="/5.专业使用指南/10-巨型星座设计模块.html" class="content-item link-item">巨型星座</a>
         </div>
         <div class="content-row">
-          <div class="content-item">星座设计</div>
-          <div class="content-item"></div>
+          <a href="/5.专业使用指南/7-星座设计工具.html" class="content-item link-item">星座设计</a>
         </div>
       </div>
     </div>
@@ -95,12 +95,12 @@
       </div>
       <div class="module-content">
         <div class="content-row">
-          <div class="content-item">ATK.Component</div>
-          <div class="content-item">ATK.MBSE</div>
+          <a href="/二次开发教程/4-二次开发COMPONENT模式/" class="content-item link-item">ATK.Component</a>
+          <a href="/二次开发教程/3-MBSE接口/" class="content-item link-item">ATK.MBSE</a>
         </div>
         <div class="content-row">
-          <div class="content-item">ATK.Connect</div>
-          <div class="content-item">内置脚本</div>
+          <a href="/二次开发教程/2-二次开发CONNECT模式/" class="content-item link-item">ATK.Connect</a>
+          <a href="/5.专业使用指南/18-脚本工具/" class="content-item link-item">内置脚本</a>
         </div>
       </div>
     </div>
@@ -198,6 +198,19 @@
   color: #231916;
   font-weight: bold;
   text-align: left;
+}
+
+/* 链接项样式 */
+.link-item {
+  text-decoration: none;
+  color: #1551a3;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.link-item:hover {
+  background: linear-gradient(to right, #1551a3, #00a1e9);
+  color: #fff;
 }
 
 /* 响应式适配 */
