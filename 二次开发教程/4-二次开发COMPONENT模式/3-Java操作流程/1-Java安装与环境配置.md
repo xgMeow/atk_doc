@@ -8,7 +8,7 @@ JDK（Java Development Kit），官网下载地址： https://www.oracle.com/jav
 
 ## 配置 Java 路径到系统环境变量
 
-JAVA_HOME 设置路径：`C:\Program Files\Java\jdk1.8.0_301`
+JAVA_HOME 设置参考路径：`C:\Program Files\Java\jdk1.8.0_301`
 
 Path 添加路径：`%JAVA_HOME%\bin`
 
