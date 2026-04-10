@@ -7,13 +7,29 @@
 ## Matlab案例源码
 
 ```matlab
-//ATKComponentMatlabTest.m
+%	前置步骤：
+%	1，复制ATK.exe所在路径，设置为Matlab当前路径
 
+%垃圾回收
+java.lang.System.gc();
+
+%添加java系统路径和java包jar
+jarPath = [pwd,'\\ATKComponentJava.jar'];
+if ~any(strcmp(jarPath,javaclasspath()))
+    javaaddpath(jarPath)
+end
+
+%加载依赖库dll
+ATKLibraryLoader.loadLibrary()
+
+%导入java接口封装类
 import com.atk.component.*;
 
 %设置编码类型，用于区分字符
 ATKComponentJavaModule.SetCallCodeType('matlab');
-
+%设置默认输出路径
+ATKComponentJavaModule.SetSaveFileBasePath(pwd);
+	
 %新建根结点
 pIAtkObjectRoot = IAtkObjectRoot();
 %场景新建与属性设置
@@ -63,7 +79,7 @@ pIVAMCSManeuver.GetResults().Add('Radius_Of_Apoapsis');
 %第一个瞄准段添添加属性页
 pIVAProfileDifferentialCorrector = pIVAMCSTargetSequence.GetProfiles().Add('Differential Corrector');
 pIVADCControl = pIVAProfileDifferentialCorrector.GetControlParameters().GetControlByPaths('Maneuver', 'ImpulseX');
-pIVADCResult = pIVAProfileDifferentialCorrector.GetResults().GetResultByPaths('Maneuver', 'StateCalcRadiusOfApoapsis');
+pIVADCResult = pIVAProfileDifferentialCorrector.GetResults().GetResultByPaths('Maneuver', "StateCalc"+'RadiusOfApoapsis');
 %属性页中控制变量属性设置
 pIVADCControl.SetEnable(true);
 pIVADCControl.SetMaxStep(100);
@@ -138,7 +154,6 @@ pIAtkObjectRoot.SaveScenario();
 pIAtkObjectRoot.CloseScenario();
 %输出数据报告目录
 strReportFilePath
-
 ```
 
 ## Matlab案例执行命令
