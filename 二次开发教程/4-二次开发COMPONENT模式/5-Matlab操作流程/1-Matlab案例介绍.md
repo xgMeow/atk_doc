@@ -7,9 +7,9 @@
 
 - ATKComponentJava.jar，ATKComponent模式接口类封装包，提供Component模式下所有公用类对象与函数的接口封装；
 
-- AstroLib.dll，AtObjExt.dll，AtVGT.dll，AtObjVGT.dll，AstroObj.dll，IAtkObject.dll，ATKComponentJava.dll等，ATKComponent模式依赖动态库，由Java封装包加载导入；
+- ATKComponentJava.dll，ATK Component模式Java接口动态库，提供Component模式的Java调用，并链接加载同目录的其他依赖动态库；
 
-- AtkInput/IntegratingWithATK/ATKComponentMatlabTest.m，Matlab案例脚本，建议创建在ATK安装包根目录， 具体内容参考下文案例实现里的代码。包含一个轨道快速转移案例的具体实现过程，该Matlab案例脚本通过Matlab软件解释运行。注意，Matlab要求脚本默认编码格式GBK，先设置脚本编码格式，再编辑案例代码。
+- ATKComponentMatlabTest.m，Matlab案例脚本，建议创建在ATK安装包根目录， 具体内容参考下文案例实现里的代码。包含一个轨道快速转移案例的具体实现过程，该Matlab案例脚本通过Matlab软件解释运行。注意，Matlab要求脚本默认编码格式GBK，先设置脚本编码格式，再编辑案例代码。
 
  
 
