@@ -1,5 +1,5 @@
 <template>
-  <div class="path-viewer">
+  <div class="path-viewer" id="PathViewer">
     <div class="title-box">
       <div class="title">
         <div class="title-row">
