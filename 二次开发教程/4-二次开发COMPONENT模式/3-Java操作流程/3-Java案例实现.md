@@ -27,6 +27,9 @@ public class ATKComponentJavaTest{
   }
   
   public static void main(String []argv) {
+	//设置保存路径
+	String curPath = System.getProperty("user.dir");
+	ATKComponentJavaModule.SetSaveFileBasePath(curPath);
 	//新建根结点
 	IAtkObjectRoot pIAtkObjectRoot = new IAtkObjectRoot();
 	//调用轨道快速转移函数
