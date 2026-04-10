@@ -55,7 +55,8 @@ atkConnect(conID, 'command', 'objPath', 'cmdParamString')
 
 
 ::: warning 注意
-- 拥有返回值的命令，会直接输出返回值字符串。
+- 拥有返回值的命令，atkConnect会返回输出字符串strOutPut。
+strOutPut = atkConnect(conID, 'command', 'objPath', 'cmdParamString')
 :::
 
 ::: tip 举例
