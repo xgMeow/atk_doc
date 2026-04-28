@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://atkdocs.smsat.space/sitemap.xml
+Sitemap: https://atkdocs.smsat.space/atk_doc/sitemap.xml
