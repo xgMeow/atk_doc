@@ -1,0 +1,3 @@
+import type { RouteLocationNormalizedLoaded } from "vuepress/client";
+import type { ResolvedSidebarItem } from "./typings.js";
+export declare const isActiveSidebarItem: (route: RouteLocationNormalizedLoaded, item: ResolvedSidebarItem, exact?: boolean) => boolean;

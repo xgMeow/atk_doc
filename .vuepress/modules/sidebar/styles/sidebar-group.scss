@@ -1,0 +1,22 @@
+.vp-sidebar-group {
+  &:not(.collapsible) {
+    .vp-sidebar-header:not(.clickable) {
+      color: inherit;
+      cursor: auto;
+    }
+  }
+
+  .vp-sidebar-group {
+    padding-inline-start: 0.75rem;
+
+    .vp-sidebar-header {
+      font-size: 1em;
+    }
+  }
+
+  // 单独文档链接：用margin实现缩进，让hover背景也有缩进
+  .vp-sidebar-link {
+    margin-inline-start: 0.75rem;
+    width: calc(100% - 0.75rem);
+  }
+}

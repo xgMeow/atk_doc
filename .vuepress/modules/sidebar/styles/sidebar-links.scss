@@ -1,0 +1,31 @@
+.vp-sidebar-links {
+  margin: 0;
+  padding: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  .vp-sidebar > & {
+    padding: 12px 6px;
+
+    @media (max-width: hope-config.$tablet) {
+      padding: 1rem 0;
+    }
+
+    > li {
+      > .vp-sidebar-link {
+        font-size: 1.1em;
+      }
+
+      &:not(:first-child) {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

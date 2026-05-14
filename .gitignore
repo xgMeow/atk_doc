@@ -1,0 +1,16 @@
+*.zip
+*.pdf
+node_modules
+*.map
+dist-offline/*
+dist
+/*.py
+数学模型/*
+.dist
+.dist-offline
+.vscode/*
+
+.outputdir
+.rst
+node_modules.rar
+.vs
