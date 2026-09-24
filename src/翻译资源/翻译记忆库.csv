@@ -2747,11 +2747,11 @@ Satisfaction	有效条件
 Satisfied If	条件
 Enable	启动
 Start Gap	起始间隔段
-Simple Coverage	简单覆盖
+Simple Coverage	是否覆盖
 Access Duration	访问时长
 Access Separation	访问间隔
 Coverage Time	覆盖时间
-N Asset Coverage	多重覆盖
+N Asset Coverage	覆盖重数
 Number Of Accesses	访问次数
 Number Of Gaps	覆盖间隔次数
 Response Time	响应时间
