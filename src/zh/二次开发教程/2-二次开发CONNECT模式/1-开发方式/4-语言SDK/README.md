@@ -20,6 +20,6 @@ ATK 为以下五种语言提供了 SDK，用户可在自己的开发环境中引
 - **通信方式**：通过 TCP 网络连接与 ATK 交互，默认端口 `6655`
 - **核心 API**：均提供 `atkOpen` / `atkConnect` / `atkClose` 三组核心接口。其中 Java、Matlab 与 Octave 无默认参数，`atkOpen` 的 IP 与端口需显式传入，`atkConnect` 为 4 参形式（第 4 参为保留参数，Java 与 Octave 传 `""`、Matlab 传 `''` 即可）
 - **命令格式**：均使用统一的 [CONNECT 命令语法](../../2-命令参考/1-命令语法约定.md)
-- **库文件位置**：通常在 ATK 安装包目录 `IntegratingWithATK\connect\` 下对应语言文件夹中。例外是 Matlab 与 Octave——两者都通过内置 Java 接口调用 ATK 通信库，复用 Java 的 `ATKConnectJava.jar`、`ATKConnectJava.dll`，需以 **ATK 安装包根目录**为工作目录
+- **库文件位置**：Python、Java、Matlab、Octave 四种语言的**接口文件与库文件统一位于 ATK 安装包根目录**下——Python 为 `ATKConnectPython.py` / `_ATKConnectPython.pyd`，Java、Matlab、Octave 复用 `ATKConnectJava.jar` / `ATKConnectJava.dll`；麒麟环境下目录一致，仅后缀由 `.dll` 变为 `.so`。C++ 例外，其头文件与库文件位于 `IntegratingWithATK\connect\C++\` 下。示例源码、调用说明等辅助文件则放在 `IntegratingWithATK\connect\` 下对应语言文件夹中
 
 <Catalog />

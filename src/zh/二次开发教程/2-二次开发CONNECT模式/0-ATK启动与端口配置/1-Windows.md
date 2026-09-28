@@ -6,7 +6,7 @@ description: Windows 下 ATK 的端口配置：如何指定端口启动、如何
 
 ## 指定端口启动
 
-ATK 通过 TCP 端口与外部程序通信，启动时必须监听一个端口。**默认端口为 6655**，直接双击 `ATK.exe` 即在此端口启动，`atkOpen` 不传参时也默认连接此端口。
+ATK 通过 TCP 端口与外部程序通信，启动时必须监听一个端口。**默认端口为 6655**，直接双击 `ATK.exe` 即在此端口启动；Python 与 C++ 的 `atkOpen` 省略参数时也默认连接此端口。
 
 实际使用中可能会遇到需要同时运行多个 ATK 实例的情况，此时需要指定不同端口。
 
@@ -28,6 +28,8 @@ ATK -p <端口号>
 
 ::: details open **示例：在 6666 端口启动**
 
+在 cmd 中执行 ATK -p 命令指定端口：
+
 ```bash
 ATK -p 6666
 ```
@@ -45,9 +47,19 @@ conID = atkOpen('127.0.0.1', 6666)
 conID = atkOpen("127.0.0.1", 6666);
 ```
 
-@tab MATLAB
+@tab Java
+```java
+int conID = atkOpen("127.0.0.1", 6666);
+```
+
+@tab Matlab
 ```matlab
-conID = atkOpen('127.0.0.1', 6666);
+conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6666);
+```
+
+@tab Octave
+```matlab
+conID = ATKConnectJavaModule.atkOpen("127.0.0.1", 6666);
 ```
 :::
 
