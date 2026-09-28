@@ -1,5 +1,5 @@
 ---
-description: ATK CONNECT 模式概述。CONNECT 模式通过 TCP 网络通信操控 ATK，支持 Python 客户端工具，以及 Python、Matlab、C++、Java 四种语言 SDK，另有 ATK 脚本工具作为补充。
+description: ATK CONNECT 模式概述。CONNECT 模式通过 TCP 网络通信操控 ATK，支持 Python 客户端工具，以及 Python、Matlab、C++、Java、Octave 五种语言 SDK，另有 ATK 脚本工具作为补充。
 index: true
 ---
 
@@ -17,7 +17,7 @@ ATK 的开发方式按通信机制分为两类：
 
 ### 网络通信（TCP）
 
-Python 客户端工具、Python SDK、Matlab SDK、C++ SDK、Java SDK 均通过 **TCP 网络** 与 ATK 通信。客户端/SDK 运行在独立的进程中，与 ATK 软件通过网络收发数据。
+Python 客户端工具、Python SDK、Matlab SDK、C++ SDK、Java SDK、Octave SDK 均通过 **TCP 网络** 与 ATK 通信。客户端/SDK 运行在独立的进程中，与 ATK 软件通过网络收发数据。
 
 这意味着客户端/SDK 和 ATK **不必在同一台机器上**——只要网络互通，你可以在局域网内的任意一台电脑上远程操控 ATK。
 
@@ -32,6 +32,7 @@ Python 客户端工具、Python SDK、Matlab SDK、C++ SDK、Java SDK 均通过 
 | [Matlab SDK](1-开发方式/4-语言SDK/2-Matlab/1-简介与配置.md) | 自建 Matlab 环境 | TCP（可远程） | Matlab | 在自己的Matlab项目中使用ATK |
 | [C++ SDK](1-开发方式/4-语言SDK/3-C++/1-简介与配置.md) | 自建 C++ 环境 | TCP（可远程） | C++ | 在自己的C++项目中使用ATK |
 | [Java SDK](1-开发方式/4-语言SDK/4-Java/1-简介与配置.md) | 自建 Java 环境 | TCP（可远程） | Java | 在自己的Java项目中使用ATK |
+| [Octave SDK](1-开发方式/4-语言SDK/5-Octave/1-简介与配置.md) | 自建 Octave 环境 | TCP（可远程） | Octave | 在自己的Octave项目中使用ATK |
 | [ATK 脚本工具](1-开发方式/1-ATK脚本工具.md) | ATK菜单 → 集成 → ATK脚本 | 进程内调用 | ATK脚本(.atks) | 与ATK在同一进程运行，无需网络通信的场景 |
 
 ::: tip 如何选择
