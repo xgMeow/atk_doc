@@ -1,10 +1,14 @@
 ## 目录说明
 
-本目录下的以下 3 个文件由各语言 SDK 的「核心 API」页通过 `@include` 引用：
+本目录现只保留 `atkCommand-python.md` 一份共享片段，由以下两个页面通过 `@include` 引用：
 
-- `atkCommand-cpp.md` —— C++
-- `atkCommand-matlab.md` —— MATLAB
-- `atkCommand-python.md` —— Python
+- `1-开发方式/4-语言SDK/1-Python/2-核心API.md`
+- `1-开发方式/2-Python客户端工具/2-核心API.md`
 
+> 这是本目录唯一还剩的片段，原因是它被**两个页面**共用；其余语言的「核心 API」内容（C++ / Matlab）只被单个页面引用，已直接内联进各自的 `1-开发方式/4-语言SDK/*/2-核心API.md`。
+>
+> 修改 `atkCommand-python.md` 时，上面两个页面会**同时**变化，确认改动对两者都成立。
+>
 > 旧的多语言标记模板 `atkCommand.mixcode.md` 及 `npm run gen-lang` 生成器已移除（不再支持 ```mixcode 写法）。
-> 修改 API 示例或文案时，**直接编辑以上三份文件，并保持三种语言内容同步**。
+>
+> 片段内的相对链接（如开头的 `../2-命令参考/1-命令语法约定.md`）由 `@mdit/plugin-include` 按引用方页面的位置自动重写，可以按本目录位置书写；但内联到页面里的链接不会重写，必须按**页面自身位置**书写（语言 SDK 页面是 `../../../2-命令参考/1-命令语法约定.md`）。
