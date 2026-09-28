@@ -22,7 +22,7 @@ description: 通过二次开发 Connect 模式创建 RPO 水滴绕飞案例，�
 
 <mix-code lang="python">
 # 1, 与 ATK 进行连接
-conID = atkOpen()
+conID = atkOpen('127.0.0.1', 6655)
 </mix-code>
 
 ### 新建场景并进行属性设置
@@ -130,7 +130,7 @@ atkClose(conID)
 
 <mix-code lang="python">
 # 1, 连接ATK
-conID = atkOpen()
+conID = atkOpen('127.0.0.1', 6655)
 
 # 2, 创建一个名为 "Teardrop" 的新任务场景
 atkConnect(conID, 'New', '/ Scenario Teardrop')

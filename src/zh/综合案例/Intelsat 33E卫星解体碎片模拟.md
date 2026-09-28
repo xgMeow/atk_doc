@@ -27,20 +27,33 @@ thumbnail: /zh/综合案例/media/Intelsat33E卫星解体碎片模拟/image05-�
 
 2. **插入碎片对象**
 
-   首先将 ATK Connect 动态库文件从安装目录（`IntegratingWithATK/connect/Matlab/Win_2015b`）拷贝至 MATLAB 工作目录，并使用 `atkOpen` 命令使 MATLAB 与 ATK 建立连接。
+   首先将 ATK Connect 通信库文件从安装包根目录（`ATKConnectJava.jar`、`ATKConnectJava.dll`、`ATKConnectorDll.dll`）拷贝至 MATLAB 工作目录，再在脚本中加载 Java 接口库并创建 `ATKConnectJavaModule` 对象，然后调用其 `atkOpen` 方法使 MATLAB 与 ATK 建立连接。
 
    ![ATK Connect动态库文件](./media/Intelsat33E卫星解体碎片模拟/image04-ATK-Connect动态库文件.png)
 
-   然后，读取解体碎片位置速度参数，逐个利用 `New` 命令新建碎片对象，并利用 `SetState` 命令设置其位置速度信息。待所有碎片插入后，使用 `Save` 命令保存 ATK 场景文件，并使用 `atkClose` 命令关闭 ATK 与 MATLAB 的连接。整个流程的 MATLAB 代码如下：
+   然后，读取解体碎片位置速度参数，逐个利用 `New` 命令新建碎片对象，并利用 `SetState` 命令设置其位置速度信息。待所有碎片插入后，使用 `Save` 命令保存 ATK 场景文件，并使用 `atkClose` 方法关闭 ATK 与 MATLAB 的连接。整个流程的 MATLAB 代码如下：
 
    ```matlab
+    % 加载 ATK Connect 模式 Java 接口库
+    % 需先将安装包根目录下的 ATKConnectJava.jar、ATKConnectJava.dll、ATKConnectorDll.dll 复制到当前工作目录
+    if(ispc())
+        jarPath = [pwd,'\ATKConnectJava.jar'];
+    elseif(isunix())
+        jarPath = [pwd,'/ATKConnectJava.jar'];
+    end
+    if ~any(strcmp(jarPath, javaclasspath()))
+        javaaddpath(jarPath);
+        javaMethod('loadLibrary', 'ATKLibraryLoader');
+    end
+    ATKConnectJavaModule = javaObject('com.atk.connect.ATKConnectJavaModule');
+
     % 链接ATK接口
-    conID = atkOpen();
+    conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);
 
     %新建场景同时设置仿真时间
-    atkConnect(conID, 'New', '/ Scenario Intelsat33E-explosion');
-    atkConnect(conID, 'SetAnalysisTimePeriod', '* "2024-10-19 04:30:00.000" "2024-10-26 04:30:00.000"');
-    atkConnect(conID, 'Animate', '* Reset');
+    ATKConnectJavaModule.atkConnect(conID, 'New', '/ Scenario Intelsat33E-explosion', '');
+    ATKConnectJavaModule.atkConnect(conID, 'SetAnalysisTimePeriod', '* "2024-10-19 04:30:00.000" "2024-10-26 04:30:00.000"', '');
+    ATKConnectJavaModule.atkConnect(conID, 'Animate', '* Reset', '');
 
     % 读取数据文件
     filename = 'is33e_result_10cm.csv';
@@ -56,18 +69,18 @@ thumbnail: /zh/综合案例/media/Intelsat33E卫星解体碎片模拟/image05-�
         name = ['DB',num2str(ic)];
 
         % 新建卫星对象
-        atkConnect(conID, 'New', ['/ Satellite ',name]);
+        ATKConnectJavaModule.atkConnect(conID, 'New', ['/ Satellite ',name], '');
         % 设置位置速度信息
         cmd = ['*/Satellite/',name,' Cartesian TwoBody NoProp 60.0 J2000 "27 May 2024 00:00:00.00" ',rv]; % 
-        atkConnect(conID, 'SetState',cmd(1:end-1));
+        ATKConnectJavaModule.atkConnect(conID, 'SetState',cmd(1:end-1), '');
     end
 
     % 重置场景信息，加载卫星数据！！！
-    atkConnect(conID, 'Animate', '* Reset');
+    ATKConnectJavaModule.atkConnect(conID, 'Animate', '* Reset', '');
 
     % ATK保存退出
-    atkConnect(conID,'Save','/ *');
-    atkClose(conID);
+    ATKConnectJavaModule.atkConnect(conID,'Save','/ *', '');
+    ATKConnectJavaModule.atkClose(conID);
    ```
 
 插入碎片后的 ATK 界面如下图所示。为使碎片的显示更清晰，框选所有碎片对象，右键点击 <kbd>批量设置属性</kbd>，在【二维视图－显示】内，取消勾选【显示三维轨道】，单击 <kbd>批量应用当前页</kbd> 以更改设置。
