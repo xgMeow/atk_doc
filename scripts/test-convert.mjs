@@ -86,6 +86,116 @@ eq(
   '[回归] python→cpp：换注释符/引号并补行尾分号'
 );
 
+// ============================================================
+// ATK 三组 API 的调用形态：各语言 SDK 签名不同
+//   Python / C++ 自由函数 3 参；Java 自由函数 4 参；
+//   MATLAB / Octave 经 ATKConnectJavaModule 调用且 4 参（'' / ""）
+// ============================================================
+const atkScript = [
+  "conID = atkOpen('127.0.0.1', 6655)",
+  "atkConnect(conID, 'New', '/ Scenario SimpleExample')",
+  'atkClose(conID)',
+].join('\n');
+
+eq(
+  convert(atkScript, 'python', 'java'),
+  [
+    'conID = atkOpen("127.0.0.1", 6655);',
+    'atkConnect(conID, "New", "/ Scenario SimpleExample", "");',
+    'atkClose(conID);',
+  ].join('\n'),
+  '[ATK] python→java：atkConnect 补第 4 个保留参数 ""'
+);
+
+eq(
+  convert(atkScript, 'python', 'matlab'),
+  [
+    "conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);",
+    "ATKConnectJavaModule.atkConnect(conID, 'New', '/ Scenario SimpleExample', '');",
+    'ATKConnectJavaModule.atkClose(conID);',
+  ].join('\n'),
+  '[ATK] python→matlab：补 ATKConnectJavaModule 接收者与保留参数 \'\''
+);
+
+// Octave 与 MATLAB 的差异只在保留参数：Octave 按 SDK 文档写作 ""（命令字符串仍用单引号）
+eq(
+  convert(atkScript, 'python', 'octave'),
+  [
+    "conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);",
+    "ATKConnectJavaModule.atkConnect(conID, 'New', '/ Scenario SimpleExample', \"\");",
+    'ATKConnectJavaModule.atkClose(conID);',
+  ].join('\n'),
+  '[ATK] python→octave：同 Matlab 走对象调用，但保留参数写作 ""'
+);
+
+// Python / C++ 有默认参数，atkConnect 仍是 3 参 → 不得补保留参数
+eq(
+  convert(atkScript, 'python', 'cpp'),
+  [
+    'conID = atkOpen("127.0.0.1", 6655);',
+    'atkConnect(conID, "New", "/ Scenario SimpleExample");',
+    'atkClose(conID);',
+  ].join('\n'),
+  '[ATK] python→cpp：保持自由函数 3 参，不补保留参数'
+);
+
+// atkOpen 省略实参：有默认参数的语言保持省略，无默认参数的语言补默认 IP/端口
+eq(convert('conID = atkOpen()', 'python', 'cpp'), 'conID = atkOpen();', '[ATK] python→cpp：atkOpen() 保留省略写法');
+eq(
+  convert('conID = atkOpen()', 'python', 'java'),
+  'conID = atkOpen("127.0.0.1", 6655);',
+  '[ATK] python→java：atkOpen() 补默认 IP/端口'
+);
+eq(
+  convert('conID = atkOpen()', 'python', 'octave'),
+  'conID = ATKConnectJavaModule.atkOpen("127.0.0.1", 6655);',
+  '[ATK] python→octave：atkOpen() 补默认 IP/端口且加接收者'
+);
+
+// 反向：matlab 源码转回 3 参语言要丢掉第 4 个保留参数，并去掉接收者
+const matlabScript = [
+  "conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);",
+  "ATKConnectJavaModule.atkConnect(conID, 'New', '/ Scenario SimpleExample', '');",
+  'ATKConnectJavaModule.atkClose(conID);',
+].join('\n');
+eq(
+  convert(matlabScript, 'matlab', 'python'),
+  [
+    "conID = atkOpen('127.0.0.1', 6655)",
+    "atkConnect(conID, 'New', '/ Scenario SimpleExample')",
+    'atkClose(conID)',
+  ].join('\n'),
+  '[ATK] matlab→python：去掉接收者与第 4 个保留参数'
+);
+
+// 字符串里的括号/逗号不参与调用结构判断（含括号的命令参数不得被整形破坏）
+const parenScript = [
+  "conID = atkOpen()",
+  "atkConnect(conID, 'Astrogator', '*/Satellite/Sat1 SetValue a(b,c) 1')",
+].join('\n');
+eq(
+  convert(parenScript, 'python', 'matlab'),
+  [
+    "conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);",
+    "ATKConnectJavaModule.atkConnect(conID, 'Astrogator', '*/Satellite/Sat1 SetValue a(b,c) 1', '');",
+  ].join('\n'),
+  '[ATK] 字符串里的括号/逗号不参与调用结构判断'
+);
+
+// atkOpenFile() 等非三组 API 的调用不得被整形（不加接收者、不补参数）
+eq(
+  convert("atkOpenFile('C:/ATK/data/scen.atk')", 'python', 'matlab'),
+  "atkOpenFile('C:/ATK/data/scen.atk');",
+  '[ATK] atkOpenFile 不受调用整形影响'
+);
+
+// 行内注释 + 赋值语句同样要整形
+eq(
+  convert("strOutPut = atkConnect(conID, 'Report_RM', '*/Satellite/Sat1 Style \"P\"') # 取报告", 'python', 'matlab'),
+  "strOutPut = ATKConnectJavaModule.atkConnect(conID, 'Report_RM', '*/Satellite/Sat1 Style \"P\"', ''); % 取报告",
+  '[ATK] 赋值 + 行内注释行同样整形'
+);
+
 eq(
   convert('atkOpenFile(\'C:\\ATK\\data\\scen.atk\')', 'python', 'cpp'),
   'atkOpenFile("C:\\ATK\\data\\scen.atk");',
@@ -133,7 +243,7 @@ eq(convert(cppProgram, 'cpp', 'java'), cppProgram, '[指令] cpp→java：`#incl
 // （用户要求：复制到对应语言脚本里不能报错 → 不允许 {; / }; / #include…;）
 // ============================================================
 const programFixtures = { java: javaProgram, cpp: cppProgram };
-const langKeys = ['python', 'cpp', 'java', 'matlab'];
+const langKeys = ['python', 'cpp', 'java', 'matlab', 'octave'];
 for (const srcName of Object.keys(programFixtures)) {
   for (const dst of langKeys) {
     const out = convert(programFixtures[srcName], srcName, dst);

@@ -8,6 +8,7 @@
  *   Python      'str'      # 注释   无分号
  *   C++ / Java  "str"      // 注释  分号
  *   MATLAB      'str'('')  % 注释   分号
+ *   Octave      'str'('')  % 注释   分号
  *
  * 关键约定：
  *   1. 源语言 == 目标语言时直接原样返回（源码 tab 必须展示作者原文，不能被"洗"一遍）；
@@ -15,8 +16,23 @@
  *      否则 Windows 路径 / \n \t / 正则里的反斜杠会被静默吞掉；
  *   3. 跨语言时只换引号、注释符、行尾分号，字符串内部文本原样，仅对目标语言的
  *      引号做必要的转义（如内部裸 `"` 在 C++ 里要写成 `\"`）。
- *      这是"尽力而为"：无法把源语义精确翻译到不同转义体系的目标语言。
+ *      这是"尽力而为"：无法把源语义精确翻译到不同转义体系的目标语言；
+ *   4. 除「语法壳」外，ATK 的 atkOpen / atkConnect / atkClose 三组调用还要按各语言
+ *      SDK 的真实签名整形（见 shapeAtkCalls 与 LANGS[*].atk）：
+ *        Python / C++  自由函数，atkConnect 3 参（atkOpen 两参有默认值，可省略）
+ *        Java          自由函数，atkConnect 4 参（第 4 参保留参数传 ""）
+ *        MATLAB        经 ATKConnectJavaModule 对象调用，atkConnect 4 参（传 ''）
+ *        Octave        同 MATLAB，保留参数传 ""
+ *      这一步只动调用外形（接收者前缀与保留参数），字符串内容一律不动。
  */
+
+// 各语言 atkOpen / atkConnect / atkClose 的调用外形（详见 shapeAtkCalls）：
+//   receiver  调用前缀：MATLAB / Octave 经 ATKConnectJavaModule 对象调用，其余为自由函数
+//   args      atkConnect 的实参个数（Python/C++ 3 参；Java/MATLAB/Octave 4 参）
+//   emptyArg  第 4 个保留参数的写法（args 为 4 时才有意义）
+//   openArgs  atkOpen 的必填实参个数；null 表示可从简（Python/C++ 有默认值）
+//   openFill  省略 atkOpen 实参时补上的默认 IP 与端口
+const ATK_FREE = { receiver: '', args: 3, emptyArg: null, openArgs: null, openFill: null };
 
 const LANGS = {
   python: {
@@ -28,6 +44,7 @@ const LANGS = {
     matlabDoubleQuote: false, // 是否用 '' 双写表示引号（MATLAB）
     quote: "'",               // 渲染时使用的引号
     semicolon: false,         // 行尾是否需要分号
+    atk: { ...ATK_FREE },
   },
   cpp: {
     name: 'C++',
@@ -38,6 +55,7 @@ const LANGS = {
     matlabDoubleQuote: false,
     quote: '"',
     semicolon: true,
+    atk: { ...ATK_FREE },
   },
   java: {
     name: 'Java',
@@ -48,6 +66,8 @@ const LANGS = {
     matlabDoubleQuote: false,
     quote: '"',
     semicolon: true,
+    // Java 无默认参数：atkOpen 必须显式传 IP 与端口，atkConnect 必须补第 4 个保留参数
+    atk: { receiver: '', args: 4, emptyArg: '""', openArgs: 2, openFill: '"127.0.0.1", 6655' },
   },
   matlab: {
     name: 'MATLAB',
@@ -58,10 +78,25 @@ const LANGS = {
     matlabDoubleQuote: true,
     quote: "'",
     semicolon: true,
+    // MATLAB 经内置 Java 接口调用，签名与 Java 一致；但 '' 才是空字符串
+    // （"" 是 R2016b 才引入的 string 类型，与 R2015b 起的旧版本不兼容）
+    atk: { receiver: 'ATKConnectJavaModule.', args: 4, emptyArg: "''", openArgs: 2, openFill: "'127.0.0.1', 6655" },
+  },
+  octave: {
+    name: 'Octave',
+    tag: 'matlab',            // 无 Octave 语法定义，复用 MATLAB 高亮
+    comment: '%',
+    strDelims: ["'"],
+    escape: null,
+    matlabDoubleQuote: true,
+    quote: "'",
+    semicolon: true,
+    // Octave 同样经 Java 接口调用，但空字符串写作 ""（与 Java 一致）
+    atk: { receiver: 'ATKConnectJavaModule.', args: 4, emptyArg: '""', openArgs: 2, openFill: '"127.0.0.1", 6655' },
   },
 };
 
-const ALL = ['python', 'cpp', 'java', 'matlab'];
+const ALL = ['python', 'cpp', 'java', 'matlab', 'octave'];
 
 /**
  * 解析一行源码为 token 列表。
@@ -185,6 +220,138 @@ function isStructuralEnd(code) {
   return false;
 }
 
+/* ============================================================
+ * ATK 三组 API 的调用形态适配
+ *
+ * 「语法壳」转换之外，ATK 的三个接口在五种 SDK 里的调用外形并不一样：
+ *   Python / C++   atkConnect(conID, 'Graphics', '...')            —— 自由函数，3 参
+ *   Java           atkConnect(conID, "Graphics", "...", "")        —— 自由函数，4 参
+ *   MATLAB         ATKConnectJavaModule.atkConnect(conID, ...
+ *                  ..., '')                                        —— 对象方法，4 参
+ *   Octave         同 MATLAB，但保留参数用 ""（与 Java 一致）
+ * 另外 Java / MATLAB / Octave 的 atkOpen 无默认参数，两个参数必须显式传入。
+ *
+ * 这里按目标语言把调用改写成上面的形态，作者只需写一份源码
+ * （推荐 Python：`atkConnect(conID, 'New', '/ Scenario X')`）。
+ * 只增删「接收者前缀」与「第 4 个保留参数」、补齐 atkOpen 的默认实参，
+ * 实参里的字符串内容一律不动。
+ * ============================================================ */
+
+// 字符串 token 在整形期的占位哨兵：字符串里的括号/逗号不能参与代码结构判断
+// （如 `atkConnect(conID, 'X', 'SetValue a(b), c')` 的括号是字符串内容，不是调用括号）
+const SENT = '\u0000';
+
+/** token 列表 → 扁平字符串（字符串 token 换成哨兵占位） */
+function toFlat(tokens) {
+  return tokens.map((t, i) => (t.kind === 'string' ? `${SENT}${i}${SENT}` : t.text)).join('');
+}
+
+/** 扁平字符串 → token 列表（把哨兵还原回原来的字符串 token） */
+function fromFlat(flat, tokens) {
+  const out = [];
+  const re = new RegExp(`${SENT}(\\d+)${SENT}`, 'g');
+  let last = 0;
+  let m;
+  while ((m = re.exec(flat)) !== null) {
+    if (m.index > last) out.push({ kind: 'code', text: flat.slice(last, m.index) });
+    out.push({ kind: 'string', text: tokens[Number(m[1])].text });
+    last = m.index + m[0].length;
+  }
+  if (last < flat.length) out.push({ kind: 'code', text: flat.slice(last) });
+  return out;
+}
+
+/** 与 openIdx 处的 `(` 配对的 `)` 下标；找不到返回 -1 */
+function matchParen(flat, openIdx) {
+  let depth = 0;
+  for (let i = openIdx; i < flat.length; i++) {
+    if (flat[i] === '(') depth++;
+    else if (flat[i] === ')' && --depth === 0) return i;
+  }
+  return -1;
+}
+
+/** 调用实参个数（只在调用括号的下一层数逗号） */
+function countArgs(flat, openIdx, closeIdx) {
+  const body = flat.slice(openIdx + 1, closeIdx);
+  if (!body.trim()) return 0;
+  let depth = 0;
+  let n = 1;
+  for (const c of body) {
+    if (c === '(') depth++;
+    else if (c === ')') depth--;
+    else if (c === ',' && depth === 0) n++;
+  }
+  return n;
+}
+
+/** 砍掉末尾多余的实参，只保留前 keep 个（用于回转到 3 参语言） */
+function keepArgs(flat, openIdx, closeIdx, keep) {
+  const body = flat.slice(openIdx + 1, closeIdx);
+  let depth = 0;
+  let seen = 0;
+  for (let i = 0; i < body.length; i++) {
+    const c = body[i];
+    if (c === '(') depth++;
+    else if (c === ')') depth--;
+    else if (c === ',' && depth === 0 && ++seen === keep) return body.slice(0, i);
+  }
+  return body;
+}
+
+/**
+ * 按目标语言整形一行里的 ATK 调用。
+ * @param {Array} tokens 不含注释 token 的 token 列表
+ * @param {object} dstCfg LANGS[dst]
+ * @returns {Array} 整形后的 token 列表（无 ATK 调用时原样返回）
+ */
+function shapeAtkCalls(tokens, dstCfg) {
+  const atk = dstCfg && dstCfg.atk;
+  if (!atk) return tokens;
+  // 快筛：本行没有任何 atk* 调用就不必展开
+  if (!tokens.some((t) => t.kind === 'code' && t.text.includes('atk'))) return tokens;
+
+  // 允许带接收者前缀（如别的语言里写的是 ATKConnectJavaModule.atkConnect），
+  // 统一替换成目标语言的前缀；`atkOpenFile(` 因括号位置不匹配不会被命中
+  const callRe = /(?:[A-Za-z_]\w*\.)?\b(atkOpen|atkConnect|atkClose)\s*\(/g;
+  let flat = toFlat(tokens);
+  const edits = [];
+  let m;
+  while ((m = callRe.exec(flat)) !== null) {
+    const name = m[1];
+    const openIdx = m.index + m[0].length - 1;
+    const closeIdx = matchParen(flat, openIdx);
+    if (closeIdx < 0) break; // 括号不闭合，放弃本行整形
+    const n = countArgs(flat, openIdx, closeIdx);
+    let args = flat.slice(openIdx + 1, closeIdx);
+    let argsChanged = false;
+
+    if (name === 'atkConnect') {
+      if (atk.args === 4 && n === 3) {
+        args = `${args.replace(/\s+$/, '')}, ${atk.emptyArg}`; // 补第 4 个保留参数
+        argsChanged = true;
+      } else if (atk.args === 3 && n === 4) {
+        args = keepArgs(flat, openIdx, closeIdx, 3); // 回转到 3 参语言
+        argsChanged = true;
+      }
+    } else if (name === 'atkOpen' && atk.openArgs != null && n < atk.openArgs) {
+      // 无默认参数的语言：作者省略了 IP/端口，补上默认值（127.0.0.1:6655）
+      args = (args.trim() ? `${args.replace(/\s+$/, '')}, ` : '') + atk.openFill;
+      argsChanged = true;
+    }
+
+    edits.push({ start: m.index, end: openIdx + 1, text: `${atk.receiver}${name}(` });
+    if (argsChanged) edits.push({ start: openIdx + 1, end: closeIdx, text: args });
+  }
+  if (!edits.length) return tokens;
+
+  // 从后往前改，前面的下标才不会失效
+  for (const e of edits.sort((a, b) => b.start - a.start)) {
+    flat = flat.slice(0, e.start) + e.text + flat.slice(e.end);
+  }
+  return fromFlat(flat, tokens);
+}
+
 /**
  * 把一行的 token 列表渲染为目标语言的一行
  */
@@ -192,11 +359,18 @@ function renderLine(tokens, dstCfg) {
   let code = '';
   let commentText = null; // 注释体（若有），存原文
 
-  for (const t of tokens) {
+  // ATK 调用整形在渲染前做：此时字符串还是独立 token，不会被当成代码结构
+  const shaped = shapeAtkCalls(
+    tokens.filter((t) => t.kind !== 'comment'),
+    dstCfg
+  );
+  for (const t of shaped) {
     if (t.kind === 'string') code += quoteString(t.text, dstCfg);
-    else if (t.kind === 'comment') commentText = t.text;
     else code += t.text;
   }
+  // 注释 token 由 parseLine 保证至多一个且在行尾
+  const cmt = tokens.find((t) => t.kind === 'comment');
+  if (cmt) commentText = cmt.text;
 
   code = code.trimEnd();
   const hasCode = code.length > 0;
