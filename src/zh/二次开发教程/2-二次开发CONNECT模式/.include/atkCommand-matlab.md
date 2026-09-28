@@ -1,5 +1,17 @@
 ATK CONNECT 模式通过以下三组核心 API 与 ATK 交互：`atkOpen` 建立连接、`atkConnect` 发送命令、`atkClose` 断开连接。所有命令均遵循 [CONNECT 命令语法约定](../2-命令参考/1-命令语法约定.md)。
 
+Matlab 通过**内置的 Java 接口**调用 ATK 通信库：先用 `javaaddpath` 引入 `ATKConnectJava.jar`，再用 `javaMethod('loadLibrary', 'ATKLibraryLoader')` 加载本地动态库，最后用 `javaObject` 创建 `com.atk.connect.ATKConnectJavaModule` 对象。三组接口均为该对象的实例方法。
+
+```matlab
+javaaddpath([pwd,'\ATKConnectJava.jar']);
+javaMethod('loadLibrary', 'ATKLibraryLoader');
+ATKConnectJavaModule = javaObject('com.atk.connect.ATKConnectJavaModule');
+```
+
+::: info 与其他语言的差异
+Matlab 底层复用了 Java 的通信库，因此签名与 Java 完全一致：`atkOpen` 的两个参数必须显式传入，`atkConnect` 除连接句柄、命令名和命令字符串外，还需传入第 4 个参数。
+:::
+
 ## atkOpen
 
 ### 作用
@@ -9,33 +21,37 @@ ATK CONNECT 模式通过以下三组核心 API 与 ATK 交互：`atkOpen` 建立
 ### 语法
 
 ```matlab
-atkOpen([ipAddress, port]);
+conID = ATKConnectJavaModule.atkOpen(ipAddress, port)
 ```
 
 ### 参数说明
 
 | 参数名 | 类型 | 必选 | 默认值 | 说明 |
 | :--- | :--- | :--- | :--- | :--- |
-| ipAddress | string | 否 | "127.0.0.1" | 目标 ATK 服务的 IPv4 地址。 |
-| port | integer | 否 | 6655 | 目标服务监听端口号。 |
+| ipAddress | String | 是 | 无 | 目标 ATK 服务的 IPv4 地址，本机连接填写 `'127.0.0.1'`。 |
+| port | int | 是 | 无 | 目标服务监听端口号，默认端口为 `6655`。 |
+
+::: note 说明
+与 Java 一致，Matlab 调用时无默认参数，两个参数均需显式传入，不存在省略参数的零参调用形式。
+:::
 
 ### 返回值
 
 | 返回值 | 类型 | 说明 |
 |--------|------|------|
-| conID | integer | 连接句柄 conID，用于后续操作 |
+| conID | int | 连接句柄 conID，用于后续操作；连接失败时返回 `0` 或负值 |
 
 ### 示例
 
 ::: details open **连接本机默认端口（127.0.0.1:6655）**
 ```matlab
-conID = atkOpen();
+conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);
 ```
 :::
 
 ::: details open **连接指定远程设备**
 ```matlab
-conID = atkOpen('192.168.1.100', 6655);
+conID = ATKConnectJavaModule.atkOpen('192.168.1.100', 6655);
 ```
 :::
 
@@ -56,34 +72,39 @@ conID = atkOpen('192.168.1.100', 6655);
 ### 语法
 
 ```matlab
-atkConnect(conID, command, cmdString);
-```
-
-若命令有返回值，可通过赋值方式获取输出：
-
-```matlab
-strOutPut = atkConnect(conID, command, cmdString);
+strOutPut = ATKConnectJavaModule.atkConnect(conID, command, cmdString, cmdParam)
 ```
 
 ### 参数说明
 
 | 参数名 | 类型 | 必选 | 默认值 | 说明 |
 | :--- | :--- | :--- | :--- | :--- |
-| conID | integer | 是 | 无 | atkOpen 返回的连接句柄，标识当前会话 |
-| command | string | 是 | 无 | ATK 命令名称，详见 Connect 命令文档 |
-| cmdString | string | 是 | 无 | 由 **对象路径** 和 **命令参数字符串** 以单个空格拼接，格式：`'objPath cmdParamString'`。<br/> objPath 中可用 `*` 表示 **场景** 占位符，cmdParamString 由具体命令定义 |
+| conID | int | 是 | 无 | atkOpen 返回的连接句柄，标识当前会话 |
+| command | String | 是 | 无 | ATK 命令名称，详见 Connect 命令文档 |
+| cmdString | String | 是 | 无 | 由 **对象路径** 和 **命令参数字符串** 以单个空格拼接，格式：`'objPath cmdParamString'`。<br/> objPath 中可用 `*` 表示 **场景** 占位符，cmdParamString 由具体命令定义 |
+| cmdParam | String | 是 | 无 | 保留参数，固定传入空字符串 `''` 即可 |
+
+::: note 说明
+`atkConnect` 的第 4 个参数为保留参数。由于底层沿用 Java 接口、无默认参数，该参数无法省略，传入空字符串 `''` 即可，实际命令内容由 `cmdString` 提供。
+:::
 
 ### 返回值
 
 | 返回值 | 类型 | 说明 |
 |--------|------|------|
-| strOutPut | string | 有返回值时返回输出字符串；无返回值时返回空或无返回 |
+| strOutPut | String | 有返回值时返回输出字符串；无返回值时返回空或无返回 |
 
 ### 示例
 
 ::: details open **调用 Graphics 命令设置卫星颜色（无返回值）**
 ```matlab
-atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12');
+ATKConnectJavaModule.atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12', '');
+```
+:::
+
+::: details open **调用命令并获取返回值**
+```matlab
+strOutPut = ATKConnectJavaModule.atkConnect(conID, 'Report_RM', '*/Satellite/Satellite1 Style "Position"', '');
 ```
 :::
 
@@ -96,14 +117,14 @@ atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12');
 ### 语法
 
 ```matlab
-atkClose(conID);
+ATKConnectJavaModule.atkClose(conID)
 ```
 
 ### 参数说明
 
 | 参数名 | 类型 | 必选 | 默认值 | 说明 |
-|--------|------|------|--------|------|
-| conID | integer | 是 | 无 | atkOpen 返回的连接句柄，用于标识要关闭的会话 |
+| :--- | :--- | :--- | :--- | :--- |
+| conID | int | 是 | 无 | atkOpen 返回的连接句柄，用于标识要关闭的会话 |
 
 ### 返回值
 
@@ -114,19 +135,19 @@ atkClose(conID);
 ### 示例
 
 ::: details open **关闭默认连接**
-```matlab {4}
-conID = atkOpen();
+```matlab
+conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);
 % 建立连接
 % ... 执行若干 atkConnect 操作 ...
-atkClose(conID);
+ATKConnectJavaModule.atkClose(conID);
 % 关闭连接
 ```
 :::
 
 ::: details open **关闭指定远程连接**
-```matlab {3}
-conID = atkOpen('192.168.1.100', 6655);
+```matlab
+conID = ATKConnectJavaModule.atkOpen('192.168.1.100', 6655);
 % ... 执行操作 ...
-atkClose(conID);
+ATKConnectJavaModule.atkClose(conID);
 ```
 :::
