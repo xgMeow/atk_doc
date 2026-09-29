@@ -9,7 +9,7 @@ export const zhOverViewData: OverViewModule[] = [
         { name: '二维可视化', link: '/zh/03-基础使用指南/05-二三维地图/02-二维地图/' },
       ],
       [
-        { name: '仿真平台', link: null },
+        { name: '仿真平台', link: '/zh/03-基础使用指南/04-仿真控制/' },
         { name: '三维可视化', link: '/zh/03-基础使用指南/05-二三维地图/03-三维地图/' },
       ],
       [
@@ -31,7 +31,7 @@ export const zhOverViewData: OverViewModule[] = [
       ],
       [
         { name: '覆盖分析', link: '/zh/5.专业使用指南/01-可见性与覆盖分析/02-覆盖性工具.html' },
-        { name: '通信链路', link: null },
+        { name: '通信链路', link: '/zh/03-基础使用指南/03-对象管理/02-属性配置/链路.html' },
       ],
     ],
   },

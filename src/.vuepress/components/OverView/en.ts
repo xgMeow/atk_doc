@@ -9,7 +9,7 @@ export const enOverViewData: OverViewModule[] = [
         { name: '2D Visualization', link: '/en/03-基础使用指南/05-二三维地图/02-二维地图/' },
       ],
       [
-        { name: 'Simulation Platform', link: null },
+        { name: 'Simulation Platform', link: '/en/03-基础使用指南/04-仿真控制/' },
         { name: '3D Visualization', link: '/en/03-基础使用指南/05-二三维地图/03-三维地图/' },
       ],
       [
@@ -27,11 +27,11 @@ export const enOverViewData: OverViewModule[] = [
     rows: [
       [
         { name: 'Visibility Analysis', link: '/en/5.专业使用指南/01-可见性与覆盖分析/01-可见性工具.html' },
-        { name: 'Region Coverage', link: '/en/5.专业使用指南/01-可见性与覆盖分析/03-区域覆盖分析.html' },
+        { name: 'Region Coverage', link: '/en/5.专业使用指南/01-可见性与覆盖分析/03-区域覆盖工具.html' },
       ],
       [
         { name: 'Coverage Analysis', link: '/en/5.专业使用指南/01-可见性与覆盖分析/02-覆盖性工具.html' },
-        { name: 'Communication Links', link: null },
+        { name: 'Communication Links', link: '/en/03-基础使用指南/03-对象管理/02-属性配置/链路.html' },
       ],
     ],
   },
