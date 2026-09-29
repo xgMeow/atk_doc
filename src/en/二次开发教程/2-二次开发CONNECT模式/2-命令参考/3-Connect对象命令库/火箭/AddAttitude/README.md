@@ -1,5 +1,5 @@
 ---
-title: Attitude
+title: AddAttitude
 index: false
 ---
 

@@ -1,18 +1,18 @@
-# Attitude Euler
+# AddAttitude Euler
 
-## Description
+## 作用
 
-Set attitude data from Euler angles.
+根据欧拉角设置姿态数据
 
-## Syntax
+## 语法
 
 ```atk-command
 AddAttitude <ObjectPath> Euler {StartTime} {Sequence} <Angle1> <Angle2> <Angle3>
 ```
 
-## Examples
+## 示例
 
-::: details open **Set attitude data from Euler angles**
+::: details open **根据欧拉角设置姿态数据**
 ```
 AddAttitude */Missile/Missile1 Euler "1 Jul 2021 09:00:00.000" 321 30.0 45.0 60.0
 ```

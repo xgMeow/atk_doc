@@ -1,4 +1,4 @@
-# Attitude YPR
+# AddAttitude YPR
 
 ## Description
 
@@ -14,7 +14,7 @@ AddAttitude <ObjectPath> YPR {StartTime} {Sequence} <Yaw> <Pitch> <Roll>
 
 - `{Sequence}` valid values are 123, 132, 213, 231, 312, 321
 - The default unit of the input data is deg
-- `{StartTime}` format settings: see [Common Date/Time Formats](../../../2-参数值格式/日期时间格式.md)
+- `{StartTime}` format settings: see [Common Date/Time Formats](../../../../2-参数值格式/日期时间格式.md)
 - The times entered in the command must be in increasing order
 
 ## Examples

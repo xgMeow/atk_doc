@@ -1,4 +1,4 @@
-# Attitude CBFQuat
+# AddAttitude CBFQuat
 
 ## Description
 
@@ -13,7 +13,7 @@ AddAttitude <ObjectPath> CBFQuat {StartTime} <Q1> <Q2> <Q3> <Q4>
 ## Additional Notes
 
 - `<Q1>`, `<Q2>`, and `<Q3>` set qx, qy, and qz; `<Q4>` sets qs
-- `{StartTime}` format settings: see [Common Date/Time Formats](../../../2-参数值格式/日期时间格式.md)
+- `{StartTime}` format settings: see [Common Date/Time Formats](../../../../2-参数值格式/日期时间格式.md)
 - The times entered in the command must be in increasing order
 
 ## Examples

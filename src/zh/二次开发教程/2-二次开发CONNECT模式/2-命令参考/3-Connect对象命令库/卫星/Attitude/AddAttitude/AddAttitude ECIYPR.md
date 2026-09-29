@@ -1,4 +1,4 @@
-# Attitude ECIYPR
+# AddAttitude ECIYPR
 
 ## 作用
 
@@ -14,7 +14,7 @@ AddAttitude <ObjectPath> ECIYPR {StartTime} {Sequence} <Yaw> <Pitch> <Roll>
 
 - `{Sequence}` 有效值为 123、132、213、231、312、321
 - 数据输入默认单位为 deg
-- `{StartTime}` 格式设置请查看[常用日期/时间格式](../../../2-参数值格式/日期时间格式.md)
+- `{StartTime}` 格式设置请查看[常用日期/时间格式](../../../../2-参数值格式/日期时间格式.md)
 - 命令输入时间必须是递增序列
 
 ## 示例
