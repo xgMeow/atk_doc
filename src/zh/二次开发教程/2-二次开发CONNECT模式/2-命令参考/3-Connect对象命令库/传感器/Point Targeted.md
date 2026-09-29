@@ -19,7 +19,7 @@ Point <SensorObjectPath> Targeted {OrientMethod} <MethodData>
 | OrientMethod | MethodData                                                     | 说明                                                           |
 | ------------ | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | Tracking     | `<TruncObjectPath> [{AboutBoresight} [{TrackMode}]]`           | N/A                                                            |
-| Fixed        | `<TruncObjectPath> {OrientMethod} <MethodData>`                | `<MethodData>` 请参考 [Point Fixed](#point-fixed) 命令          |
+| Fixed        | `<TruncObjectPath> {OrientMethod} <MethodData>`                | `<MethodData>` 请参考 [Point Fixed](./Point%20Fixed.md) 命令   |
 
 ## 示例
 

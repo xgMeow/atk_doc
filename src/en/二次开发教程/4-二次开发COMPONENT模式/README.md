@@ -1,5 +1,5 @@
 ---
-title: 二次开发COMPONENT模式
+title: Component Mode
 index: false
 ---
 <Catalog />

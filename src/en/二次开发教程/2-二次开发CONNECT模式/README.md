@@ -1,5 +1,5 @@
 ---
-description: Overview of ATK Connect mode. Connect mode controls ATK over TCP network communication, supporting the Python Client tool and the Python, Matlab, and C++ language SDKs, with the ATK Script tool as a supplement.
+description: Overview of ATK Connect mode. Connect mode controls ATK over TCP network communication, supporting the Python Client tool and the Python, Matlab, C++, Java, and Octave language SDKs, with the ATK Script tool as a supplement.
 index: true
 ---
 
@@ -17,7 +17,7 @@ ATK development methods are classified into two categories based on their commun
 
 ### Network Communication (TCP)
 
-The Python Client tool, Python SDK, Matlab SDK, and C++ SDK all communicate with ATK over the **TCP network**. The client/SDK runs in an independent process, exchanging data with the ATK software over the network.
+The Python Client tool, Python SDK, Matlab SDK, C++ SDK, Java SDK, and Octave SDK all communicate with ATK over the **TCP network**. The client/SDK runs in an independent process, exchanging data with the ATK software over the network.
 
 This means the client/SDK and ATK **do not need to be on the same machine** — as long as the network is reachable, you can remotely control ATK from any computer on the LAN.
 
@@ -31,6 +31,8 @@ The [ATK Script tool](1-开发方式/1-ATK脚本工具.md) is special: ATK scrip
 | [Python SDK](1-开发方式/4-语言SDK/1-Python/1-简介与配置.md) | Self-built Python environment | TCP (remote-capable) | Python | Use ATK in your own Python project |
 | [Matlab SDK](1-开发方式/4-语言SDK/2-Matlab/1-简介与配置.md) | Self-built Matlab environment | TCP (remote-capable) | Matlab | Use ATK in your own Matlab project |
 | [C++ SDK](1-开发方式/4-语言SDK/3-C++/1-简介与配置.md) | Self-built C++ environment | TCP (remote-capable) | C++ | Use ATK in your own C++ project |
+| [Java SDK](1-开发方式/4-语言SDK/4-Java/1-简介与配置.md) | Self-built Java environment | TCP (remote-capable) | Java | Use ATK in your own Java project |
+| [Octave SDK](1-开发方式/4-语言SDK/5-Octave/1-简介与配置.md) | Self-built Octave environment | TCP (remote-capable) | Octave | Use ATK in your own Octave project |
 | [ATK Script tool](1-开发方式/1-ATK脚本工具.md) | ATK Menu → Integration → ATK Script | In-process invocation | ATK Script (.atks) | Scenarios that run in the same process as ATK without requiring network communication |
 
 ::: tip How to Choose

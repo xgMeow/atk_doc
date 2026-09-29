@@ -1,10 +1,10 @@
 ---
-title: Component模式
+title: Component Mode
 index: false
 ---
 
-Component模式通过库文件提供的函数接口对ATK进行操作与计算， Component模式所提供的变量均需使用Set函数设置变量值，暂不支持直接设置。
-Component模式使用IAtkObjectRoot类作为初始操作指针，以下使用pIAORoot指针作为IAtkObjectRoot类指针。
+Component Mode operates on and computes for ATK through the function interfaces provided by the library files. All variables provided by Component Mode must have their values set with the Set function; setting them directly is not currently supported.
+Component Mode uses the IAtkObjectRoot class as the initial operation pointer. Below, the pIAORoot pointer is used as the pointer of the IAtkObjectRoot class.
 
 
 <Catalog />

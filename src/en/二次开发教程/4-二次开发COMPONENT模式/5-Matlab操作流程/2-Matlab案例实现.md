@@ -1,43 +1,43 @@
-# Matlab案例实现
+# Matlab Case Implementation
 
-## Matlab案例流程图
+## Matlab Case Flowchart
 
-![Matlab案例流程图](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/5-Matlab操作流程/media/2-Matlab案例实现/Matlab案例流程图.png)
+![Matlab case flowchart](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/5-Matlab操作流程/media/2-Matlab案例实现/Matlab案例流程图.png)
 
-## Matlab案例源码
+## Matlab Case Source Code
 
 ```matlab
-%	前置步骤：
-%	1，复制ATK.exe所在路径，设置为Matlab当前路径
+%	Prerequisite steps:
+%	1, copy the path where ATK.exe is located and set it as the current Matlab path
 
-%垃圾回收
+%Garbage collection
 java.lang.System.gc();
 
-%添加java系统路径和java包jar
+%Add the java system path and the java jar package
 jarPath = [pwd,'\\ATKComponentJava.jar'];
 if ~any(strcmp(jarPath,javaclasspath()))
     javaaddpath(jarPath)
 end
 
-%加载依赖库dll
+%Load dependency library dll
 ATKLibraryLoader.loadLibrary()
 
-%导入java接口封装类
+%Import the java interface wrapper class
 import com.atk.component.*;
 
-%设置编码类型，用于区分字符
+%Set the encoding type, used to distinguish characters
 ATKComponentJavaModule.SetCallCodeType('matlab');
-%设置默认输出路径
+%Set the default output path
 ATKComponentJavaModule.SetSaveFileBasePath(pwd);
 	
-%新建根结点
+%Create a new root object
 pIAtkObjectRoot = IAtkObjectRoot();
-%场景新建与属性设置
+%Create a new scenario and set properties
 pIScenario = pIAtkObjectRoot.GetChildren().New(EATKObjectType.eScenario,'FastTransfer');
 pIScenario.SetTimePeriod('5 Nov 2022 00:00:00.000', '6 Nov 2022 00:00:00.000');
-%卫星新建与轨道预报设置为机动规划
+%Create a new satellite and set the orbit propagator to Maneuver Planning
 pISatellite = pIScenario.GetChildren().New(EATKObjectType.eSatellite,'Satellite1');
-%设置二维属性轨迹显示时长
+%Set the display duration of the 2D trajectory property
 pIVeGfxLeadTrailData = pISatellite.GetGraphics().GetPassData().GetGroundTrack();
 pIVeGfxLeadTrailData.SetTrailDataType(ELeadTrailData.eDataTime);
 pIVeLeadTrailDataTime = pIVeGfxLeadTrailData.GetTrailData();
@@ -45,7 +45,7 @@ pIVeLeadTrailDataTime.SetTime(24*60*60);
 pISatellite.SetPropagatorType(EVePropagatorType.ePropagatorAstromaster);
 pIVADriverMCS = pISatellite.GetPropagator();
 pIVAMCSSegmentCollection = pIVADriverMCS.GetMainSequence();
-%机动规划添加段，新添加卫星会有默认初始段
+%Add segments to the maneuver planning; a newly added satellite has a default initial state
 pIVAMCSInitialState = pIVAMCSSegmentCollection.Item(0);
 pIVAMCSPropagate = pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTypePropagate, 'Propagate', '-');
 pIVAMCSTargetSequence = pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTypeTargetSequence, 'TargetSequence', '-');
@@ -54,7 +54,7 @@ pIVAMCSPropagate1 = pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTyp
 pIVAMCSTargetSequence1	= pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTypeTargetSequence, 'TargetSequence1', '-');
 pIVAMCSManeuver1 = pIVAMCSTargetSequence1.GetSegments().Insert(EVASegmentType.eVASegmentTypeManeuver, 'Maneuver', '-');
 pIVAMCSPropagate2 = pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTypePropagate, 'Propagate', '-');
-%初始段属性设置
+%Set the properties of the initial state
 pIVAMCSInitialState.SetOrbitEpoch('5 Nov 2022 00:00:00.000');
 pIVAMCSInitialState.SetElementType(EVAElementType.eVAElementTypeKeplerian);
 pIVAElementKeplerian = pIVAMCSInitialState.GetElement();
@@ -64,42 +64,42 @@ pIVAElementKeplerian.SetInclination(0);
 pIVAElementKeplerian.SetRAAN(0);
 pIVAElementKeplerian.SetArgOfPeriapsis(0);
 pIVAElementKeplerian.SetTrueAnomaly(0);
-%第一个预报段属性设置
+%Set the properties of the first propagation segment
 pIVAStoppingConditionElement = pIVAMCSPropagate.GetStoppingConditions().Add('Duration');
 pIVAStoppingCondition = pIVAStoppingConditionElement.GetProperties();
 pIVAStoppingCondition.SetTrip(7200);
 pIVAStoppingCondition.SetTolerance(0.0001);
-%第一个瞄准段中机动段属性设置
+%Set the properties of the maneuver segment in the first target sequence
 pIVAMCSManeuver.SetManeuverType(EVAManeuverType.eVAManeuverTypeImpulsive);
 pIVAManeuverImpulsive = pIVAMCSManeuver.GetManeuver();
 pIVAAttitudeControlImpulsiveThrustVector = pIVAManeuverImpulsive.GetAttitudeControl();
 pIVAAttitudeControlImpulsiveThrustVector.SetThrustAxesName('Satellite VNC(Earth)');
 pIVAMCSManeuver.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianX);
 pIVAMCSManeuver.GetResults().Add('Radius_Of_Apoapsis');
-%第一个瞄准段添添加属性页
+%Add a profile to the first target sequence
 pIVAProfileDifferentialCorrector = pIVAMCSTargetSequence.GetProfiles().Add('Differential Corrector');
 pIVADCControl = pIVAProfileDifferentialCorrector.GetControlParameters().GetControlByPaths('Maneuver', 'ImpulseX');
 pIVADCResult = pIVAProfileDifferentialCorrector.GetResults().GetResultByPaths('Maneuver', "StateCalc"+'RadiusOfApoapsis');
-%属性页中控制变量属性设置
+%Set the properties of the control variables in the profile
 pIVADCControl.SetEnable(true);
 pIVADCControl.SetMaxStep(100);
 pIVADCControl.SetCorrection(2781.50365947627);
 pIVADCControl.SetPerturbation(0.1);
 pIVADCControl.SetScalingValue(1);
-%属性页中约束条件属性设置
+%Set the properties of the constraints in the profile
 pIVADCResult.SetEnable(true);
 pIVADCResult.SetDesiredValue(84328394);
 pIVADCResult.SetScalingValue(1);
 pIVADCResult.SetTolerance(0.1);
 pIVADCResult.SetWeight(1);
-%第二个预报段属性设置
+%Set the properties of the second propagation segment
 pIVAStoppingConditionElement1 = pIVAMCSPropagate1.GetStoppingConditions().Add('RMagnitude');
 pIVAStoppingCondition1 = pIVAStoppingConditionElement1.GetProperties();
 pIVAStoppingCondition1.SetTrip(42164197);
 pIVAStoppingCondition1.SetTolerance(1e-6);
 pIVAStoppingCondition1.SetRepeatCount(1);
 pIVAStoppingCondition1.SetCriterion(EVACriterion.eVACriterionCrossEither);
-%第二个瞄准段中机动段属性设置
+%Set the properties of the maneuver segment in the second target sequence
 pIVAMCSManeuver1.SetManeuverType(EVAManeuverType.eVAManeuverTypeImpulsive);
 pIVAManeuverImpulsive1 = pIVAMCSManeuver1.GetManeuver();
 pIVAAttitudeControlImpulsiveThrustVector1 = pIVAManeuverImpulsive1.GetAttitudeControl();
@@ -108,9 +108,9 @@ pIVAMCSManeuver1.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImp
 pIVAMCSManeuver1.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianZ);
 pIVAMCSManeuver1.GetResults().Add('Eccentricity');
 pIVAMCSManeuver1.GetResults().Add('Cosine_of_Vertical_FPA');
-%第二个瞄准段添加属性页
+%Add a profile to the second target sequence
 pIVAProfileDifferentialCorrector1 = pIVAMCSTargetSequence1.GetProfiles().Add('Differential Corrector');
-%属性页中控制变量属性设置
+%Set the properties of the control variables in the profile
 pIVADCControl1 = pIVAProfileDifferentialCorrector1.GetControlParameters().Item(0);
 pIVADCControl1.SetEnable(true);
 pIVADCControl1.SetMaxStep(300);
@@ -123,7 +123,7 @@ pIVADCControl2.SetMaxStep(300);
 pIVADCControl2.SetCorrection(-2771.82057041661);
 pIVADCControl2.SetPerturbation(0.1);
 pIVADCControl2.SetScalingValue(1);
-%属性页中约束条件属性设置
+%Set the properties of the constraints in the profile
 pIVADCResult1 = pIVAProfileDifferentialCorrector1.GetResults().Item(0);
 pIVADCResult1.SetEnable(true);
 pIVADCResult1.SetDesiredValue(0);
@@ -136,34 +136,34 @@ pIVADCResult2.SetDesiredValue(0);
 pIVADCResult2.SetScalingValue(1);
 pIVADCResult2.SetTolerance(0.1);
 pIVADCResult2.SetWeight(1);
-%第三个预报段属性设置
+%Set the properties of the third propagation segment
 pIVAStoppingConditionElement2 = pIVAMCSPropagate2.GetStoppingConditions().Add('Duration');
 pIVAStoppingCondition2 = pIVAStoppingConditionElement2.GetProperties();
 pIVAStoppingCondition2.SetTrip(86400);
 pIVAStoppingCondition2.SetTolerance(0.0001);
-%机动规划运行
+%Run the maneuver planning
 pIVADriverMCS.RunMCS();
 pIVADriverMCS.ApplyAllProfileChanges();
-%生成数据到文仿
+%Generate data to a file
 strReportFilePath = pIAtkObjectRoot.OutputDataReport(pISatellite, 'J2000 Position Velocity', '5 Nov 2022 00:00:00.000', '6 Nov 2022 00:00:00.000');
-%仿真运行
+%Run the simulation
 pIAtkObjectRoot.GetAnimation().PlayForward();
-%保存场景
+%Save the scenario
 pIAtkObjectRoot.SaveScenario();
-%关闭场景
+%Close the scenario
 pIAtkObjectRoot.CloseScenario();
-%输出数据报告目录
+%Output the data report directory
 strReportFilePath
 ```
 
-## Matlab案例执行命令
-打开Matlab软件，设置依赖路径并初始化依赖环境，调用运行Matlab案例脚本，具体步骤如下：
+## Matlab Case Execution Commands
+Open the Matlab software, set the dependency paths and initialize the dependency environment, and call and run the Matlab case script. The specific steps are as follows:
 
-	1. 复制ATK安装包根目录路径，设置为Matlab当前路径；
+	1. Copy the ATK installation package root directory path and set it as the current Matlab path;
 
-	2. 双击打开Matlab案例脚本ATKComponentMatlabTest.m；
+	2. Double-click to open the Matlab case script ATKComponentMatlabTest.m;
 
-	3. 点击运行Matlab案例脚本，如图所示。
+	3. Click Run to run the Matlab case script, as shown in the figure.
 
 
-![操作流程](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/5-Matlab操作流程/media/2-Matlab案例实现/Matlab操作流程_zy.png)
+![Workflow](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/5-Matlab操作流程/media/2-Matlab案例实现/Matlab操作流程_zy.png)

@@ -36,28 +36,28 @@ This case is developed with Visual Studio 2015 (the ATK.Component dynamic librar
 4. Create a new "FastTransfer.cpp" file, include the header file "IAtkObjectH.h", add the main() function, and write the case code (the code can be copied directly, compiled, and run).
 
 ```cpp title="FastTransfer.cpp"
-// 代码结构功能流程说明
-//（1）包含所需头文件，并添加执行函数
-//（2）添加根节点
-//（3）想定新建与属性设置
-//（4）卫星新建与轨道预报设置为机动规划
-//（5）机动规划添加段，新添加卫星会有默认初始段
-//（6）初始段属性设置
-//（7）第一个预报段属性设置
-//（8）第一个瞄准段中机动段属性设置
-//（9）第一个瞄准段添加属性页，并设置属性页中控制变量与约束条件的属性
-//（10）第二个预报段属性设置
-//（11）第二个瞄准段中机动段属性设置
-//（12）第二个瞄准段添加属性页，并设置属性页中控制变量与约束条件的属性
-//（13）第三个预报段属性设置
-//（14）机动规划运行
-//（15）生成数据到文件
-//（16）想定保存及关闭
+// Description of the code structure and function flow
+// (1) Include the required header files and add the execution function
+// (2) Add the root node
+// (3) Create the scenario and set its properties
+// (4) Create the satellite and set the orbit propagator to Maneuver Planning
+// (5) Add segments to the maneuver plan; a newly added satellite has a default initial segment
+// (6) Set the properties of the initial segment
+// (7) Set the properties of the first propagation segment
+// (8) Set the properties of the maneuver segment in the first target sequence
+// (9) Add a profile to the first target sequence and set the properties of the control variables and constraints in the profile
+// (10) Set the properties of the second propagation segment
+// (11) Set the properties of the maneuver segment in the second target sequence
+// (12) Add a profile to the second target sequence and set the properties of the control variables and constraints in the profile
+// (13) Set the properties of the third propagation segment
+// (14) Run the maneuver plan
+// (15) Generate data to a file
+// (16) Save and close the scenario
 
 #pragma once
 #include <iostream>
 #include <stdlib.h>
-#include "IAtkObjectH.h"    // 包含头文件
+#include "IAtkObjectH.h"    // Include the header file
 
 using namespace std;
 
@@ -65,18 +65,18 @@ int main()
 {
     IAtkObjectRoot* pRoot = new IAtkObjectRoot();
 
-    // 想定新建与属性设置
+    // Create the scenario and set its properties
     IScenario* pIScen = (IScenario*)pRoot->GetChildren()->New(eScenario, "FastTransfer");
     if (nullptr == pIScen) return false;
     pIScen->SetTimePeriod("5 Nov 2022 00:00:00.000", "8 Nov 2022 00:00:00.000");
 
-    // 卫星新建与轨道预报设置为机动规划
+    // Create the satellite and set the orbit propagator to Maneuver Planning
     ISatellite* pISatellite = (ISatellite*)pIScen->GetChildren()->New(eSatellite, "Satellite1");
     pISatellite->SetPropagatorType(ePropagatorAstromaster);
     IVADriverMCS* pIVADriverMCS = (IVADriverMCS*)pISatellite->GetPropagator();
     IVAMCSSegmentCollection* pIVAMCSSegmentCollection = pIVADriverMCS->GetMainSequence();
 
-    // 机动规划添加段，新添加卫星会有默认初始段（直接获取第一段，无需检查类型）
+    // Add segments to the maneuver plan; a newly added satellite has a default initial segment (directly get the first segment, no need to check the type)
     IVAMCSInitialState* pIVAMCSInitialState = (IVAMCSInitialState*)pIVAMCSSegmentCollection->Item(0);
 
     IVAMCSPropagate* pIVAMCSPropagate = (IVAMCSPropagate*)pIVAMCSSegmentCollection->Insert(
@@ -94,7 +94,7 @@ int main()
     IVAMCSPropagate* pIVAMCSPropagate2 = (IVAMCSPropagate*)pIVAMCSSegmentCollection->Insert(
         eVASegmentTypePropagate, "Propagate", "-");
 
-    // 初始段属性设置
+    // Set the properties of the initial segment
     pIVAMCSInitialState->SetOrbitEpoch("5 Nov 2022 00:00:00.000");
     pIVAMCSInitialState->SetElementType(eVAElementTypeKeplerian);
     IVAElementKeplerian* pIVAElementKeplerian = (IVAElementKeplerian*)pIVAMCSInitialState->GetElement();
@@ -105,7 +105,7 @@ int main()
     pIVAElementKeplerian->SetArgOfPeriapsis(0);
     pIVAElementKeplerian->SetTrueAnomaly(0);
 
-    // 第一个预报段属性设置
+    // Set the properties of the first propagation segment
     IVAStoppingConditionElement* pIVAStoppingConditionElement =
         pIVAMCSPropagate->GetStoppingConditions()->Add("Duration");
     IVAStoppingCondition* pIVAStoppingCondition =
@@ -113,7 +113,7 @@ int main()
     pIVAStoppingCondition->SetTrip(7200);
     pIVAStoppingCondition->SetTolerance(0.0001);
 
-    // 第一个瞄准段中机动段属性设置
+    // Set the properties of the maneuver segment in the first target sequence
     pIVAMCSManeuver->SetManeuverType(eVAManeuverTypeImpulsive);
     IVAManeuverImpulsive* pIVAManeuverImpulsive = (IVAManeuverImpulsive*)pIVAMCSManeuver->GetManeuver();
     IVAAttitudeControlImpulsiveThrustVector* pIVAAttitudeControlImpulsiveThrustVector =
@@ -122,7 +122,7 @@ int main()
     pIVAMCSManeuver->EnableControlParameter(eVAControlManeuverImpulsiveCartesianX);
     pIVAMCSManeuver->GetResults()->Add("Radius_Of_Apoapsis");
 
-    // 第一个瞄准段添加属性页
+    // Add a profile to the first target sequence
     IVAProfileDifferentialCorrector* pIVAProfileDifferentialCorrector =
         (IVAProfileDifferentialCorrector*)pIVAMCSTargetSequence->GetProfiles()->Add(
             "Differential Corrector");
@@ -131,21 +131,21 @@ int main()
     IVADCResult* pIVADCResult = pIVAProfileDifferentialCorrector->GetResults()->GetResultByPaths(
         "Maneuver", "StateCalcRadiusOfApoapsis");
 
-    // 属性页中控制变量属性设置
+    // Set the properties of the control variables in the profile
     pIVADCControl->SetEnable(true);
     pIVADCControl->SetMaxStep(100);
     pIVADCControl->SetCorrection(2781.50365947627);
     pIVADCControl->SetPerturbation(0.1);
     pIVADCControl->SetScalingValue(1);
 
-    // 属性页中约束条件属性设置
+    // Set the properties of the constraints in the profile
     pIVADCResult->SetEnable(true);
     pIVADCResult->SetDesiredValue(84328394);
     pIVADCResult->SetScalingValue(1);
     pIVADCResult->SetTolerance(0.1);
     pIVADCResult->SetWeight(1);
 
-    // 第二个预报段属性设置
+    // Set the properties of the second propagation segment
     IVAStoppingConditionElement* pIVAStoppingConditionElement1 =
         pIVAMCSPropagate1->GetStoppingConditions()->Add("Apoapsis");
     IVAStoppingCondition* pIVAStoppingCondition1 =
@@ -153,7 +153,7 @@ int main()
     pIVAStoppingCondition1->SetTolerance(1e-4);
     pIVAStoppingCondition1->SetRepeatCount(1);
 
-    // 第二个瞄准段中机动段属性设置
+    // Set the properties of the maneuver segment in the second target sequence
     pIVAMCSManeuver1->SetManeuverType(eVAManeuverTypeImpulsive);
     IVAManeuverImpulsive* pIVAManeuverImpulsive1 = (IVAManeuverImpulsive*)pIVAMCSManeuver1->GetManeuver();
     IVAAttitudeControlImpulsiveThrustVector* pIVAAttitudeControlImpulsiveThrustVector1 =
@@ -164,12 +164,12 @@ int main()
     pIVAMCSManeuver1->GetResults()->Add("Eccentricity");
     pIVAMCSManeuver1->GetResults()->Add("Cosine_of_Vertical_FPA");
 
-    // 第二个瞄准段添加属性页
+    // Add a profile to the second target sequence
     IVAProfileDifferentialCorrector* pIVAProfileDifferentialCorrector1 =
         (IVAProfileDifferentialCorrector*)pIVAMCSTargetSequence1->GetProfiles()->Add(
             "Differential Corrector");
 
-    // 属性页中控制变量属性设置
+    // Set the properties of the control variables in the profile
     IVADCControl* pIVADCControl1 = pIVAProfileDifferentialCorrector1->GetControlParameters()->Item(0);
     pIVADCControl1->SetEnable(true);
     pIVADCControl1->SetMaxStep(300);
@@ -184,7 +184,7 @@ int main()
     pIVADCControl2->SetPerturbation(0.1);
     pIVADCControl2->SetScalingValue(1);
 
-    // 属性页中约束条件属性设置
+    // Set the properties of the constraints in the profile
     IVADCResult* pIVADCResult1 = pIVAProfileDifferentialCorrector1->GetResults()->Item(0);
     pIVADCResult1->SetEnable(true);
     pIVADCResult1->SetDesiredValue(0);
@@ -199,7 +199,7 @@ int main()
     pIVADCResult2->SetTolerance(0.1);
     pIVADCResult2->SetWeight(1);
 
-    // 第三个预报段属性设置
+    // Set the properties of the third propagation segment
     IVAStoppingConditionElement* pIVAStoppingConditionElement2 =
         pIVAMCSPropagate2->GetStoppingConditions()->Add("Duration");
     IVAStoppingCondition* pIVAStoppingCondition2 =
@@ -207,16 +207,16 @@ int main()
     pIVAStoppingCondition2->SetTrip(259200);
     pIVAStoppingCondition2->SetTolerance(0.0001);
 
-    // 机动规划运行
+    // Run the maneuver plan
     pIVADriverMCS->RunMCS();
     pIVADriverMCS->ApplyAllProfileChanges();
 
-    // 生成数据到文件
+    // Generate data to a file
     std::string strReportFilePath = pRoot->OutputDataReport(pISatellite,
         "J2000位置速度", "5 Nov 2022 00:00:00.000", "8 Nov 2022 00:00:00.000");
-    cout << "报告文件位置：" << strReportFilePath << endl;
+    cout << "Report file path: " << strReportFilePath << endl;
 
-    // 想定保存及关闭
+    // Save and close the scenario
     pRoot->SaveScenario();
     pRoot->CloseScenario();
     delete pRoot;

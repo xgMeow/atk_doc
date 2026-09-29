@@ -1,107 +1,107 @@
-# 在Windows下使用
+# Using on Windows
 
 
-## 运行示例项目
+## Running the Sample Project
 
-进入文件目录`<ATK根目录>/IntegratingWithATK/component`，根据所安装的Visual Studio版本打开相关的项目配置文件
+Go to the directory `<ATK root directory>/IntegratingWithATK/component`, and open the corresponding project configuration file according to the installed Visual Studio version
 
-例如，如果安装是Vistual Studio 2022，则打开`vs2022`文件夹下的解决方案(.sln文件)
+For example, if Visual Studio 2022 is installed, open the solution (.sln file) in the `vs2022` folder
 
-打开解决方案后，**需要重定向工程**，在工程配置中选择电脑所安装的Windows SDK版本
+After opening the solution, **the project needs to be retargeted**. In the project configuration, select the Windows SDK version installed on the computer
 
-配置修改完成后即可编译
-
-
-## 从零开始创建新项目
-
-### 新建项目
-
-打开 VS2015，点击新建项目，新建空项目，并设置项目名称与位置，设置完成后点击确定。
-
-![新建项目步骤](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/1-新建项目/image.png)
+Once the configuration changes are complete, you can compile
 
 
-![新建项目](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/1-新建项目/image-1.png)
+## Creating a New Project from Scratch
+
+### Create a New Project
+
+Open VS2015, click New Project, create an empty project, and set the project name and location. Click OK when done.
+
+![New project steps](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/1-新建项目/image.png)
 
 
-### 文件配置
-
-在 ATK 安装包目录中，点击IntegratingWithATK文件夹，点开Component文件夹。
-
-![ATK.Component 包含文件文件夹](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image.png)
-
-![ATK.Component 包含动态库文件夹](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-1.png)
-
-![ATK.Component 包含库文件夹](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-2.png)
-
-将所有文件添加至工程Test根目录中。
-
-![Lib 库与头文件添加](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-3.png)
-
-将需要的配置文件添加至此文件夹。（AstroData文件夹在ATK安装目录下）。
-
-![配置文件添加](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-4.png)
-
-### 项目新建项
-
-项目添加文件，项目右键->添加->新建项。
-
-![新建文件步骤](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/3-项目新建项/image.png)
-
-### 设置添加项的名称与位置
-
-设置文件名称及位置，点击添加，完成后点击生成。
-
-![新建文件](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/4-设置添加项的名称与位置/image.png)
-
-### 项目环境配置
-
-打开项目右键->属性。
-
-![属性设置步骤](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/5-项目环境配置/image.png)
-
-配置平台改为所有配置，所有平台模式，点击常规->输出目录，将输出目录修改为项目目录。
-
-![修改输出目录](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/5-项目环境配置/image-1.png)
-
-点击C/C++->常规->附加包含目录，将头文件目录添加至附加包含目录。点击应用按钮将环境配置应用到项目，点击确定按钮。
-
-![附加包含目录设置](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/5-项目环境配置/image-2.png)
+![New project](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/1-新建项目/image-1.png)
 
 
-### 添加包含文件，编写代码
+### File Configuration
 
-![包含文件](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/6-添加包含文件，编写代码/image.png)
+In the ATK installation package directory, click the IntegratingWithATK folder, then open the Component folder.
+
+![ATK.Component include files folder](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image.png)
+
+![ATK.Component dynamic library folder](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-1.png)
+
+![ATK.Component library folder](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-2.png)
+
+Add all files to the root directory of the project Test.
+
+![Adding Lib libraries and header files](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-3.png)
+
+Add the required configuration files to this folder. (The AstroData folder is in the ATK installation directory.)
+
+![Adding configuration files](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/2-文件配置/image-4.png)
+
+### Add New Item to Project
+
+To add a file to the project: right-click the project -> Add -> New Item.
+
+![New file steps](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/3-项目新建项/image.png)
+
+### Set the Name and Location of the Added Item
+
+Set the file name and location, click Add, then click Build when done.
+
+![New file](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/4-设置添加项的名称与位置/image.png)
+
+### Project Environment Setup
+
+Open the project, right-click -> Properties.
+
+![Property setting steps](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/5-项目环境配置/image.png)
+
+Change Configuration to All Configurations and Platform to All Platforms, click General -> Output Directory, and change the output directory to the project directory.
+
+![Modifying the output directory](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/5-项目环境配置/image-1.png)
+
+Click C/C++ -> General -> Additional Include Directories, and add the header file directory to Additional Include Directories. Click the Apply button to apply the environment configuration to the project, then click the OK button.
+
+![Additional include directories settings](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/5-项目环境配置/image-2.png)
 
 
-![设置代码](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/6-添加包含文件，编写代码/image-1.png)
+### Add Include Files and Write Code
 
-### 设置编译平台为X64
-
-在菜单栏选择生成->配置管理器，选择X64平台，点击关闭按钮。
-
-![配置管理器](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/7-设置编译平台为X64/image.png)
+![Include files](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/6-添加包含文件，编写代码/image.png)
 
 
-![选择编译平台](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/7-设置编译平台为X64/image-1.png)
+![Setting up the code](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/6-添加包含文件，编写代码/image-1.png)
 
-在菜单栏选择生成->生成解决方案进行编译。
+### Set the Build Platform to X64
 
-![生成解决方案](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/7-设置编译平台为X64/image-2.png)
+In the menu bar, select Build -> Configuration Manager, select the X64 platform, and click the Close button.
 
-点击本地Windows调试器按钮，项目执行。
+![Configuration Manager](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/7-设置编译平台为X64/image.png)
+
+
+![Selecting the build platform](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/7-设置编译平台为X64/image-1.png)
+
+In the menu bar, select Build -> Build Solution to compile.
+
+![Build Solution](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/7-设置编译平台为X64/image-2.png)
+
+Click the Local Windows Debugger button to run the project.
 
 
 
-### 查看生成文件
+### View the Generated Files
 
-生成文件在项目目录下的Output目录中。
+The generated files are in the Output directory under the project directory.
 
-![生成文件](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/8-查看生成文件/image.png)
+![Generated files](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/8-查看生成文件/image.png)
 
-### 仿真轨迹
+### Simulation Trajectory
 
-使用ATK打开生成文件，可以查看仿真轨迹。
+Open the generated file with ATK to view the simulation trajectory.
 
-![仿真轨迹](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/9-仿真轨迹/image_zy.png)
+![Simulation trajectory](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/2-C++操作流程/media/9-仿真轨迹/image_zy.png)
 

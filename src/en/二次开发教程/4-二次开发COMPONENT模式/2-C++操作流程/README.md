@@ -1,8 +1,8 @@
 ---
-title: C++操作流程
+title: C++ Workflow
 index: false
 ---
 
-以 VisualStudio2015 为例，使用动态库进行项目规划
+Using VisualStudio2015 as an example, plan a project with the dynamic library
 
 <Catalog />

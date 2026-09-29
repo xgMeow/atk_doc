@@ -1,5 +1,5 @@
 ---
-title: MagicDraw与ATK联合仿真
+title: MagicDraw and ATK Co-Simulation
 index: false
 ---
 <Catalog />

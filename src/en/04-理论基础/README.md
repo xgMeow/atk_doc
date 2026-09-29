@@ -1,5 +1,5 @@
 ---
-title: 理论基础
+title: Theory
 index: false
 ---
 

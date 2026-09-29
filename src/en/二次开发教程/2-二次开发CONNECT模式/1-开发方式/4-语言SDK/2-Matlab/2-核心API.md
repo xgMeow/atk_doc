@@ -6,6 +6,18 @@ description: Core API reference for the Matlab SDK, covering the syntax, paramet
 
 ATK Connect mode interacts with ATK through the following three groups of core APIs: `atkOpen` establishes a connection, `atkConnect` sends commands, and `atkClose` closes the connection. All commands follow the [Connect command syntax](../../../2-命令参考/1-命令语法约定.md).
 
+Matlab calls the ATK communication library through its **built-in Java interface**: first import `ATKConnectJava.jar` with `javaaddpath`, then load the native dynamic library with `javaMethod('loadLibrary', 'ATKLibraryLoader')`, and finally create a `com.atk.connect.ATKConnectJavaModule` object with `javaObject`. The three groups of interfaces are all instance methods of that object.
+
+```matlab
+javaaddpath([pwd,'\ATKConnectJava.jar']);
+javaMethod('loadLibrary', 'ATKLibraryLoader');
+ATKConnectJavaModule = javaObject('com.atk.connect.ATKConnectJavaModule');
+```
+
+::: info Differences from other languages
+Matlab reuses Java's communication library underneath, so its signatures are exactly the same as Java's: both parameters of `atkOpen` must be passed explicitly, and `atkConnect` takes a 4th parameter in addition to the connection handle, the command name and the command string.
+:::
+
 ## atkOpen
 
 ### Description
@@ -15,33 +27,37 @@ Establishes a network connection to the ATK service and returns a connection han
 ### Syntax
 
 ```matlab
-atkOpen([ipAddress, port]);
+conID = ATKConnectJavaModule.atkOpen(ipAddress, port)
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| ipAddress | string | No | "127.0.0.1" | The IPv4 address of the target ATK service. |
-| port | integer | No | 6655 | The listening port number of the target service. |
+| ipAddress | String | Yes | None | The IPv4 address of the target ATK service. Use `'127.0.0.1'` for a local connection. |
+| port | int | Yes | None | The listening port number of the target service; the default port is `6655`. |
+
+::: note Note
+As with Java, there are no default parameters when calling from Matlab: both parameters must be passed explicitly, and there is no zero-argument form that omits them.
+:::
 
 ### Return Value
 
 | Return | Type | Description |
 |--------|------|------|
-| conID | integer | Connection handle conID, used for subsequent operations |
+| conID | int | Connection handle conID, used for subsequent operations; returns `0` or a negative value if the connection fails |
 
 ### Example
 
 ::: details open **Connect to the local default port (127.0.0.1:6655)**
 ```matlab
-conID = atkOpen();
+conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);
 ```
 :::
 
 ::: details open **Connect to a specified remote device**
 ```matlab
-conID = atkOpen('192.168.1.100', 6655);
+conID = ATKConnectJavaModule.atkOpen('192.168.1.100', 6655);
 ```
 :::
 
@@ -62,34 +78,39 @@ Sends a command to the connected ATK service to perform a specific operation, an
 ### Syntax
 
 ```matlab
-atkConnect(conID, command, cmdString);
-```
-
-If the command returns a value, you can obtain the output by assigning it:
-
-```matlab
-strOutPut = atkConnect(conID, command, cmdString);
+strOutPut = ATKConnectJavaModule.atkConnect(conID, command, cmdString, cmdParam)
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| conID | integer | Yes | None | The connection handle returned by atkOpen, identifying the current session |
-| command | string | Yes | None | The name of the ATK command; see the Connect command documentation for details |
-| cmdString | string | Yes | None | Concatenated from the **object path** and the **command parameter string** with a single space, format: `'objPath cmdParamString'`.<br/> In objPath, `*` can be used as the **scenario** placeholder; cmdParamString is defined by the specific command |
+| conID | int | Yes | None | The connection handle returned by atkOpen, identifying the current session |
+| command | String | Yes | None | The name of the ATK command; see the Connect command documentation for details |
+| cmdString | String | Yes | None | Concatenated from the **object path** and the **command parameter string** with a single space, format: `'objPath cmdParamString'`.<br/> In objPath, `*` can be used as the **scenario** placeholder; cmdParamString is defined by the specific command |
+| cmdParam | String | Yes | None | Reserved parameter; simply pass an empty string `''` |
+
+::: note Note
+The 4th parameter of `atkConnect` is a reserved parameter. Because the underlying interface is inherited from Java and has no default parameters, this parameter cannot be omitted; simply pass an empty string `''`. The actual command content is provided by `cmdString`.
+:::
 
 ### Return Value
 
 | Return | Type | Description |
 |--------|------|------|
-| strOutPut | string | Returns the output string when the command has a return value; otherwise returns an empty string or nothing |
+| strOutPut | String | Returns the output string when the command has a return value; otherwise returns an empty string or nothing |
 
 ### Example
 
-::: details open **Use the Graphics command to set the satellite color (no return value)**
+::: details open **Call the Graphics command to set the satellite color (no return value)**
 ```matlab
-atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12');
+ATKConnectJavaModule.atkConnect(conID, 'Graphics', '*/Satellite/Satellite1 SetColor 12', '');
+```
+:::
+
+::: details open **Call a command and get its return value**
+```matlab
+strOutPut = ATKConnectJavaModule.atkConnect(conID, 'Report_RM', '*/Satellite/Satellite1 Style "Position"', '');
 ```
 :::
 
@@ -102,14 +123,14 @@ Closes the network connection to the ATK service and releases the handle and its
 ### Syntax
 
 ```matlab
-atkClose(conID);
+ATKConnectJavaModule.atkClose(conID)
 ```
 
 ### Parameters
 
 | Parameter | Type | Required | Default | Description |
 |--------|------|------|--------|------|
-| conID | integer | Yes | None | The connection handle returned by atkOpen, identifying the session to be closed |
+| conID | int | Yes | None | The connection handle returned by atkOpen, identifying the session to be closed |
 
 ### Return Value
 
@@ -120,19 +141,19 @@ atkClose(conID);
 ### Example
 
 ::: details open **Close the default connection**
-```matlab {4}
-conID = atkOpen();
+```matlab
+conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6655);
 % Establish the connection
 % ... Execute some atkConnect operations ...
-atkClose(conID);
+ATKConnectJavaModule.atkClose(conID);
 % Close the connection
 ```
 :::
 
 ::: details open **Close a specified remote connection**
-```matlab {3}
-conID = atkOpen('192.168.1.100', 6655);
+```matlab
+conID = ATKConnectJavaModule.atkOpen('192.168.1.100', 6655);
 % ... Execute some operations ...
-atkClose(conID);
+ATKConnectJavaModule.atkClose(conID);
 ```
 :::

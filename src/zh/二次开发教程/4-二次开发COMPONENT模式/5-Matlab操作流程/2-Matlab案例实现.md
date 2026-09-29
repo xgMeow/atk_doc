@@ -144,7 +144,7 @@ pIVAStoppingCondition2.SetTolerance(0.0001);
 %机动规划运行
 pIVADriverMCS.RunMCS();
 pIVADriverMCS.ApplyAllProfileChanges();
-%生成数据到文仿
+%生成数据到文件
 strReportFilePath = pIAtkObjectRoot.OutputDataReport(pISatellite, 'J2000 Position Velocity', '5 Nov 2022 00:00:00.000', '6 Nov 2022 00:00:00.000');
 %仿真运行
 pIAtkObjectRoot.GetAnimation().PlayForward();

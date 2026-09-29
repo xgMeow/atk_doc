@@ -1,10 +1,10 @@
-# Java案例实现
+# Java Case Implementation
 
-## Java案例流程图
+## Java Case Flowchart
 
-![Java案例流程图](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/3-Java操作流程/media/3-Java案例实现/Java案例流程图.png)
+![Java case flowchart](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/3-Java操作流程/media/3-Java案例实现/Java案例流程图.png)
 
-## Java案例源码
+## Java Case Source Code
 
 ```java
 //ATKComponentJavaTest.java
@@ -13,7 +13,7 @@ package com.atk.test;
 import com.atk.component.*;
 
 public class ATKComponentJavaTest{
-  //加载ATKComponent模式动态库与依赖库
+  //Load the ATKComponent mode dynamic library and dependency libraries
   static {
     try {
 	  //windows
@@ -27,29 +27,29 @@ public class ATKComponentJavaTest{
   }
   
   public static void main(String []argv) {
-	//设置保存路径
+	//Set the save path
 	String curPath = System.getProperty("user.dir");
 	ATKComponentJavaModule.SetSaveFileBasePath(curPath);
-	//新建根结点
+	//Create a new root object
 	IAtkObjectRoot pIAtkObjectRoot = new IAtkObjectRoot();
-	//调用轨道快速转移函数
+	//Call the orbit fast transfer function
 	TestFastTransfer(pIAtkObjectRoot);
-	//仿真运行
+	//Run the simulation
 	pIAtkObjectRoot.GetAnimation().PlayForward();
-	//保存场景
+	//Save the scenario
 	pIAtkObjectRoot.SaveScenario();
-	//关闭场景
+	//Close the scenario
 	pIAtkObjectRoot.CloseScenario();
   }
   
-  //轨道快速转移函数
+  //Orbit fast transfer function
   public static void TestFastTransfer(IAtkObjectRoot pIAtkObjectRoot){
-	//场景新建与属性设置
+	//Create a new scenario and set properties
 	IScenario pIScenario = (IScenario)pIAtkObjectRoot.GetChildren().New(EATKObjectType.eScenario,"FastTransfer");
 	pIScenario.SetTimePeriod("5 Nov 2022 00:00:00.000", "6 Nov 2022 00:00:00.000");
-	//卫星新建与轨道预报设置为机动规划
+	//Create a new satellite and set the orbit propagator to Maneuver Planning
 	ISatellite pISatellite = (ISatellite)pIScenario.GetChildren().New(EATKObjectType.eSatellite,"Satellite1");
-	//设置二维属性轨迹显示时长
+	//Set the display duration of the 2D trajectory property
 	IVeGfxLeadTrailData pIVeGfxLeadTrailData = pISatellite.GetGraphics().GetPassData().GetGroundTrack();
 	pIVeGfxLeadTrailData.SetTrailDataType(ELeadTrailData.eDataTime);
 	IVeLeadTrailData pIVeLeadTrailData = pIVeGfxLeadTrailData.GetTrailData();
@@ -58,7 +58,7 @@ public class ATKComponentJavaTest{
 	pISatellite.SetPropagatorType(EVePropagatorType.ePropagatorAstromaster);
 	IVADriverMCS pIVADriverMCS = (IVADriverMCS)(pISatellite.GetPropagator());
 	IVAMCSSegmentCollection pIVAMCSSegmentCollection = pIVADriverMCS.GetMainSequence();
-	//机动规划添加段，新添加卫星会有默认初始段
+	//Add segments to the maneuver planning; a newly added satellite has a default initial state
 	if (EVASegmentType.eVASegmentTypeInitialState != pIVAMCSSegmentCollection.Item(0).GetType()){
 		return;
 	}
@@ -70,7 +70,7 @@ public class ATKComponentJavaTest{
 	IVAMCSTargetSequence pIVAMCSTargetSequence1	= (IVAMCSTargetSequence)(pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTypeTargetSequence, "TargetSequence1", "-"));
 	IVAMCSManeuver pIVAMCSManeuver1 = (IVAMCSManeuver)(pIVAMCSTargetSequence1.GetSegments().Insert(EVASegmentType.eVASegmentTypeManeuver, "Maneuver", "-"));
 	IVAMCSPropagate pIVAMCSPropagate2 = (IVAMCSPropagate)(pIVAMCSSegmentCollection.Insert(EVASegmentType.eVASegmentTypePropagate, "Propagate", "-"));
-	//初始段属性设置
+	//Set the properties of the initial state
 	pIVAMCSInitialState.SetOrbitEpoch("5 Nov 2022 00:00:00.000");
 	pIVAMCSInitialState.SetElementType(EVAElementType.eVAElementTypeKeplerian);
 	IVAElementKeplerian pIVAElementKeplerian = (IVAElementKeplerian)(pIVAMCSInitialState.GetElement());
@@ -80,42 +80,42 @@ public class ATKComponentJavaTest{
 	pIVAElementKeplerian.SetRAAN(0);
 	pIVAElementKeplerian.SetArgOfPeriapsis(0);
 	pIVAElementKeplerian.SetTrueAnomaly(0);
-    //第一个预报段属性设置
+    //Set the properties of the first propagation segment
 	IVAStoppingConditionElement pIVAStoppingConditionElement = pIVAMCSPropagate.GetStoppingConditions().Add("Duration");
 	IVAStoppingCondition pIVAStoppingCondition = (IVAStoppingCondition)(pIVAStoppingConditionElement.GetProperties());
 	pIVAStoppingCondition.SetTrip(7200);
 	pIVAStoppingCondition.SetTolerance(0.0001);
-	//第一个瞄准段中机动段属性设置
+	//Set the properties of the maneuver segment in the first target sequence
 	pIVAMCSManeuver.SetManeuverType(EVAManeuverType.eVAManeuverTypeImpulsive);
 	IVAManeuverImpulsive pIVAManeuverImpulsive = (IVAManeuverImpulsive)(pIVAMCSManeuver.GetManeuver());
 	IVAAttitudeControlImpulsiveThrustVector pIVAAttitudeControlImpulsiveThrustVector = (IVAAttitudeControlImpulsiveThrustVector)(pIVAManeuverImpulsive.GetAttitudeControl());
 	pIVAAttitudeControlImpulsiveThrustVector.SetThrustAxesName("Satellite VNC(Earth)");
 	pIVAMCSManeuver.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianX);
 	pIVAMCSManeuver.GetResults().Add("Radius_Of_Apoapsis");
-	//第一个瞄准段添加属性页
+	//Add a profile to the first target sequence
 	IVAProfileDifferentialCorrector pIVAProfileDifferentialCorrector = (IVAProfileDifferentialCorrector)(pIVAMCSTargetSequence.GetProfiles().Add("Differential Corrector"));
 	IVADCControl pIVADCControl = pIVAProfileDifferentialCorrector.GetControlParameters().GetControlByPaths("Maneuver", "ImpulseX");
 	IVADCResult pIVADCResult = pIVAProfileDifferentialCorrector.GetResults().GetResultByPaths("Maneuver", "StateCalc"+"RadiusOfApoapsis");
-	//属性页中控制变量属性设置
+	//Set the properties of the control variables in the profile
 	pIVADCControl.SetEnable(true);
 	pIVADCControl.SetMaxStep(100);
 	pIVADCControl.SetCorrection(2781.50365947627);
 	pIVADCControl.SetPerturbation(0.1);
 	pIVADCControl.SetScalingValue(1);
-	//属性页中约束条件属性设置
+	//Set the properties of the constraints in the profile
 	pIVADCResult.SetEnable(true);
 	pIVADCResult.SetDesiredValue(84328394);
 	pIVADCResult.SetScalingValue(1);
 	pIVADCResult.SetTolerance(0.1);
 	pIVADCResult.SetWeight(1);
-	//第二个预报段属性设置
+	//Set the properties of the second propagation segment
 	IVAStoppingConditionElement pIVAStoppingConditionElement1 = pIVAMCSPropagate1.GetStoppingConditions().Add("RMagnitude");
 	IVAStoppingCondition pIVAStoppingCondition1 = (IVAStoppingCondition)(pIVAStoppingConditionElement1.GetProperties());
 	pIVAStoppingCondition1.SetTrip(42164197);
 	pIVAStoppingCondition1.SetTolerance(1e-6);
 	pIVAStoppingCondition1.SetRepeatCount(1);
 	pIVAStoppingCondition1.SetCriterion(EVACriterion.eVACriterionCrossEither);
-	//第二个瞄准段中机动段属性设置
+	//Set the properties of the maneuver segment in the second target sequence
 	pIVAMCSManeuver1.SetManeuverType(EVAManeuverType.eVAManeuverTypeImpulsive);
 	IVAManeuverImpulsive pIVAManeuverImpulsive1 = (IVAManeuverImpulsive)(pIVAMCSManeuver1.GetManeuver());
 	IVAAttitudeControlImpulsive pIVAAttitudeControlImpulsive1 = (IVAAttitudeControlImpulsive)(pIVAManeuverImpulsive1.GetAttitudeControl());
@@ -125,9 +125,9 @@ public class ATKComponentJavaTest{
 	pIVAMCSManeuver1.EnableControlParameter(EVAControlManeuver.eVAControlManeuverImpulsiveCartesianZ);
 	pIVAMCSManeuver1.GetResults().Add("Eccentricity");
 	pIVAMCSManeuver1.GetResults().Add("Cosine_of_Vertical_FPA");
-    //第二个瞄准段添加属性页
+    //Add a profile to the second target sequence
 	IVAProfileDifferentialCorrector pIVAProfileDifferentialCorrector1 = (IVAProfileDifferentialCorrector)(pIVAMCSTargetSequence1.GetProfiles().Add("Differential Corrector"));
-	//属性页中控制变量属性设置
+	//Set the properties of the control variables in the profile
 	IVADCControl pIVADCControl1 = pIVAProfileDifferentialCorrector1.GetControlParameters().Item(0);
 	pIVADCControl1.SetEnable(true);
 	pIVADCControl1.SetMaxStep(300);
@@ -140,7 +140,7 @@ public class ATKComponentJavaTest{
 	pIVADCControl2.SetCorrection(-2771.82057041661);
 	pIVADCControl2.SetPerturbation(0.1);
 	pIVADCControl2.SetScalingValue(1);
-	//属性页中约束条件属性设置
+	//Set the properties of the constraints in the profile
 	IVADCResult pIVADCResult1 = pIVAProfileDifferentialCorrector1.GetResults().Item(0);
 	pIVADCResult1.SetEnable(true);
 	pIVADCResult1.SetDesiredValue(0);
@@ -153,25 +153,25 @@ public class ATKComponentJavaTest{
 	pIVADCResult2.SetScalingValue(1);
 	pIVADCResult2.SetTolerance(0.1);
 	pIVADCResult2.SetWeight(1);
-	//第三个预报段属性设置
+	//Set the properties of the third propagation segment
 	IVAStoppingConditionElement pIVAStoppingConditionElement2 = pIVAMCSPropagate2.GetStoppingConditions().Add("Duration");
 	IVAStoppingCondition pIVAStoppingCondition2 = (IVAStoppingCondition)(pIVAStoppingConditionElement2.GetProperties());
 	pIVAStoppingCondition2.SetTrip(86400);
 	pIVAStoppingCondition2.SetTolerance(0.0001);
-	//机动规划运行
+	//Run the maneuver planning
 	pIVADriverMCS.RunMCS();
 	pIVADriverMCS.ApplyAllProfileChanges();
-	//生成数据到文件
+	//Generate data to a file
 	String strReportFilePath = pIAtkObjectRoot.OutputDataReport(pISatellite, "J2000 Position Velocity", "5 Nov 2022 00:00:00.000", "6 Nov 2022 00:00:00.000");
-	//输出数据报告目录
+	//Output data report directory
 	System.out.println("输出数据报告:"+strReportFilePath);
   }
 }
 ```
 
-## Java案例执行命令
+## Java Case Execution Commands
 
-1. 切换磁盘：E:
-2. 切换路径：cd E:\cssx\ATK-4.0-rc.1
-3. 编译命令：javac -cp ATKComponentJava.jar -encoding utf-8 com/atk/test/ATKComponentJavaTest.java
-4. 执行命令：java -cp .;ATKComponentJava.jar com/atk/test/ATKComponentJavaTest
+1. Switch disk: E:
+2. Switch path: cd E:\cssx\ATK-4.0-rc.1
+3. Compile command: javac -cp ATKComponentJava.jar -encoding utf-8 com/atk/test/ATKComponentJavaTest.java
+4. Execute command: java -cp .;ATKComponentJava.jar com/atk/test/ATKComponentJavaTest

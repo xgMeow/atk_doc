@@ -6,7 +6,7 @@ description: Windows port configuration for ATK, covering how to start ATK on a 
 
 ## Starting on a Specified Port
 
-ATK communicates with external programs through TCP ports, and must listen on a port when it starts. The **default port is 6655**; simply double-clicking `ATK.exe` starts it on this port, and `atkOpen` also connects to this port by default when no argument is passed.
+ATK communicates with external programs through TCP ports, and must listen on a port when it starts. The **default port is 6655**; simply double-clicking `ATK.exe` starts it on this port, and `atkOpen` in Python and C++ also connects to this port by default when no argument is passed.
 
 In practice, you may need to run multiple ATK instances at the same time, in which case you need to specify different ports.
 
@@ -28,6 +28,8 @@ ATK -p <port>
 
 ::: details open **Example: Starting on port 6666**
 
+Run the ATK -p command in cmd to specify the port:
+
 ```bash
 ATK -p 6666
 ```
@@ -45,9 +47,19 @@ conID = atkOpen('127.0.0.1', 6666)
 conID = atkOpen("127.0.0.1", 6666);
 ```
 
+@tab Java
+```java
+int conID = atkOpen("127.0.0.1", 6666);
+```
+
 @tab MATLAB
 ```matlab
-conID = atkOpen('127.0.0.1', 6666);
+conID = ATKConnectJavaModule.atkOpen('127.0.0.1', 6666);
+```
+
+@tab Octave
+```matlab
+conID = ATKConnectJavaModule.atkOpen("127.0.0.1", 6666);
 ```
 :::
 

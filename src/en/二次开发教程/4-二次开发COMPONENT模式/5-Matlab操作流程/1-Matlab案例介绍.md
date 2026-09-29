@@ -1,16 +1,16 @@
-# 案例介绍
+# Case Introduction
 
-本案例实现半径为6700km的近地停泊轨道（LEO轨道）快速转移到半径为42164.197km的地球同步轨道（GEO轨道）的轨道机动规划设计。案例基于Component模式，通过Matlab软件(R2015b/R2021b/R2024b)运行.m脚本调Java封装包实现。
-本案例依赖以下文件（均包含在ATK安装包根目录）：
+This case implements the maneuver planning design for the fast transfer from a low Earth parking orbit (LEO orbit) with a radius of 6700 km to a geosynchronous orbit (GEO orbit) with a radius of 42164.197 km. The case is based on Component mode and is implemented by running a .m script in the Matlab software (R2015b/R2021b/R2024b) to call the Java wrapper package.
+This case depends on the following files (all included in the ATK installation package root directory):
 
-- initATK.m，Matlab初始化脚本，初始化依赖路径，将java封装包添加到调用环境，并加载依赖动态库，如图所示；
+- initATK.m, Matlab initialization script; it initializes the dependency paths, adds the java wrapper package to the calling environment, and loads the dependent dynamic libraries, as shown in the figure;
 
-- ATKComponentJava.jar，ATKComponent模式接口类封装包，提供Component模式下所有公用类对象与函数的接口封装；
+- ATKComponentJava.jar, interface class wrapper package for ATKComponent mode, providing interface wrappers for all public class objects and functions in Component mode;
 
-- ATKComponentJava.dll，ATK Component模式Java接口动态库，提供Component模式的Java调用，并链接加载同目录的其他依赖动态库；
+- ATKComponentJava.dll, ATK Component mode Java interface dynamic library, providing Java calls in Component mode and linking to load other dependent dynamic libraries in the same directory;
 
-- ATKComponentMatlabTest.m，Matlab案例脚本，建议创建在ATK安装包根目录， 具体内容参考下文案例实现里的代码。包含一个轨道快速转移案例的具体实现过程，该Matlab案例脚本通过Matlab软件解释运行。注意，Matlab要求脚本默认编码格式GBK，先设置脚本编码格式，再编辑案例代码。
+- ATKComponentMatlabTest.m, Matlab case script, recommended to be created in the ATK installation package root directory. For details, refer to the code in Case Implementation below. It contains the specific implementation process of an orbit fast transfer case, and this Matlab case script is interpreted and run by the Matlab software. Note that Matlab requires the default script encoding format to be GBK; set the script encoding format first, and then edit the case code.
 
  
 
-![依赖文件](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/5-Matlab操作流程/media/1-Matlab案例介绍/依赖文件_zy.png)
+![Dependency files](../../../../zh/二次开发教程/4-二次开发COMPONENT模式/5-Matlab操作流程/media/1-Matlab案例介绍/依赖文件_zy.png)

@@ -1,22 +1,22 @@
-# 在linux下使用
+# Using on Linux
 
 
 
-## 运行示例项目
+## Running the Sample Project
 
-进入文件目录`<ATK根目录>/IntegratingWithATK/component`
+Go to the directory `<ATK root directory>/IntegratingWithATK/component`
 
 
-在linux下，示例项目采用`xmake`进行配置，配置文件为`xmake.sh`
+On Linux, the sample project is configured with `xmake`, and the configuration file is `xmake.sh`
 
-在命令行中进入该目录，运行以下命令即可编译：
+Enter the directory in the command line and run the following commands to compile:
 
 ```sh
 ./configure
 make
 ```
 
-注意需要给`./configure`赋予可执行权限：
+Note that `./configure` needs to be granted executable permission:
 
 ```sh
 chmod +x ./configure

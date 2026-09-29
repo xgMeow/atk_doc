@@ -1,8 +1,8 @@
 ---
-title: 插件相关的SysML语言要素
+title: SysML Language Elements Related to the Plugin
 index: false
 ---
 
-在联合仿真过程中会用到 SysML 语言模块定义图、状态机图、活动图进行建模，在这里介绍一下这三种图，便于后续理解联合仿真搭建过程。
+In co-simulation, the SysML module definition diagram, state machine diagram, and activity diagram are used for modeling. These three diagrams are introduced here to help you understand the co-simulation setup process later.
 
 <Catalog />
