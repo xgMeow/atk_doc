@@ -109,8 +109,6 @@ $$
 
 ---
 
-<a id="atmospheric-absorption"></a>
-
 ## 3. Atmospheric Absorption
 
 ### 3.1 Physical Meaning
@@ -248,8 +246,6 @@ Therefore, the atmospheric environment has a twofold effect on receiving perform
 In the end, both reduce the $C/N_0$ and $E_b/N_0$ of the link.
 
 ---
-
-<a id="rain-attenuation"></a>
 
 ## 4. Rain Attenuation
 
@@ -507,8 +503,6 @@ $$
 The whole calculation process is:
 
 > First determine "how high the rain layer is" from the geographic location, then determine "how far the signal geometrically traverses the rain layer" from the link elevation angle, then determine "how large the attenuation is per unit distance" from the rainfall statistics, frequency, and polarization, and finally obtain the "truly effective rain region path" through horizontal and vertical reduction.
-
-<a id="cloud-fog-attenuation"></a>
 
 ## 5. Cloud and Fog Attenuation
 
