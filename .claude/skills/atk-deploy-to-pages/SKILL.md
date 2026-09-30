@@ -10,7 +10,10 @@ description: 将本地 develop/master 分支强制推送到 GitHub 远程的 mai
 | 场景 | 本地分支 | 远程名 | 远程仓库 | Pages 地址 |
 | --- | --- | --- | --- | --- |
 | 开发版 | `develop` | `github-dev` | `git@github.com:xgMeow/atk_doc_dev.git` | https://xgmeow.github.io/atk_doc_dev/ |
-| 正式版 | `master` | `github-prod` | `git@github.com:xgMeow/atk_doc.git` | https://xgmeow.github.io/atk_doc/ |
+| 正式版 | `master` | `github-prod` | `git@github-xgmeow:xgMeow/atk_doc.git` | https://xgmeow.github.io/atk_doc/ |
+
+> ⚠️ 正式版用 `git@github-xgmeow:` 而非 `git@github.com:`。这是 `~/.ssh/config` 里的别名，
+> 用于切到对 `atk_doc` 有写权限的 `xgMeow` 身份（默认身份 `y-coder18` 无写权限）。**不要改回 `github.com`。**
 
 ## 何时使用
 
@@ -46,6 +49,7 @@ description: 将本地 develop/master 分支强制推送到 GitHub 远程的 mai
    ```bash
    git remote add <远程名> <SSH 地址>
    ```
+   正式版填 `git@github-xgmeow:xgMeow/atk_doc.git`
 3. 如果远程地址是 HTTPS 格式，先执行：
    ```bash
    git remote set-url <远程名> <SSH 地址>
