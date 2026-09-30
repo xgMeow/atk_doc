@@ -12,7 +12,7 @@ const css = require('css');
 const docsPath = process.argv[2]
 
 if (!docsPath) {
-  throw new Error('No path specified')
+  throw new Error('未指定要处理的目录路径')
 }
 
 let distPath = docsPath
@@ -37,7 +37,7 @@ const offlinifyStyle = fileName => {
     return data.replace(/url\((\/assets\/[^)]*)\)/g, 'url(../..$1)')
   })
 
-  console.log(`Style offlinified: ${fileName}`)
+  console.log(`样式文件已离线化：${fileName}`)
 }
 
 const offlinifyAppScript = fileName => {
@@ -54,7 +54,7 @@ const offlinifyAppScript = fileName => {
     return data
   })
 
-  console.log(`Script offlinified: ${fileName}`)
+  console.log(`脚本文件已离线化：${fileName}`)
 }
 
 const offlinifyBarsScript = fileName => {
@@ -67,7 +67,7 @@ const offlinifyBarsScript = fileName => {
     return data
   })
 
-  console.log(`Script offlinified: ${fileName}`)
+  console.log(`脚本文件已离线化：${fileName}`)
 }
 
 const offlinifySearchPro = fileName => {
@@ -90,7 +90,7 @@ const offlinifySearchPro = fileName => {
     }
     return data
   })
-  console.log(`SearchPro offlinified: ${fileName}`)
+  console.log(`搜索插件已离线化：${fileName}`)
 }
 
 const styles = fs.readdirSync(stylesPath)
@@ -153,15 +153,34 @@ function url_relative(from, absurl)
 }
 
 
+// 只有「根绝对路径」才需要改写成相对路径：以 / 开头、且不是协议相对地址(//host/x)。
+// 其余一律跳过，包括：
+//   - 没有 href 的 <a id="x"></a>、没有 src 的 <img>（取值是 undefined）
+//   - #锚点、http(s)://、mailto:、data: 等外链
+//   - 已经是相对路径的值（保证脚本重复执行时结果不变）
+function isRootAbsolutePath(value) {
+  if (typeof value !== "string") {
+    return false;
+  }
+  return value.startsWith("/") && !value.startsWith("//");
+}
+
 function offlineHtmlFile(fileName) {
+  // 本次改写的属性个数，用于处理结束后的汇总输出
+  let rewritten = 0;
   const htmlContent = fs.readFileSync(fileName, "utf-8");
   const $ = cheerio.load(htmlContent);
   // CSS
   $("link").each((index, element) => {
       const attributeValue = $(element).attr("href");
+      // <link rel="preconnect"> 之类没有 href 的标签直接跳过
+      if (!isRootAbsolutePath(attributeValue)) {
+          return;
+      }
       const realAttributeValue = path.join(distPath, attributeValue);
       const relativeValue = url_relative(path.dirname(fileName), realAttributeValue);
       $(element).attr("href", relativeValue);
+      rewritten++;
       //console.log(fileName, attributeValue, "->", relativeValue)
   });
   // JS
@@ -179,10 +198,8 @@ function offlineHtmlFile(fileName) {
   // a.href
   $("a").each((index, element) => {
       const attributeValue = $(element).attr("href");
-      if (isUrl(attributeValue)) {
-          return;
-      }
-      if(attributeValue.startsWith("#")){
+      // 没有 href 的锚点(<a id="x"></a>)、#锚点、外链、已相对化的链接都跳过
+      if (!isRootAbsolutePath(attributeValue)) {
           return;
       }
       let realAttributeValue = path.join(distPath, attributeValue);
@@ -191,29 +208,38 @@ function offlineHtmlFile(fileName) {
       }
       const relativeValue = url_relative(path.dirname(fileName), realAttributeValue);
       $(element).attr("href", relativeValue);
+      rewritten++;
       //console.log(fileName, attributeValue, "->", relativeValue)
 
   });
   // img
   $("img").each((index, element) => {
       const attributeValue = $(element).attr("src");
+      // 没有 src 的 <img> 直接跳过（isAbsoluteUrl 传入 undefined 会抛异常）
+      if (typeof attributeValue !== "string" || attributeValue === "") {
+          return;
+      }
       if (isAbsoluteUrl(attributeValue)) {
           return;
       }
-      if (isUrl(attributeValue)) {
+      if (attributeValue.startsWith("//")) {
           // replace like //example.com/1.png
           $(element).attr("src", `https:${attributeValue}`);
+          rewritten++;
           //console.log(fileName, attributeValue, "->", `https:${attributeValue}`)
-      } else {
+      } else if (isRootAbsolutePath(attributeValue)) {
           const realAttributeValue = path.join(distPath, attributeValue);
           const relativeValue = url_relative(path.dirname(fileName), realAttributeValue);
           $(element).attr("src", relativeValue);
+          rewritten++;
           //console.log(fileName, attributeValue, "->", relativeValue)
       }
   });
 
   const transformedHtml = $.html();
   fs.writeFileSync(fileName, transformedHtml, "utf-8");
+
+  return rewritten;
 }
 
 
@@ -223,12 +249,26 @@ const walker = walk.walk(distPath, {
 });
 
 
+// 处理过程中的统计，结束时统一输出，避免「静默只处理了一部分」的情况
+const stats = {
+  html: 0,
+  rewritten: 0,
+  failed: [],
+};
+
 walker.on("file", (root, fileStats, next) => {
   const extName = path.extname(fileStats.name);
   const file = path.join(root, fileStats.name);
   if (extName === ".html") {
       //console.log(`Offline ${file}`);
-      offlineHtmlFile(file);
+      try {
+          stats.rewritten += offlineHtmlFile(file);
+          stats.html++;
+      } catch (error) {
+          // 单个文件异常不再中断整批处理
+          stats.failed.push(file);
+          console.error(`离线化失败：${file}\n  ${error && error.stack ? error.stack : error}`);
+      }
   } else if (extName === ".css") {
       // console.log(`Offline ${file}`);
       // offlineCssFile(file);
@@ -242,5 +282,10 @@ walker.on("errors", (root, nodeStatsArray, next) => {
 });
 
 walker.on("end", () => {
-  console.log("All Completed");
+  console.log(`全部完成：处理 ${stats.html} 个 html 文件，改写 ${stats.rewritten} 个属性，失败 ${stats.failed.length} 个`);
+  if (stats.failed.length > 0) {
+    console.error(`以下文件离线化失败：\n${stats.failed.join("\n")}`);
+    // 有文件没处理成功时以非 0 退出，避免打包产物半成品却没人发现
+    process.exitCode = 1;
+  }
 });
